@@ -52,7 +52,7 @@ function App() {
           className={`hero-section grid border-b-2 border-ink ${
             currentPage === 'home'
               ? 'lg:grid-cols-[minmax(220px,0.72fr)_minmax(0,2.35fr)]'
-              : 'grid-cols-1 lg:min-h-[calc(100svh-4.5rem)] lg:p-12 lg:pb-16'
+              : 'grid-cols-1 lg:p-12 lg:pb-16'
           }`}
           aria-labelledby="hero-title"
         >

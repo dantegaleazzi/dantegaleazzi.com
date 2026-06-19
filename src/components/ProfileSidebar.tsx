@@ -10,7 +10,7 @@ const socialLinks = [
 export function ProfileSidebar() {
   return (
     <aside
-      className="profile-sidebar flex flex-col gap-8 py-8 lg:h-full lg:py-8 lg:pr-[clamp(1.25rem,2.5vw,2.5rem)]"
+      className="profile-sidebar flex flex-col gap-8 py-8 lg:py-8 lg:pr-[clamp(1.25rem,2.5vw,2.5rem)]"
       id="about"
       aria-label="About Dante"
     >

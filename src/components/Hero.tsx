@@ -10,7 +10,7 @@ export function Hero() {
   }
 
   return (
-    <div className="hero-panel px-0 py-12 lg:px-[clamp(1.75rem,4.5vw,4.75rem)] lg:py-8">
+    <div className="hero-panel px-0 py-8 lg:px-[clamp(1.75rem,4.5vw,4.75rem)] lg:py-6">
       <div className="desktop-window-bar" aria-hidden="true">
         <div className="desktop-window-controls">
           <span className="bg-[#ff5f56]" />

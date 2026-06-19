@@ -434,9 +434,9 @@ html[data-theme^="desktop-os"] body {
 
 [data-theme^="desktop-os"] .hero-section {
   border: 0;
-  gap: 2rem;
+  gap: 2.5rem;
   margin-top: 1.5rem;
-  align-items: stretch;
+  align-items: start;
 }
 
 [data-theme^="desktop-os"] .profile-sidebar {
