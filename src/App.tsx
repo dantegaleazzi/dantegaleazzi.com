@@ -49,10 +49,14 @@ function App() {
 
       <main id="top">
         <section
-          className="hero-section grid border-b-2 border-ink lg:min-h-[calc(100svh-4.5rem)] lg:grid-cols-[minmax(220px,0.72fr)_minmax(0,2.35fr)]"
+          className={`hero-section grid border-b-2 border-ink lg:min-h-[calc(100svh-4.5rem)] ${
+            currentPage === 'home'
+              ? 'lg:grid-cols-[minmax(220px,0.72fr)_minmax(0,2.35fr)]'
+              : 'grid-cols-1 lg:p-12 lg:pb-16'
+          }`}
           aria-labelledby="hero-title"
         >
-          <ProfileSidebar />
+          {currentPage === 'home' && <ProfileSidebar />}
           {currentPage === 'home' ? <Hero /> : <About />}
         </section>
 

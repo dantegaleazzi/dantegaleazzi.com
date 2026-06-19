@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AtSign, BriefcaseBusiness, GitBranch, LayoutGrid, FileText } from 'lucide-react'
+import { AtSign, BriefcaseBusiness, GitBranch, LayoutGrid, FileText, ArrowLeft } from 'lucide-react'
 
 const socialLinks = [
   { label: 'X / Twitter', href: '#x', Icon: AtSign },
@@ -13,7 +13,7 @@ export function About() {
   const [story, setStory] = useState<'short' | 'long'>('short')
 
   return (
-    <div className="hero-panel px-0 py-12 lg:px-[clamp(1.75rem,4.5vw,4.75rem)] lg:py-8">
+    <div className="hero-panel mx-auto w-full max-w-4xl px-0 py-8 lg:py-6">
       <div className="desktop-window-bar" aria-hidden="true">
         <div className="desktop-window-controls">
           <span className="bg-[#ff5f56]" />
@@ -24,10 +24,15 @@ export function About() {
         <div className="w-12" />
       </div>
 
-      <div className="hero-content-wrapper lg:px-0">
-        <div className="hero-eyebrow mb-4 inline-flex items-center border border-ink pr-2.5 font-mono text-[0.66rem] uppercase lg:mb-4">
-          <span className="mr-2.5 bg-ink px-2.5 py-1.5 text-signal">ABOUT / BUILDER LOG</span>
-          EST. 2026
+      <div className="hero-content-wrapper lg:px-12">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div className="hero-eyebrow inline-flex items-center border border-ink pr-2.5 font-mono text-[0.66rem] uppercase">
+            <span className="mr-2.5 bg-ink px-2.5 py-1.5 text-signal">ABOUT / BUILDER LOG</span>
+            EST. 2026
+          </div>
+          <a href="#" className="flex items-center gap-2 font-mono text-[0.68rem] font-bold uppercase tracking-wider no-underline hover:text-signal">
+            <ArrowLeft size={14} /> Back to home
+          </a>
         </div>
 
         <h1
@@ -57,7 +62,7 @@ export function About() {
           </button>
         </div>
 
-        <div className="hero-copy mt-8 max-w-200 text-[clamp(1.08rem,1.7vw,1.42rem)] leading-relaxed lg:mt-6 lg:text-[clamp(1rem,1.2vw,1.15rem)]">
+        <div className="hero-copy mt-8 text-[clamp(1.08rem,1.7vw,1.42rem)] leading-relaxed lg:mt-6 lg:text-[clamp(1rem,1.2vw,1.15rem)]">
           {story === 'short' ? (
             <div className="space-y-4">
               <p>
@@ -91,17 +96,39 @@ export function About() {
           )}
         </div>
 
-        <div className="mt-12 flex flex-wrap gap-6 border-t-2 border-ink pt-8">
-          {socialLinks.map(({ label, href, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              className="group flex items-center gap-2 font-mono text-[0.7rem] font-bold uppercase tracking-wider no-underline hover:text-signal"
-            >
-              <Icon size={14} className="transition-transform group-hover:-translate-y-1" />
-              {label}
-            </a>
-          ))}
+        <div className="mt-12 grid gap-8 border-t-2 border-ink pt-8 md:grid-cols-2">
+          <div>
+            <h3 className="mb-4 font-mono text-[0.75rem] font-bold uppercase tracking-[0.1em]">Currently</h3>
+            <ul className="space-y-2 font-mono text-[0.75rem] uppercase">
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 bg-signal border border-ink shadow-[1px_1px_0_var(--color-ink)]" />
+                Learning to code in public
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 bg-signal border border-ink shadow-[1px_1px_0_var(--color-ink)]" />
+                Building Make AI Do The Work
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 bg-signal border border-ink shadow-[1px_1px_0_var(--color-ink)]" />
+                Testing AI agents and workflows
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="mb-4 font-mono text-[0.75rem] font-bold uppercase tracking-[0.1em]">Find Me</h3>
+            <div className="flex flex-wrap gap-x-6 gap-y-3">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="group flex items-center gap-2 font-mono text-[0.7rem] font-bold uppercase tracking-wider no-underline hover:text-signal"
+                >
+                  <Icon size={14} className="transition-transform group-hover:-translate-y-1" />
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
