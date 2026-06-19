@@ -32,7 +32,7 @@ export function ProfileSidebar() {
         </a>
       </div>
 
-      <div className="profile-socials mt-auto pt-6 lg:max-w-65">
+      <div className="profile-socials pt-6 lg:max-w-65">
         <h3 className="mb-2.5 font-mono text-[0.68rem] tracking-[0.1em] uppercase">Find Me</h3>
         <ul className="border-t border-ink">
           {socialLinks.map(({ label, href, Icon }) => (
