@@ -10,7 +10,7 @@ export function Hero() {
   }
 
   return (
-    <div className="hero-panel px-0 py-12 lg:px-[clamp(1.75rem,4.5vw,4.75rem)] lg:py-8">
+    <div className="hero-panel px-0 py-8 lg:px-[clamp(1.75rem,4.5vw,4.75rem)] lg:py-4">
       <div className="desktop-window-bar" aria-hidden="true">
         <div className="desktop-window-controls">
           <span className="bg-[#ff5f56]" />
@@ -28,7 +28,7 @@ export function Hero() {
           <span className="hud-online">AI CORE: ONLINE</span>
         </div>
 
-        <div className="hero-eyebrow mb-4 inline-flex items-center border border-ink pr-2.5 font-mono text-[0.66rem] uppercase lg:mb-4">
+        <div className="hero-eyebrow mb-3 inline-flex items-center border border-ink pr-2.5 font-mono text-[0.66rem] uppercase lg:mb-2">
           <span className="mr-2.5 bg-ink px-2.5 py-1.5 text-signal">New signal</span>
           For people who ship
         </div>
@@ -41,12 +41,12 @@ export function Hero() {
           <span className="pixel-underline relative z-0 mt-[0.12em] block w-fit">Do The Work</span>
         </h1>
 
-        <p className="hero-copy mt-6 max-w-180 text-[clamp(1.08rem,1.7vw,1.42rem)] leading-normal lg:mt-5 lg:text-[clamp(1rem,1.2vw,1.15rem)]">
+        <p className="hero-copy mt-4 max-w-180 text-[clamp(1.08rem,1.7vw,1.42rem)] leading-normal lg:mt-3 lg:text-[clamp(1rem,1.2vw,1.15rem)]">
           Workflows that make AI do real work for you—build apps, orchestrate agents, automate repeat tasks and test
           tools. I share the build logs, costs and failures behind turning AI into your personal execution layer.
         </p>
 
-        <div className="subscribe-block mt-4 max-w-190 lg:mt-4">
+        <div className="subscribe-block mt-4 max-w-190 lg:mt-3">
           <p className="mb-2.5 font-mono text-[0.7rem] leading-normal">
             You can subscribe below to get access to Make AI Do The Work
           </p>
