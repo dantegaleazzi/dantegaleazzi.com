@@ -1,41 +1,40 @@
-import { AtSign, BriefcaseBusiness, GitBranch } from 'lucide-react'
+import { AtSign, BriefcaseBusiness, GitBranch, LayoutGrid, FileText } from 'lucide-react'
 
 const socialLinks = [
   { label: 'X / Twitter', href: '#x', Icon: AtSign },
+  { label: 'Projects', href: '#projects', Icon: LayoutGrid },
   { label: 'GitHub', href: '#github', Icon: GitBranch },
   { label: 'LinkedIn', href: '#linkedin', Icon: BriefcaseBusiness },
+  { label: 'Blog', href: '#blog', Icon: FileText },
 ]
 
 export function ProfileSidebar() {
   return (
     <aside
-      className="profile-sidebar grid gap-7 border-b-2 border-ink py-8 lg:flex lg:flex-col lg:border-r-2 lg:border-b-0 lg:py-8 lg:pr-[clamp(1.25rem,2.5vw,2.5rem)] md:grid-cols-[1fr_1.4fr_0.8fr]"
+      className="profile-sidebar flex flex-col gap-6 py-8 lg:h-full lg:py-8 lg:pr-[clamp(1.25rem,2.5vw,2.5rem)]"
       id="about"
       aria-label="About Dante"
     >
-      <div className="sidebar-label flex items-center gap-2 font-mono text-[0.68rem] font-medium tracking-[0.08em] uppercase">
-        <span className="size-2 border border-ink bg-signal shadow-[2px_2px_0_#10110f] aria-hidden='true'" />
-        Builder log / 2026
+      <div className="flex flex-col items-start gap-4">
+        <div className="profile-image-placeholder size-20 rounded-full border-2 border-ink bg-signal shadow-[4px_4px_0_var(--color-ink)]" aria-hidden="true" />
+        <div className="sidebar-label font-mono text-[0.68rem] font-medium tracking-[0.08em] uppercase">
+          Builder log / 2026
+        </div>
       </div>
 
-      <div className="player-stats" aria-label="Builder status">
-        <span>LVL <b>01</b></span>
-        <span>XP <b>000</b></span>
-        <span>STATUS <b>LEARNING</b></span>
-      </div>
-
-      <div className="profile-bio text-[0.96rem] leading-relaxed lg:mt-8 lg:text-[clamp(0.88rem,1vw,1rem)] lg:leading-[1.5]">
-        <p className="mb-4 lg:mb-3.5">I’m learning to code by building real products with AI agents.</p>
-        <p className="mb-4 lg:mb-3.5">
+      <div className="profile-bio text-[0.96rem] leading-relaxed lg:text-[clamp(0.88rem,1vw,1rem)] lg:leading-[1.5]">
+        <h2 className="mb-4 text-xl font-bold tracking-tight">Hi! I'm Dante</h2>
+        <p className="mb-4">I’m learning to code by building real products with AI agents.</p>
+        <p className="mb-4">
           I’m testing how regular people can use AI to build apps, automate work, save money and make things happen.
         </p>
-        <p className="current-build border-2 border-ink bg-signal p-3.5 font-mono text-xs font-medium leading-relaxed shadow-[5px_5px_0_#10110f] lg:p-3 lg:text-[0.68rem]">
-          Currently building Make AI Do The Work.
-        </p>
+        <a href="#about" className="font-mono text-[0.7rem] font-bold uppercase tracking-wider underline underline-offset-4 hover:text-signal">
+          Read more about my story →
+        </a>
       </div>
 
-      <div className="profile-socials max-w-65 lg:mt-auto lg:pt-6">
-        <h2 className="mb-2.5 font-mono text-[0.68rem] tracking-[0.1em] uppercase">Find Me</h2>
+      <div className="profile-socials mt-auto pt-6 lg:max-w-65">
+        <h3 className="mb-2.5 font-mono text-[0.68rem] tracking-[0.1em] uppercase">Find Me</h3>
         <ul className="border-t border-ink">
           {socialLinks.map(({ label, href, Icon }) => (
             <li key={label}>
