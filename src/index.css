@@ -418,7 +418,7 @@ html[data-theme^="desktop-os"] body {
 }
 
 [data-theme^="desktop-os"] .site-header {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   border: 2px solid var(--color-ink);
   background: #fff;
   border-radius: 8px;
@@ -434,8 +434,8 @@ html[data-theme^="desktop-os"] body {
 
 [data-theme^="desktop-os"] .hero-section {
   border: 0;
-  gap: 1.25rem;
-  margin-top: 1rem;
+  gap: 2rem;
+  margin-top: 1.5rem;
   align-items: stretch;
 }
 
@@ -443,7 +443,7 @@ html[data-theme^="desktop-os"] body {
   border: 2px solid var(--color-ink);
   background: #fff;
   border-radius: 12px;
-  padding: 1rem 1.25rem;
+  padding: 2.25rem 2rem;
   box-shadow: 0 8px 0 rgba(0,0,0,0.05);
 }
 
@@ -458,7 +458,7 @@ html[data-theme^="desktop-os"] body {
 
 .desktop-window-bar {
   display: none;
-  height: 32px;
+  height: 36px;
   align-items: center;
   padding-inline: 1rem;
   border-bottom: 2px solid var(--color-ink);
@@ -483,7 +483,16 @@ html[data-theme^="desktop-os"] body {
 }
 
 [data-theme^="desktop-os"] .hero-content-wrapper {
-  padding: 1.5rem 2rem;
+  padding: 2.5rem 3rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.animate-bounce-subtle {
+  animation: bounce 2s infinite ease-in-out;
 }
 
 [data-theme^="desktop-os"] .hero-title {

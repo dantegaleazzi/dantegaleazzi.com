@@ -60,6 +60,14 @@ function App() {
           {currentPage === 'home' ? <Hero /> : <About />}
         </section>
 
+        {currentPage === 'home' && (
+          <div className="flex justify-center py-4">
+            <span className="animate-bounce-subtle font-mono text-[0.62rem] uppercase tracking-widest text-ink/40">
+              Scroll for workflows ↓
+            </span>
+          </div>
+        )}
+
         {currentPage === 'home' && <WorkflowCards />}
       </main>
 

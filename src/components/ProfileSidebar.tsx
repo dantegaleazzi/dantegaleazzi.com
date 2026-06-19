@@ -10,24 +10,24 @@ const socialLinks = [
 export function ProfileSidebar() {
   return (
     <aside
-      className="profile-sidebar flex flex-col gap-5 py-6 lg:h-full lg:py-4 lg:pr-[clamp(1.25rem,2.5vw,2.5rem)]"
+      className="profile-sidebar flex flex-col gap-8 py-8 lg:h-full lg:py-8 lg:pr-[clamp(1.25rem,2.5vw,2.5rem)]"
       id="about"
       aria-label="About Dante"
     >
-      <div className="flex flex-col items-start gap-3">
-        <div className="profile-image-placeholder size-16 rounded-full border-2 border-ink bg-signal shadow-[3px_3px_0_var(--color-ink)]" aria-hidden="true" />
-        <div className="sidebar-label font-mono text-[0.62rem] font-medium tracking-[0.08em] uppercase">
+      <div className="flex flex-col items-start gap-4">
+        <div className="profile-image-placeholder size-20 rounded-full border-2 border-ink bg-signal shadow-[4px_4px_0_var(--color-ink)]" aria-hidden="true" />
+        <div className="sidebar-label font-mono text-[0.68rem] font-medium tracking-[0.08em] uppercase">
           Builder log / 2026
         </div>
       </div>
 
-      <div className="profile-bio text-[0.9rem] leading-relaxed lg:text-[clamp(0.85rem,1vw,0.95rem)] lg:leading-[1.4]">
-        <h2 className="mb-2 text-lg font-bold tracking-tight">Hi! I'm Dante</h2>
-        <p className="mb-2">I’m learning to code by building real products with AI agents.</p>
-        <p className="mb-2">
+      <div className="profile-bio text-[0.96rem] leading-relaxed lg:text-[clamp(0.88rem,1vw,1rem)] lg:leading-[1.5]">
+        <h2 className="mb-4 text-xl font-bold tracking-tight">Hi! I'm Dante</h2>
+        <p className="mb-4">I’m learning to code by building real products with AI agents.</p>
+        <p className="mb-4">
           I’m testing how regular people can use AI to build apps, automate work, save money and make things happen.
         </p>
-        <a href="#about" className="font-mono text-[0.65rem] font-bold uppercase tracking-wider underline underline-offset-4 hover:text-signal">
+        <a href="#about" className="font-mono text-[0.7rem] font-bold uppercase tracking-wider underline underline-offset-4 hover:text-signal">
           Read more about my story →
         </a>
       </div>
