@@ -5,7 +5,6 @@ const socialLinks = [
   { label: 'Projects', href: '#projects', Icon: LayoutGrid },
   { label: 'GitHub', href: '#github', Icon: GitBranch },
   { label: 'LinkedIn', href: '#linkedin', Icon: BriefcaseBusiness },
-  { label: 'Blog', href: '#blog', Icon: FileText },
 ]
 
 export function ProfileSidebar() {
