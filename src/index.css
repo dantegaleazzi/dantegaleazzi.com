@@ -377,6 +377,10 @@ html[data-theme="gamer"] body {
   color: #111111;
 }
 
+.underline-yellow::after {
+  --color-underline: #FFD400 !important;
+}
+
 [data-theme="desktop-os-g"] {
   --color-signal: #7BAE6A;
   --color-paper: #F7F2E8;
