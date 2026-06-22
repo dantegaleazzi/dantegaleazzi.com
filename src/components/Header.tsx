@@ -35,17 +35,11 @@ export function Header({ activeTheme, onThemeChange }: HeaderProps) {
   return (
     <header className="site-header flex min-h-18 items-center justify-between border-b-2 border-ink">
       <a
-        className="flex -rotate-1 items-center gap-2 font-mono text-[0.7rem] font-medium tracking-[0.06em] no-underline sm:gap-2.5 sm:text-[0.8rem]"
+        className="font-mono text-[0.7rem] font-medium tracking-[0.06em] no-underline sm:text-[0.8rem]"
         href="#top"
         aria-label="Dante Galeazzi, home"
       >
-        <span
-          className="brand-mark grid size-7.5 place-items-center bg-ink text-[0.62rem] text-signal shadow-[3px_3px_0_#ff5c1a] sm:size-8.5 sm:text-[0.68rem]"
-          aria-hidden="true"
-        >
-          DG
-        </span>
-        <span>DANTE GALEAZZI</span>
+        DANTE GALEAZZI
       </a>
 
       <nav className="flex gap-3 font-mono text-[0.58rem] font-medium uppercase sm:gap-7 sm:text-[0.68rem]" aria-label="Primary navigation">

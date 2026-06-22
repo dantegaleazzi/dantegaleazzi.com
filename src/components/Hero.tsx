@@ -28,9 +28,8 @@ export function Hero() {
           <span className="hud-online">AI CORE: ONLINE</span>
         </div>
 
-        <div className="hero-eyebrow mb-6 inline-flex items-center border border-ink pr-2.5 font-mono text-[0.66rem] uppercase lg:mb-6">
-          <span className="mr-2.5 bg-ink px-2.5 py-1.5 text-signal">New signal</span>
-          For people who ship
+        <div className="hero-eyebrow mb-6 font-mono text-[0.66rem] uppercase tracking-[0.12em] opacity-50 lg:mb-6">
+          Make AI Do The Work
         </div>
 
         <h1

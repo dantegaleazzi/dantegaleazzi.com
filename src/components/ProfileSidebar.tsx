@@ -34,15 +34,15 @@ export function ProfileSidebar() {
 
       <div className="profile-socials pt-4 lg:max-w-65">
         <h3 className="mb-2.5 font-mono text-[0.68rem] tracking-[0.1em] uppercase">Find Me</h3>
-        <ul className="border-t border-ink">
+        <ul className="flex flex-col gap-0.5">
           {socialLinks.map(({ label, href, Icon }) => (
             <li key={label}>
               <a
-                className="group flex items-center justify-between border-b border-ink px-0.5 py-2 text-[0.8rem] no-underline transition-[padding,background-color] duration-150 hover:bg-signal hover:pl-2 focus-visible:bg-signal focus-visible:pl-2 focus-visible:outline-none"
+                className="group flex items-center gap-2.5 py-1.5 text-[0.78rem] no-underline opacity-70 transition-opacity duration-150 hover:opacity-100 hover:text-signal focus-visible:opacity-100 focus-visible:text-signal focus-visible:outline-none"
                 href={href}
               >
+                <Icon className="size-3.5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.8} aria-hidden="true" />
                 {label}
-                <Icon className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.8} aria-hidden="true" />
               </a>
             </li>
           ))}
