@@ -6,6 +6,7 @@ import { About } from './components/About'
 import { ProfileSidebar } from './components/ProfileSidebar'
 import { WorkflowCards } from './components/WorkflowCards'
 import { NewsletterSection } from './components/NewsletterSection'
+import { ProjectsSection } from './components/ProjectsSection'
 import { FreeResources } from './components/FreeResources'
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <>
             <WorkflowCards />
             <NewsletterSection />
+            <ProjectsSection />
             <FreeResources />
           </>
         )}

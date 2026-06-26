@@ -16,6 +16,7 @@ export function Header() {
         <a className="nav-link" href="#workflows">Workflows</a>
         <a className="nav-link" href="#newsletter">Newsletter</a>
         <a className="nav-link" href="#resources">Free Resources</a>
+        <a className="nav-link" href="#projects">Projects</a>
         <a className="nav-link" href="#about">About Me</a>
       </nav>
     </header>
