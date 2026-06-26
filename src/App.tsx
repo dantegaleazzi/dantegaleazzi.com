@@ -1,27 +1,15 @@
 import { useEffect, useState } from 'react'
+import { ArrowDown } from 'lucide-react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
 import { ProfileSidebar } from './components/ProfileSidebar'
 import { WorkflowCards } from './components/WorkflowCards'
-
-export type ThemeName =
-  | 'brutalist'
-  | 'gamer'
-  | 'desktop-os'
-  | 'desktop-os-y'
-  | 'desktop-os-g'
-  | 'desktop-os-b'
-  | 'desktop-os-yy'
-  | 'desktop-os-yyy'
+import { NewsletterSection } from './components/NewsletterSection'
+import { FreeResources } from './components/FreeResources'
 
 function App() {
-  const [activeTheme, setActiveTheme] = useState<ThemeName>('desktop-os-y')
   const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home')
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = activeTheme
-  }, [activeTheme])
 
   // Handle hash changes for simple routing
   useEffect(() => {
@@ -41,11 +29,8 @@ function App() {
   }, [])
 
   return (
-    <div
-      className={`site-frame mx-auto w-[min(100%-1.5rem,90rem)] sm:w-[min(100%-2.5rem,90rem)] theme-${activeTheme}`}
-      data-theme={activeTheme}
-    >
-      <Header activeTheme={activeTheme} onThemeChange={setActiveTheme} />
+    <div className="site-frame mx-auto w-[min(100%-1.5rem,90rem)] sm:w-[min(100%-2.5rem,90rem)]">
+      <Header />
 
       <main id="top">
         <section
@@ -61,14 +46,21 @@ function App() {
         </section>
 
         {currentPage === 'home' && (
-          <div className="flex justify-center py-4">
-            <span className="animate-bounce-subtle font-mono text-[0.62rem] uppercase tracking-widest text-ink/40">
-              Scroll for workflows ↓
+          <div className="flex justify-center py-2">
+            <span className="animate-bounce-subtle flex items-center gap-3 font-mono text-[1.08rem] font-bold uppercase tracking-widest text-ink/65">
+              Scroll for workflows
+              <ArrowDown className="size-[1.3rem]" strokeWidth={2.5} aria-hidden="true" />
             </span>
           </div>
         )}
 
-        {currentPage === 'home' && <WorkflowCards />}
+        {currentPage === 'home' && (
+          <>
+            <WorkflowCards />
+            <NewsletterSection />
+            <FreeResources />
+          </>
+        )}
       </main>
 
       <footer className="site-footer flex flex-col gap-2 py-6 font-mono text-[0.68rem] uppercase sm:flex-row sm:justify-between">

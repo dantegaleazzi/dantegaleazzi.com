@@ -22,12 +22,6 @@ export function Hero() {
       </div>
 
       <div className="hero-content-wrapper lg:px-0">
-        <div className="gamer-hud" aria-hidden="true">
-          <span>PLAYER: DANTE</span>
-          <span>MODE: BUILD</span>
-          <span className="hud-online">AI CORE: ONLINE</span>
-        </div>
-
         <div className="hero-eyebrow mb-6 font-mono text-[0.66rem] uppercase tracking-[0.12em] opacity-50 lg:mb-6">
           Make AI Do The Work
         </div>
@@ -40,19 +34,20 @@ export function Hero() {
           <span className="pixel-underline relative z-0 mt-[0.12em] block w-fit">Do The Work</span>
         </h1>
 
-        <p className="hero-copy mt-8 max-w-180 text-[clamp(1.08rem,1.7vw,1.42rem)] leading-normal lg:mt-8 lg:text-[clamp(1rem,1.2vw,1.15rem)]">
-          Workflows that make AI do real work for you—build apps, orchestrate agents, automate repeat tasks and test
-          tools. I share the build logs, costs and failures behind turning AI into your personal execution layer.
+        <p className="hero-copy mt-7 max-w-190 text-[clamp(1.08rem,1.7vw,1.42rem)] leading-normal lg:text-[clamp(1rem,1.2vw,1.15rem)]">
+          Each week, I test practical AI workflows that help you automate work, build useful tools, save money, and
+          make ideas real.
         </p>
 
-        <div className="subscribe-block mt-8 max-w-190 lg:mt-8">
-          <p className="mb-2.5 font-mono text-[0.7rem] leading-normal">
-            You can subscribe below to get access to Make AI Do The Work
+        <div className="subscribe-block mt-8 max-w-190 scroll-mt-5 lg:mt-8" id="subscribe">
+          <p className="mb-2.5 font-mono text-[0.7rem] leading-relaxed">
+            <span className="block">Get the free 5-day email course:</span>
+            <span className="block font-medium">AI you’ll actually use at work.</span>
           </p>
           <form className="subscribe-form grid gap-2 sm:grid-cols-[1fr_auto] sm:gap-0" onSubmit={handleSubmit}>
             <label className="sr-only" htmlFor="email">Email address</label>
             <input
-              className="subscribe-input h-14 min-w-0 rounded-none border-2 border-ink bg-[#fffef8] px-5 text-base outline-none focus:shadow-[inset_0_0_0_3px_#b7ff27] sm:border-r-0 lg:h-13"
+              className="subscribe-input h-14 min-w-0 rounded-none border-2 border-ink bg-[#fffef8] px-5 text-base outline-none focus:shadow-[inset_0_0_0_3px_#ffd400] sm:border-r-0 lg:h-13"
               id="email"
               name="email"
               type="email"
@@ -64,7 +59,7 @@ export function Hero() {
               className="subscribe-button group flex h-14 cursor-pointer items-center justify-center gap-3 rounded-none border-2 border-ink bg-ink px-6 font-mono text-xs font-medium text-white uppercase transition-colors hover:bg-signal hover:text-ink focus-visible:bg-signal focus-visible:text-ink focus-visible:outline-none sm:min-w-41.5 lg:h-13"
               type="submit"
             >
-              Subscribe
+              Start free course
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </button>
           </form>
@@ -77,14 +72,9 @@ export function Hero() {
 
         <p className="progress-line mt-3 flex items-start gap-2 font-mono text-[0.68rem] leading-normal uppercase">
           <span aria-hidden="true">[</span>
-          0 → 1,000 builders learning to make AI useful.
+          0 → 1,000 professionals learning to make AI useful.
           <span aria-hidden="true">]</span>
         </p>
-        <div className="xp-bar" aria-hidden="true">
-          <span>COMMUNITY XP</span>
-          <div><i /></div>
-          <span>000 / 1000</span>
-        </div>
       </div>
     </div>
   )

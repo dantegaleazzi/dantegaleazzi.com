@@ -30,7 +30,7 @@ const workflows: Workflow[] = [
 
 export function WorkflowCards() {
   return (
-    <section className="workflows-section border-b-2 border-ink py-16 lg:py-22" id="workflows" aria-labelledby="workflows-title">
+    <section className="workflows-section py-8 lg:py-11" id="workflows" aria-labelledby="workflows-title">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="section-kicker mb-3 font-mono text-[0.68rem] font-medium tracking-[0.08em] text-[#5f625b] uppercase">

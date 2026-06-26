@@ -1,6 +1,14 @@
 # Dante Galeazzi — Make AI Do The Work
 
-A fast, responsive personal landing page for Dante Galeazzi and the **Make AI Do The Work** newsletter. Built with React, Vite, TypeScript, Tailwind CSS, and Lucide React. The interface uses a pixel/brutalist visual system with sharp borders, bold typography and an electric green accent.
+A responsive personal landing page for Dante Galeazzi and the **Make AI Do The Work** newsletter.
+
+## Stack
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- lucide-react
 
 ## Run locally
 
@@ -8,8 +16,6 @@ A fast, responsive personal landing page for Dante Galeazzi and the **Make AI Do
 npm install
 npm run dev
 ```
-
-Vite will print the local URL, usually `http://localhost:5173`.
 
 ## Production build
 
@@ -21,29 +27,30 @@ npm run preview
 ## Project structure
 
 ```text
-.
-├── index.html
-├── package.json
-├── src
-│   ├── components
-│   │   ├── Header.tsx
-│   │   ├── Hero.tsx
-│   │   ├── ProfileSidebar.tsx
-│   │   ├── ThemeLab.tsx
-│   │   └── WorkflowCards.tsx
-│   ├── App.tsx
-│   ├── index.css
-│   └── main.tsx
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
+src
+├── App.tsx
+├── index.css
+├── main.tsx
+└── components
+    ├── About.tsx
+    ├── FreeResources.tsx
+    ├── Header.tsx
+    ├── Hero.tsx
+    ├── NewsletterSection.tsx
+    ├── ProfileSidebar.tsx
+    └── WorkflowCards.tsx
 ```
 
-The subscribe form currently provides an on-page confirmation only. It does not send data to a backend or newsletter service.
+## Current sections
 
-## Themes
+- Personal introduction and primary newsletter form
+- Popular workflows
+- Newsletter with pinned post placeholders and a second form
+- Free Resources with filters for tools, courses and articles
+- About page
 
-Use the **Themes** link in the header to jump to the compact **Choose theme** section near the bottom of the page. The two selector buttons switch the full page between `Brutalist Grid` and `Pixel Gamer`.
+The visual system is fixed to the yellow **Desktop OS Y** direction. The previous theme selector and alternate themes were removed.
 
-The page always loads in `Brutalist Grid` on refresh. Theme choice is intentionally not stored in `localStorage` yet.
+Both subscribe forms are static and only show an on-page confirmation. There is no Substack or backend integration yet.
+
+Resource entries are maintained in the `stackItems` array inside `src/components/FreeResources.tsx`.
