@@ -59,8 +59,8 @@ function App() {
           <>
             <WorkflowCards />
             <NewsletterSection />
-            <ProjectsSection />
             <FreeResources />
+            <ProjectsSection />
           </>
         )}
       </main>
