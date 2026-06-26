@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { AtSign, BriefcaseBusiness, GitBranch, LayoutGrid, FileText, ArrowLeft } from 'lucide-react'
 
 const socialLinks = [
-  { label: 'X / Twitter', href: '#x', Icon: AtSign },
-  { label: 'GitHub', href: '#github', Icon: GitBranch },
+  { label: 'X / Twitter', href: 'https://x.com/dantegaleazzi', Icon: AtSign },
+  { label: 'GitHub', href: 'https://github.com/dantegaleazzi', Icon: GitBranch },
   { label: 'Projects', href: '#projects', Icon: LayoutGrid },
-  { label: 'LinkedIn', href: '#linkedin', Icon: BriefcaseBusiness },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/dantesgaleazzi/', Icon: BriefcaseBusiness },
   { label: 'Newsletter', href: '#newsletter', Icon: FileText },
 ]
 

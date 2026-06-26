@@ -1,10 +1,10 @@
 import { ArrowDown, AtSign, BriefcaseBusiness, GitBranch, LayoutGrid } from 'lucide-react'
 
 const socialLinks = [
-  { label: 'X / Twitter', href: '#x', Icon: AtSign },
+  { label: 'X / Twitter', href: 'https://x.com/dantegaleazzi', Icon: AtSign },
   { label: 'Projects', href: '#projects', Icon: LayoutGrid },
-  { label: 'GitHub', href: '#github', Icon: GitBranch },
-  { label: 'LinkedIn', href: '#linkedin', Icon: BriefcaseBusiness },
+  { label: 'GitHub', href: 'https://github.com/dantegaleazzi', Icon: GitBranch },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/dantesgaleazzi/', Icon: BriefcaseBusiness },
 ]
 
 export function ProfileSidebar() {
