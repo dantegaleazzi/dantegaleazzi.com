@@ -46,7 +46,7 @@ export function WorkflowCards() {
       <div className="grid gap-4.5 lg:grid-cols-3">
         {workflows.map(({ number, title, description, Icon }, index) => (
           <article
-            className={`workflow-card group relative min-h-64 overflow-hidden border-2 border-ink p-5.5 shadow-[7px_7px_0_#10110f] transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_#10110f] lg:min-h-77.5 ${index === 1 ? 'bg-signal' : 'bg-[#fffef8]'}`}
+            className={`workflow-card group relative min-h-64 overflow-hidden border-2 border-ink p-5.5 lg:min-h-77.5 ${index === 1 ? 'bg-signal' : 'bg-[#fffef8]'}`}
             key={number}
             data-slot={number}
           >

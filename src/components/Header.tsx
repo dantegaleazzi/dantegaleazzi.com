@@ -24,7 +24,7 @@ export function Header() {
       </a>
 
       <button
-        className="flex items-center gap-2 border-2 border-ink bg-signal px-3 py-2 font-mono text-[0.62rem] font-bold uppercase tracking-[0.08em] shadow-[3px_3px_0_var(--color-ink)] transition-transform active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_var(--color-ink)] md:hidden"
+        className="flex items-center gap-2 border-2 border-ink bg-signal px-3 py-2 font-mono text-[0.62rem] font-bold uppercase tracking-[0.08em] transition-colors md:hidden"
         type="button"
         aria-expanded={isMenuOpen}
         aria-controls="mobile-navigation"
@@ -47,7 +47,7 @@ export function Header() {
 
       {isMenuOpen && (
         <nav
-          className="absolute top-[calc(100%+0.55rem)] right-0 z-30 grid w-[min(15.5rem,calc(100vw-2.5rem))] overflow-hidden rounded-lg border-2 border-ink bg-white font-mono text-[0.68rem] font-bold uppercase tracking-[0.08em] shadow-[5px_5px_0_rgba(30,30,30,0.16)] md:hidden"
+          className="absolute top-[calc(100%+0.55rem)] right-0 z-30 grid w-[min(15.5rem,calc(100vw-2.5rem))] overflow-hidden rounded-lg border-2 border-ink bg-white font-mono text-[0.68rem] font-bold uppercase tracking-[0.08em] md:hidden"
           id="mobile-navigation"
           aria-label="Mobile navigation"
         >
