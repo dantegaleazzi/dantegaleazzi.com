@@ -72,13 +72,15 @@
     color: var(--color-ink);
     background: #fffef8;
     border-radius: 10px;
-    transition: filter 140ms ease, border-color 140ms ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 180ms ease, transform 180ms ease;
   }
 
   .workflow-card:hover,
   .workflow-card:focus-visible {
     outline: none;
-    filter: brightness(0.97);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
   }
 }
 
