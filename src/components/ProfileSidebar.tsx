@@ -15,7 +15,13 @@ export function ProfileSidebar() {
       aria-label="About Dante"
     >
       <div className="flex flex-col items-start gap-4">
-        <div className="profile-image-placeholder size-20 rounded-full border-2 border-ink bg-signal" aria-hidden="true" />
+        <img
+          src="/dante-profile.png"
+          alt="Dante Galeazzi"
+          className="size-20 rounded-full border-2 border-ink object-cover object-top"
+          width={80}
+          height={80}
+        />
         <div className="sidebar-label font-mono text-[0.68rem] font-medium tracking-[0.08em] uppercase">
           AI work log / 2026
         </div>

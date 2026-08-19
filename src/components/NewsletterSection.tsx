@@ -1,19 +1,20 @@
 import { ArrowRight, ArrowUpRight, FileText } from 'lucide-react'
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
+import { subscribeToNewsletter } from '../lib/subscribe'
 
 const pinnedPosts = [
   {
-    date: 'Soon',
+    date: 'Coming soon',
     category: 'Workflow',
     title: 'Make AI QA your app overnight',
   },
   {
-    date: 'Soon',
+    date: 'Coming soon',
     category: 'Build log',
     title: 'What it actually costs to build an app with agents',
   },
   {
-    date: 'Soon',
+    date: 'Coming soon',
     category: 'Tool test',
     title: 'The AI tools that earned a place in my workflow',
   },
@@ -21,10 +22,22 @@ const pinnedPosts = [
 
 export function NewsletterSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setSubmitted(true)
+    setError('')
+    setIsSubmitting(true)
+    const email = new FormData(event.currentTarget).get('newsletter-email')
+    try {
+      await subscribeToNewsletter(String(email ?? ''))
+      setSubmitted(true)
+    } catch (submissionError) {
+      setError(submissionError instanceof Error ? submissionError.message : 'Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -86,6 +99,7 @@ export function NewsletterSection() {
             <label className="sr-only" htmlFor="newsletter-email">
               Email address
             </label>
+            <input className="sr-only" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <input
               className="h-12 min-w-0 rounded-none border-2 border-ink bg-[#fffef8] px-4 text-sm outline-none focus:shadow-[inset_0_0_0_3px_#ffd400]"
               id="newsletter-email"
@@ -98,16 +112,19 @@ export function NewsletterSection() {
             <button
               className="group flex h-12 cursor-pointer items-center justify-center gap-2 border-2 border-ink bg-ink px-5 font-mono text-[0.7rem] font-bold text-white uppercase hover:bg-white hover:text-ink focus-visible:bg-white focus-visible:text-ink focus-visible:outline-none sm:border-l-0"
               type="submit"
+              disabled={isSubmitting}
             >
-              Subscribe
+              {isSubmitting ? 'Sending…' : 'Subscribe'}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </button>
           </form>
 
           {submitted ? (
             <p className="mt-3 font-mono text-[0.65rem]" role="status">
-              You’re on the launch list. Substack integration comes next.
+              Thanks — your signup was sent.
             </p>
+          ) : error ? (
+            <p className="mt-3 font-mono text-[0.65rem] text-[#a33a2b]" role="alert">{error}</p>
           ) : (
             <p className="mt-3 font-mono text-[0.62rem] opacity-65">0 → 1,000 builders making AI useful.</p>
           )}

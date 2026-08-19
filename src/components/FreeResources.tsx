@@ -2,15 +2,14 @@ import {
   ArrowUpRight,
   BookOpen,
   Bot,
-  Box,
   Code2,
-  GraduationCap,
   MessageSquareCode,
+  PanelsTopLeft,
   type LucideIcon,
 } from 'lucide-react'
 import { useState } from 'react'
 
-type ResourceCategory = 'Tool' | 'Course' | 'Article'
+type ResourceCategory = 'Tool' | 'Guide'
 type ResourceFilter = 'All' | ResourceCategory
 
 type StackItem = {
@@ -31,13 +30,6 @@ const stackItems: StackItem[] = [
     Icon: Code2,
   },
   {
-    name: 'Lovable',
-    description: 'A fast way to test product ideas and turn prompts into working interfaces.',
-    category: 'Tool',
-    href: 'https://lovable.dev/',
-    Icon: Box,
-  },
-  {
     name: 'ChatGPT',
     description: 'For research, planning, debugging and turning loose ideas into concrete next steps.',
     category: 'Tool',
@@ -52,16 +44,30 @@ const stackItems: StackItem[] = [
     Icon: Bot,
   },
   {
-    name: 'AI builder courses',
-    description: 'Courses and learning paths that help regular people build useful products with AI.',
-    category: 'Course',
-    href: '#newsletter',
-    Icon: GraduationCap,
+    name: 'Hermes',
+    description: 'An AI coding workspace for thinking, tool calls, file diffs and shipping in context.',
+    category: 'Tool',
+    href: 'https://hermes-agent.nousresearch.com/',
+    Icon: Bot,
   },
   {
-    name: 'What I’m reading',
-    description: 'Articles, field notes and references that changed how I think about building with AI.',
-    category: 'Article',
+    name: 'Figma',
+    description: 'For mapping ideas, shaping interfaces and sharing product direction visually.',
+    category: 'Tool',
+    href: 'https://www.figma.com/',
+    Icon: PanelsTopLeft,
+  },
+  {
+    name: 'Notion',
+    description: 'A flexible home for notes, specs, checklists and the systems behind each build.',
+    category: 'Tool',
+    href: 'https://www.notion.so/',
+    Icon: BookOpen,
+  },
+  {
+    name: 'Guides & field notes',
+    description: 'Guides, field notes and references that changed how I think about building with AI.',
+    category: 'Guide',
     href: '#newsletter',
     Icon: BookOpen,
   },
@@ -69,7 +75,7 @@ const stackItems: StackItem[] = [
 
 export function FreeResources() {
   const [activeFilter, setActiveFilter] = useState<ResourceFilter>('All')
-  const filters: ResourceFilter[] = ['All', 'Tool', 'Course', 'Article']
+  const filters: ResourceFilter[] = ['All', 'Tool', 'Guide']
   const visibleItems =
     activeFilter === 'All' ? stackItems : stackItems.filter((item) => item.category === activeFilter)
 
@@ -108,7 +114,7 @@ export function FreeResources() {
               aria-pressed={isActive}
               onClick={() => setActiveFilter(filter)}
             >
-              {filter === 'All' ? 'All' : `${filter}s`}
+              {filter === 'All' ? 'All' : filter === 'Guide' ? 'Guides' : 'Tools'}
               <span className="ml-2 opacity-55">{String(count).padStart(2, '0')}</span>
             </button>
           )
