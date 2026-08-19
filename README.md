@@ -53,7 +53,7 @@ The visual system is fixed to the yellow **Desktop OS Y** direction. The previou
 
 ## Email signups with Resend
 
-Both subscribe forms post to the server-side `/api/subscribe` Worker route. The route validates the address, includes a honeypot field, applies a small per-IP rate limit, and sends a signup notification through Resend. The Resend key is never exposed to the browser.
+Both subscribe forms post to the server-side `/api/subscribe` Worker route. The route validates the address, includes a honeypot field, applies a small per-IP rate limit, saves new contacts in Resend, detects duplicate signups, and sends a notification for new contacts. The Resend key is never exposed to the browser.
 
 For local Wrangler development:
 
@@ -73,6 +73,6 @@ wrangler secret put RESEND_TO
 
 `RESEND_FROM` defaults to `onboarding@resend.dev` for testing. For production, verify your sending domain in Resend and set it to an address on that domain. `RESEND_TO` defaults to `dante@finikslabs.com`.
 
-This first integration sends Dante a notification for each signup; it does not yet maintain a subscriber audience or send campaigns. Add a Resend Audience/contact step (or connect a newsletter provider) before treating it as the final mailing list.
+Resend Contacts now acts as the initial subscriber list: returning subscribers see an “already subscribed” message and do not trigger another notification. Broadcast campaigns and a double-opt-in flow can be added later.
 
 Resource entries are maintained in the `stackItems` array inside `src/components/FreeResources.tsx`.
