@@ -4,26 +4,33 @@ type Workflow = {
   number: string
   title: string
   description: string
+  tools: string
+  difficulty: string
   Icon: LucideIcon
 }
-
 const workflows: Workflow[] = [
   {
     number: '01',
     title: 'Make AI QA your app overnight',
     description: 'Set up an AI testing loop that finds bugs while you sleep and hands you a useful report in the morning.',
+    tools: 'GPT-4o, Playwright',
+    difficulty: 'Easy',
     Icon: Bot,
   },
   {
     number: '02',
     title: 'Turn notes into a working landing page',
     description: 'Go from a rough idea dump to structured copy, a sharp interface and a live first version.',
+    tools: 'Claude, Vercel',
+    difficulty: 'Easy',
     Icon: PanelsTopLeft,
   },
   {
     number: '03',
     title: 'Replace a paid tool with your own AI workflow',
     description: 'Spot the subscription you can retire, map the essential features and build only what you need.',
+    tools: 'GPT-4o, Zapier',
+    difficulty: 'Medium',
     Icon: Repeat2,
   },
 ]
@@ -44,22 +51,29 @@ export function WorkflowCards() {
       </div>
 
       <div className="grid gap-4.5 lg:grid-cols-3">
-        {workflows.map(({ number, title, description, Icon }, index) => (
+        {workflows.map(({ number, title, description, tools, difficulty, Icon }, index) => (
           <article
-            className={`workflow-card group relative min-h-64 overflow-hidden border-2 border-ink p-5.5 shadow-[7px_7px_0_#10110f] transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_#10110f] lg:min-h-77.5 ${index === 1 ? 'bg-signal' : 'bg-[#fffef8]'}`}
+            className={`workflow-card group relative flex min-h-72 flex-col overflow-hidden rounded-[10px] border-2 border-ink p-5.5 ${index === 1 ? 'bg-signal' : 'bg-[#fffef8]'}`}
             key={number}
             data-slot={number}
           >
             <div className="flex items-center justify-between">
               <span className="font-mono text-[0.66rem] font-medium uppercase">#{number}</span>
-              <span className="status-badge border border-ink bg-paper px-2 py-1.5 font-mono text-[0.66rem] font-medium uppercase">Coming soon</span>
+              <span className="status-badge border border-ink bg-paper px-2 py-1.5 font-mono text-[0.62rem] font-medium uppercase">
+                Coming soon
+              </span>
             </div>
 
-            <Icon className="mt-10 size-6" strokeWidth={1.8} aria-hidden="true" />
-            <h3 className="mt-4 max-w-85 text-[clamp(1.45rem,2.25vw,2.1rem)] leading-[1.02] font-bold tracking-[-0.045em]">
+            <span className="mt-8 grid size-11 place-items-center rounded-xl border-2 border-ink bg-white">
+              <Icon className="size-5" strokeWidth={1.8} aria-hidden="true" />
+            </span>
+            <h3 className="mt-4 text-[clamp(1.4rem,2vw,1.9rem)] leading-[1.05] font-bold tracking-[-0.04em]">
               {title}
             </h3>
-            <p className="mt-4 max-w-92.5 text-sm leading-normal">{description}</p>
+            <p className="mt-3 text-[0.92rem] leading-snug text-ink/70">{description}</p>
+            <p className="mt-auto pt-5 pr-12 font-mono text-[0.6rem] uppercase tracking-[0.06em] text-[#5f625b]">
+              Tools: {tools} &middot; {difficulty}
+            </p>
             <span className="card-corner absolute right-[-2px] bottom-[-2px] grid size-9.5 place-items-center border-2 border-ink bg-orange font-mono text-xl" aria-hidden="true">
               +
             </span>

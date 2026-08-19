@@ -48,7 +48,7 @@ export function About() {
             onClick={() => setStory('short')}
             className={`border-2 border-ink px-4 py-2 transition-colors ${
               story === 'short' ? 'bg-signal' : 'bg-white hover:bg-gray-50'
-            } cursor-pointer shadow-[3px_3px_0_var(--color-ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_var(--color-ink)]`}
+            } cursor-pointer`}
           >
             Short Story
           </button>
@@ -56,7 +56,7 @@ export function About() {
             onClick={() => setStory('long')}
             className={`border-2 border-ink px-4 py-2 transition-colors ${
               story === 'long' ? 'bg-signal' : 'bg-white hover:bg-gray-50'
-            } cursor-pointer shadow-[3px_3px_0_var(--color-ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[2px_2px_0_var(--color-ink)]`}
+            } cursor-pointer`}
           >
             Long Story
           </button>
@@ -101,15 +101,15 @@ export function About() {
             <h3 className="mb-4 font-mono text-[0.75rem] font-bold uppercase tracking-[0.1em]">Currently</h3>
             <ul className="space-y-2 font-mono text-[0.75rem] uppercase">
               <li className="flex items-center gap-2">
-                <span className="size-1.5 bg-signal border border-ink shadow-[1px_1px_0_var(--color-ink)]" />
+                <span className="size-1.5 bg-signal border border-ink" />
                 Learning to code in public
               </li>
               <li className="flex items-center gap-2">
-                <span className="size-1.5 bg-signal border border-ink shadow-[1px_1px_0_var(--color-ink)]" />
+                <span className="size-1.5 bg-signal border border-ink" />
                 Building Make AI Do The Work
               </li>
               <li className="flex items-center gap-2">
-                <span className="size-1.5 bg-signal border border-ink shadow-[1px_1px_0_var(--color-ink)]" />
+                <span className="size-1.5 bg-signal border border-ink" />
                 Testing AI agents and workflows
               </li>
             </ul>

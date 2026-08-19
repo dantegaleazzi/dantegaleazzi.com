@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars for local Wrangler development.
+# Replace the placeholder with a Resend API key. Never commit .dev.vars.
+RESEND_API_KEY="re_xxxxxxxxx"
+RESEND_FROM="onboarding@resend.dev"
+RESEND_TO="dante@finikslabs.com"

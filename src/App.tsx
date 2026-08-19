@@ -1,15 +1,25 @@
 import { useEffect, useState } from 'react'
-import { ArrowDown } from 'lucide-react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
-import { ProfileSidebar } from './components/ProfileSidebar'
+import { StartHere } from './components/StartHere'
+import { BuildLogs } from './components/BuildLogs'
 import { WorkflowCards } from './components/WorkflowCards'
 import { NewsletterSection } from './components/NewsletterSection'
 import { ProjectsSection } from './components/ProjectsSection'
 import { FreeResources } from './components/FreeResources'
+import { DesignSystem } from './pages/DesignSystem'
+import { Sted } from './pages/Sted'
 
 function App() {
+  if (window.location.pathname === '/design-system') {
+    return <DesignSystem />
+  }
+
+  if (window.location.pathname === '/sted') {
+    return <Sted />
+  }
+
   const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home')
 
   // Handle hash changes for simple routing
@@ -34,40 +44,32 @@ function App() {
       <Header />
 
       <main id="top">
-        <section
-          className={`hero-section grid border-b-2 border-ink ${
-            currentPage === 'home'
-              ? 'lg:grid-cols-[minmax(220px,0.72fr)_minmax(0,2.35fr)]'
-              : 'grid-cols-1 lg:p-12 lg:pb-16'
-          }`}
-          aria-labelledby="hero-title"
-        >
-          {currentPage === 'home' && <ProfileSidebar />}
-          {currentPage === 'home' ? <Hero /> : <About />}
-        </section>
-
-        {currentPage === 'home' && (
-          <div className="flex justify-center py-2">
-            <span className="animate-bounce-subtle flex items-center gap-3 font-mono text-[1.08rem] font-bold uppercase tracking-widest text-ink/65">
-              Scroll for workflows
-              <ArrowDown className="size-[1.3rem]" strokeWidth={2.5} aria-hidden="true" />
-            </span>
-          </div>
-        )}
-
-        {currentPage === 'home' && (
+        {currentPage === 'home' ? (
           <>
+            <section className="hero-section" aria-labelledby="hero-title">
+              <Hero />
+            </section>
+            <StartHere />
+            <BuildLogs />
             <WorkflowCards />
-            <NewsletterSection />
             <FreeResources />
             <ProjectsSection />
+            <NewsletterSection />
           </>
+        ) : (
+          <section className="border-b-2 border-ink lg:p-12 lg:pb-16" aria-labelledby="hero-title">
+            <About />
+          </section>
         )}
       </main>
 
-      <footer className="site-footer flex flex-col gap-2 py-6 font-mono text-[0.68rem] uppercase sm:flex-row sm:justify-between">
-        <p>Make useful things. Show your work.</p>
-        <p>© {new Date().getFullYear()} Dante Galeazzi</p>
+      <footer className="site-footer flex flex-col gap-3 py-6 font-mono text-[0.68rem] uppercase sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} Dante Galeazzi · Make useful things.</p>
+        <div className="flex gap-5">
+          <a className="nav-link" href="https://x.com/dantegaleazzi" target="_blank" rel="noreferrer">X</a>
+          <a className="nav-link" href="https://github.com/dantegaleazzi" target="_blank" rel="noreferrer">GitHub</a>
+          <a className="nav-link" href="https://www.linkedin.com/in/dantesgaleazzi/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
       </footer>
     </div>
   )
