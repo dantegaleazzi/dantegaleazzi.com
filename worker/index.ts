@@ -64,9 +64,32 @@ async function handleSubscribe(request: Request, env: Env): Promise<Response> {
   if (!isValidEmail(email)) return json({ error: 'Enter a valid email address.' }, 400)
   if (!env.RESEND_API_KEY) return json({ error: 'Email signup is not configured yet.' }, 503)
 
+  const resendHeaders = {
+    Authorization: `Bearer ${env.RESEND_API_KEY}`,
+    'Content-Type': 'application/json',
+  }
+  const existingContact = await fetch(`https://api.resend.com/contacts/${encodeURIComponent(email)}`, {
+    headers: resendHeaders,
+  })
+  if (existingContact.ok) return json({ ok: true, alreadySubscribed: true })
+  if (existingContact.status !== 404) {
+    console.error('Resend contact lookup failed', existingContact.status)
+    return json({ error: 'We could not check the signup. Please try again.' }, 502)
+  }
+
+  const contactResponse = await fetch('https://api.resend.com/contacts', {
+    method: 'POST',
+    headers: resendHeaders,
+    body: JSON.stringify({ email, unsubscribed: false }),
+  })
+  if (!contactResponse.ok) {
+    console.error('Resend contact creation failed', contactResponse.status)
+    return json({ error: 'We could not save the signup. Please try again.' }, 502)
+  }
+
   const resendResponse = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    headers: resendHeaders,
     body: JSON.stringify({
       from: env.RESEND_FROM ?? 'onboarding@resend.dev',
       to: [env.RESEND_TO ?? 'dante@finikslabs.com'],

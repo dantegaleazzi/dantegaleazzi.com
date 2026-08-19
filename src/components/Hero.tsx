@@ -17,6 +17,7 @@ const socials = [
 
 export function Hero() {
   const [submitted, setSubmitted] = useState(false)
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -26,7 +27,8 @@ export function Hero() {
     setIsSubmitting(true)
     const email = new FormData(event.currentTarget).get('email')
     try {
-      await subscribeToNewsletter(String(email ?? ''))
+      const result = await subscribeToNewsletter(String(email ?? ''))
+      setAlreadySubscribed(result.alreadySubscribed)
       setSubmitted(true)
     } catch (submissionError) {
       setError(submissionError instanceof Error ? submissionError.message : 'Something went wrong. Please try again.')
@@ -154,7 +156,7 @@ export function Hero() {
             </p>
             {submitted && (
               <p className="mt-2.5 font-mono text-[0.7rem]" role="status">
-                Thanks — your signup was sent.
+                {alreadySubscribed ? 'You’re already subscribed.' : 'Thanks — your signup was sent.'}
               </p>
             )}
             {error && <p className="mt-2.5 font-mono text-[0.7rem] text-[#a33a2b]" role="alert">{error}</p>}

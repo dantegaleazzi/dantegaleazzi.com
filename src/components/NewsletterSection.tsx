@@ -22,6 +22,7 @@ const pinnedPosts = [
 
 export function NewsletterSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -31,7 +32,8 @@ export function NewsletterSection() {
     setIsSubmitting(true)
     const email = new FormData(event.currentTarget).get('newsletter-email')
     try {
-      await subscribeToNewsletter(String(email ?? ''))
+      const result = await subscribeToNewsletter(String(email ?? ''))
+      setAlreadySubscribed(result.alreadySubscribed)
       setSubmitted(true)
     } catch (submissionError) {
       setError(submissionError instanceof Error ? submissionError.message : 'Something went wrong. Please try again.')
@@ -121,7 +123,7 @@ export function NewsletterSection() {
 
           {submitted ? (
             <p className="mt-3 font-mono text-[0.65rem]" role="status">
-              Thanks — your signup was sent.
+              {alreadySubscribed ? 'You’re already subscribed.' : 'Thanks — your signup was sent.'}
             </p>
           ) : error ? (
             <p className="mt-3 font-mono text-[0.65rem] text-[#a33a2b]" role="alert">{error}</p>
