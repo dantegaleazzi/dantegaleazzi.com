@@ -8,18 +8,8 @@ import { WorkflowCards } from './components/WorkflowCards'
 import { NewsletterSection } from './components/NewsletterSection'
 import { ProjectsSection } from './components/ProjectsSection'
 import { FreeResources } from './components/FreeResources'
-import { DesignSystem } from './pages/DesignSystem'
-import { Sted } from './pages/Sted'
 
 function App() {
-  if (window.location.pathname === '/design-system') {
-    return <DesignSystem />
-  }
-
-  if (window.location.pathname === '/sted') {
-    return <Sted />
-  }
-
   const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home')
 
   // Handle hash changes for simple routing
