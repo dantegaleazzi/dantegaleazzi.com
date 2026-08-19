@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 
-type ResourceCategory = 'Tool' | 'Guide'
+type ResourceCategory = 'Tool'
 type ResourceFilter = 'All' | ResourceCategory
 
 type StackItem = {
@@ -64,18 +64,11 @@ const stackItems: StackItem[] = [
     href: 'https://www.notion.so/',
     Icon: BookOpen,
   },
-  {
-    name: 'Guides & field notes',
-    description: 'Guides, field notes and references that changed how I think about building with AI.',
-    category: 'Guide',
-    href: '#newsletter',
-    Icon: BookOpen,
-  },
 ]
 
 export function FreeResources() {
   const [activeFilter, setActiveFilter] = useState<ResourceFilter>('All')
-  const filters: ResourceFilter[] = ['All', 'Tool', 'Guide']
+  const filters: ResourceFilter[] = ['All', 'Tool']
   const visibleItems =
     activeFilter === 'All' ? stackItems : stackItems.filter((item) => item.category === activeFilter)
 
@@ -114,7 +107,7 @@ export function FreeResources() {
               aria-pressed={isActive}
               onClick={() => setActiveFilter(filter)}
             >
-              {filter === 'All' ? 'All' : filter === 'Guide' ? 'Guides' : 'Tools'}
+              {filter === 'All' ? 'All' : 'Tools'}
               <span className="ml-2 opacity-55">{String(count).padStart(2, '0')}</span>
             </button>
           )
