@@ -8,8 +8,19 @@ import { WorkflowCards } from './components/WorkflowCards'
 import { NewsletterSection } from './components/NewsletterSection'
 import { ProjectsSection } from './components/ProjectsSection'
 import { FreeResources } from './components/FreeResources'
+import { ZeroToHundredGuide, ZeroToHundredIndex, zeroToHundredGuides } from './components/ZeroToHundred'
+
+function getZeroToHundredRoute(pathname: string): 'index' | number | null {
+  const path = pathname.replace(/\/+$/, '')
+  if (path === '/zero-to-100-guide') return 'index'
+  const match = path.match(/^\/zero-to-100-guide-(\d+)$/)
+  if (!match) return null
+  const number = Number(match[1])
+  return number >= 1 && number <= zeroToHundredGuides.length ? number : null
+}
 
 function App() {
+  const zeroToHundredRoute = getZeroToHundredRoute(window.location.pathname)
   const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home')
 
   // Handle hash changes for simple routing
@@ -34,7 +45,11 @@ function App() {
       <Header />
 
       <main id="top">
-        {currentPage === 'home' ? (
+        {zeroToHundredRoute === 'index' ? (
+          <ZeroToHundredIndex />
+        ) : zeroToHundredRoute !== null ? (
+          <ZeroToHundredGuide number={zeroToHundredRoute} />
+        ) : currentPage === 'home' ? (
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <Hero />
