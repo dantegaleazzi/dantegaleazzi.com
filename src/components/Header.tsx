@@ -2,11 +2,11 @@ import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
 const navItems = [
-  { label: 'Workflows', href: '#workflows' },
-  { label: 'Newsletter', href: '#newsletter' },
-  { label: 'Free Resources', href: '#resources' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'About Me', href: '#about' },
+  { label: 'Workflows', href: '/#workflows' },
+  { label: 'Newsletter', href: '/#newsletter' },
+  { label: 'Free Resources', href: '/#resources' },
+  { label: 'Projects', href: '/#projects' },
+  { label: 'About Me', href: '/#about' },
 ]
 
 export function Header() {
@@ -16,7 +16,7 @@ export function Header() {
     <header className="site-header relative flex min-h-18 items-center justify-between gap-4">
       <a
         className="shrink-0 font-mono text-[0.66rem] font-medium tracking-[0.05em] no-underline sm:text-[0.8rem]"
-        href="#top"
+        href="/#top"
         aria-label="Dante Galeazzi, home"
         onClick={() => setIsMenuOpen(false)}
       >

@@ -8,15 +8,16 @@ import { WorkflowCards } from './components/WorkflowCards'
 import { NewsletterSection } from './components/NewsletterSection'
 import { ProjectsSection } from './components/ProjectsSection'
 import { FreeResources } from './components/FreeResources'
-import { ZeroToHundredGuide, ZeroToHundredIndex, zeroToHundredGuides } from './components/ZeroToHundred'
+import { ZeroToHundredGuide, ZeroToHundredIndex } from './components/ZeroToHundred'
+import { guideIndexPath, guideTitles } from './guides'
 
 function getZeroToHundredRoute(pathname: string): 'index' | number | null {
   const path = pathname.replace(/\/+$/, '')
-  if (path === '/zero-to-100-guide') return 'index'
+  if (path === guideIndexPath) return 'index'
   const match = path.match(/^\/zero-to-100-guide-(\d+)$/)
   if (!match) return null
   const number = Number(match[1])
-  return number >= 1 && number <= zeroToHundredGuides.length ? number : null
+  return number >= 1 && number <= guideTitles.length ? number : null
 }
 
 function App() {
