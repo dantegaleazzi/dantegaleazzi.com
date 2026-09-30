@@ -1,7 +1,6 @@
 import { ArrowLeft, ArrowRight, ListChecks, Timer } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { guideIndexPath, guidePath, guideTitles } from '../../guides'
-import type { Guide, GuideSection, GuideTest } from '../../guides/types'
+import type { Guide, GuideLink, GuideMeta, GuideSection, GuideTest } from '../../guides/types'
 import { GuidePrompts } from './GuidePrompts'
 import { GuideVisual, WindowFrame, monoLabel } from './Visuals'
 import { RichText, SansDigits } from './text'
@@ -51,14 +50,13 @@ function useActiveSection(ids: string[]) {
   return active
 }
 
-function Header({ guide }: { guide: Guide }) {
-  const title = guideTitles[guide.number - 1]
+function Header({ guide, meta }: { guide: Guide; meta: GuideMeta }) {
   return (
-    <WindowFrame title={`ZERO_TO_100_EP${guide.number}.DOC`}>
+    <WindowFrame title={meta.file}>
       <div className="px-5 py-7 sm:px-8 sm:py-8">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <a href={guideIndexPath} className={`${monoLabel} text-muted no-underline hover:text-ink`}>
-            <SansDigits text="Zero to 100" />
+          <a href={meta.crumb.href} className={`${monoLabel} text-muted no-underline hover:text-ink`}>
+            <SansDigits text={meta.crumb.label} />
           </a>
           <span className="text-muted max-sm:hidden" aria-hidden="true">/</span>
           <p
@@ -66,7 +64,7 @@ function Header({ guide }: { guide: Guide }) {
               guide.hook.includes('[[') ? 'border-2 border-ink bg-butter' : 'bg-signal'
             }`}
           >
-            {guide.chip ?? title}
+            {guide.chip ?? meta.title}
           </p>
         </div>
         <h1 className="mt-5 text-[clamp(2.2rem,5vw,3.4rem)] leading-[0.98] font-bold tracking-[-0.055em]">
@@ -95,7 +93,7 @@ function Header({ guide }: { guide: Guide }) {
           />
           <span className="text-[0.95rem] font-bold">Dante Galeazzi</span>
           <span className={`${monoLabel} text-[0.66rem] text-muted`}>
-            <SansDigits text={`Part ${guide.number} of ${guideTitles.length} · ${readMinutes(guide)} min read`} />
+            <SansDigits text={`${meta.part} · ${readMinutes(guide)} min read`} />
           </span>
         </div>
       </div>
@@ -233,41 +231,39 @@ function Questions({ questions }: { questions: string[] }) {
   )
 }
 
-function GuideNav({ number }: { number: number }) {
+function GuideNav({ prev, next }: { prev?: GuideLink; next?: GuideLink }) {
   const links = [
-    { number: number - 1, label: 'Previous', Icon: ArrowLeft },
-    { number: number + 1, label: 'Next', Icon: ArrowRight },
-  ].filter((link) => link.number >= 1 && link.number <= guideTitles.length)
+    prev && { ...prev, direction: 'Previous' as const, Icon: ArrowLeft },
+    next && { ...next, direction: 'Next' as const, Icon: ArrowRight },
+  ].filter((link) => link !== undefined)
 
   return (
     <nav className="grid gap-3 sm:grid-cols-2" aria-label="Guide navigation">
-      {links.map(({ number: target, label, Icon }) => (
+      {links.map(({ href, label, title, direction, Icon }) => (
         <a
-          key={label}
-          href={guidePath(target)}
+          key={direction}
+          href={href}
           className={`rounded-md border-2 border-ink bg-white px-5 py-4 no-underline transition-colors hover:bg-butter focus-visible:bg-butter focus-visible:outline-none ${
-            label === 'Next' ? 'sm:col-start-2 sm:text-right' : ''
+            direction === 'Next' ? 'sm:col-start-2 sm:text-right' : ''
           }`}
         >
-          <span className={`${monoLabel} flex items-center gap-2 text-muted ${label === 'Next' ? 'sm:justify-end' : ''}`}>
-            {label === 'Previous' && <Icon className="size-3.5" aria-hidden="true" />}
-            {label} · <SansDigits text={String(target)} />
-            {label === 'Next' && <Icon className="size-3.5" aria-hidden="true" />}
+          <span className={`${monoLabel} flex items-center gap-2 text-muted ${direction === 'Next' ? 'sm:justify-end' : ''}`}>
+            {direction === 'Previous' && <Icon className="size-3.5" aria-hidden="true" />}
+            {direction} · <SansDigits text={label} />
+            {direction === 'Next' && <Icon className="size-3.5" aria-hidden="true" />}
           </span>
-          <span className="mt-1 block text-[1.1rem] leading-tight font-bold tracking-[-0.02em]">
-            {guideTitles[target - 1]}
-          </span>
+          <span className="mt-1 block text-[1.1rem] leading-tight font-bold tracking-[-0.02em]">{title}</span>
         </a>
       ))}
     </nav>
   )
 }
 
-function TableOfContents({ toc, active }: { toc: TocItem[]; active: string }) {
+function TableOfContents({ toc, active, back }: { toc: TocItem[]; active: string; back: GuideMeta['back'] }) {
   return (
     <nav className="sticky top-6" aria-label="In this guide">
-      <a href={guideIndexPath} className={`${monoLabel} text-[0.66rem] text-muted no-underline hover:text-ink`}>
-        ← All guides
+      <a href={back.href} className={`${monoLabel} text-[0.66rem] text-muted no-underline hover:text-ink`}>
+        ← {back.label}
       </a>
       <p className={`${monoLabel} mt-7 mb-3 text-[0.66rem]`}>In this guide</p>
       <ol className="grid gap-0.5 border-l-2 border-ink/15">
@@ -289,8 +285,7 @@ function TableOfContents({ toc, active }: { toc: TocItem[]; active: string }) {
   )
 }
 
-function SideRail({ guide }: { guide: Guide }) {
-  const next = guide.number + 1
+function SideRail({ guide, next }: { guide: Guide; next?: GuideLink }) {
   return (
     <div className="sticky top-6 grid gap-8">
       <div>
@@ -308,26 +303,22 @@ function SideRail({ guide }: { guide: Guide }) {
           ))}
         </ul>
       </div>
-      {next <= guideTitles.length && (
-        <a href={guidePath(next)} className="block no-underline">
+      {next && (
+        <a href={next.href} className="block no-underline">
           <p className={`${monoLabel} mb-2 text-[0.66rem] text-muted`}>
-            <SansDigits text={`Next · Part ${next}`} />
+            <SansDigits text={`Next · ${next.label}`} />
           </p>
-          <p className="text-[1rem] leading-tight font-bold tracking-[-0.02em] hover:underline">
-            {guideTitles[next - 1]} →
-          </p>
+          <p className="text-[1rem] leading-tight font-bold tracking-[-0.02em] hover:underline">{next.title} →</p>
         </a>
       )}
     </div>
   )
 }
 
-export function GuidePage({ guide }: { guide: Guide }) {
-  const title = guideTitles[guide.number - 1]
-
+export function GuidePage({ guide, meta }: { guide: Guide; meta: GuideMeta }) {
   useEffect(() => {
-    document.title = `${title} — Zero to 100 · Dante Galeazzi`
-  }, [title])
+    document.title = `${meta.title} — ${meta.crumb.label} · Dante Galeazzi`
+  }, [meta.title, meta.crumb.label])
 
   const toc: TocItem[] = [
     ...guide.sections.map((section, index) => ({ id: `step-${index + 1}`, label: section.kicker, number: index + 1 })),
@@ -341,12 +332,12 @@ export function GuidePage({ guide }: { guide: Guide }) {
   return (
     <article className="mt-6 grid gap-10 px-1 pb-16 lg:grid-cols-[12rem_minmax(0,44rem)] lg:justify-center lg:gap-12 xl:grid-cols-[12rem_minmax(0,44rem)_13rem]">
       <aside className="hidden lg:block">
-        <TableOfContents toc={toc} active={active} />
+        <TableOfContents toc={toc} active={active} back={meta.back} />
       </aside>
 
       <div className="grid min-w-0 gap-12">
         <div className="grid gap-4">
-          <Header guide={guide} />
+          <Header guide={guide} meta={meta} />
           <Summary guide={guide} />
           <MobileJump toc={toc} />
         </div>
@@ -384,11 +375,11 @@ export function GuidePage({ guide }: { guide: Guide }) {
           <GuidePrompts prompts={guide.prompts} />
         </section>
 
-        <GuideNav number={guide.number} />
+        <GuideNav prev={meta.prev} next={meta.next} />
       </div>
 
       <aside className="hidden xl:block">
-        <SideRail guide={guide} />
+        <SideRail guide={guide} next={meta.next} />
       </aside>
     </article>
   )

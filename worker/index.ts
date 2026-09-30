@@ -93,8 +93,8 @@ async function handleSubscribe(request: Request, env: Env): Promise<Response> {
     body: JSON.stringify({
       from: env.RESEND_FROM ?? 'onboarding@resend.dev',
       to: [env.RESEND_TO ?? 'dante@finikslabs.com'],
-      subject: 'New Make AI Do The Work signup',
-      html: `<p>A new person signed up for Make AI Do The Work:</p><p><strong>${escapeHtml(email)}</strong></p>`,
+      subject: 'New From Zero to 100 newsletter signup',
+      html: `<p>A new person joined the From Zero to 100 newsletter waitlist:</p><p><strong>${escapeHtml(email)}</strong></p>`,
     }),
   })
 

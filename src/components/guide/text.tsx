@@ -18,7 +18,7 @@ export function SansDigits({ text }: { text: string }) {
 }
 
 // "\n" keeps the carousel's hand-set line breaks on wider screens; [[words]] get the yellow marker.
-export function RichText({ text }: { text: string }) {
+export function RichText({ text, keepBreaksOnMobile = false }: { text: string; keepBreaksOnMobile?: boolean }) {
   const lines = text.split('\n')
   return (
     <>
@@ -27,7 +27,7 @@ export function RichText({ text }: { text: string }) {
           {lineIndex > 0 && (
             <>
               {' '}
-              <br className="max-sm:hidden" />
+              <br className={keepBreaksOnMobile ? undefined : 'max-sm:hidden'} />
             </>
           )}
           {line.split(/(\[\[.+?\]\])/).map((part, partIndex) =>

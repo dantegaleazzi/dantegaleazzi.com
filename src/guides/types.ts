@@ -39,8 +39,21 @@ export type GuideTest = {
   result: string
 }
 
+export type GuideLink = { href: string; label: string; title: string }
+
+// Where a guide sits: its series breadcrumb, window file name and prev/next links.
+export type GuideMeta = {
+  title: string
+  file: string
+  crumb: { href: string; label: string }
+  back: { href: string; label: string }
+  part: string
+  prev?: GuideLink
+  next?: GuideLink
+}
+
 export type Guide = {
-  number: number
+  number?: number
   chip?: string
   hook: string
   subtitle: string

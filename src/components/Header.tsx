@@ -1,13 +1,29 @@
-import { Menu, X } from 'lucide-react'
+import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { links } from '../content/site'
 
-const navItems = [
-  { label: 'Workflows', href: '/#workflows' },
-  { label: 'Newsletter', href: '/#newsletter' },
-  { label: 'Free Resources', href: '/#resources' },
-  { label: 'Projects', href: '/#projects' },
-  { label: 'About Me', href: '/#about' },
+const shipatonPath = '/shipaton-application'
+
+const homeNav = [
+  { label: 'Sted', href: '/#sted' },
+  { label: 'Process', href: '/#process' },
+  { label: 'Guides', href: '/#guides' },
+  { label: 'Lessons', href: '/#lessons' },
+  { label: 'Tools', href: '/#tools' },
+  { label: 'Resources', href: '/#resources' },
 ]
+
+const shipatonNav = [
+  { label: 'Story', href: `${shipatonPath}#story` },
+  { label: 'In public', href: `${shipatonPath}#in-public` },
+  { label: 'Interviews', href: `${shipatonPath}#interviews` },
+  { label: 'Guides', href: `${shipatonPath}#guides` },
+  { label: 'Toolbox', href: `${shipatonPath}#toolbox` },
+]
+
+const navItems = window.location.pathname.replace(/\/+$/, '') === shipatonPath ? shipatonNav : homeNav
+
+const tryStedHref = links.stedAppStore || links.stedWebsite
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -43,6 +59,15 @@ export function Header() {
             {label}
           </a>
         ))}
+        <a
+          className="ml-1 flex items-center gap-1.5 rounded-md border-2 border-ink bg-signal px-3 py-2 font-bold no-underline transition-colors hover:bg-ink hover:text-white"
+          href={tryStedHref}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Get Sted
+          <ArrowUpRight className="size-3.5" aria-hidden="true" />
+        </a>
       </nav>
 
       {isMenuOpen && (
@@ -61,6 +86,16 @@ export function Header() {
               {label}
             </a>
           ))}
+          <a
+            className="flex items-center justify-between bg-signal px-4 py-3 no-underline"
+            href={tryStedHref}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Get Sted
+            <ArrowUpRight className="size-3.5" aria-hidden="true" />
+          </a>
         </nav>
       )}
     </header>

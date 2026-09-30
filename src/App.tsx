@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { About } from './components/About'
-import { StartHere } from './components/StartHere'
-import { BuildLogs } from './components/BuildLogs'
-import { WorkflowCards } from './components/WorkflowCards'
-import { NewsletterSection } from './components/NewsletterSection'
-import { ProjectsSection } from './components/ProjectsSection'
-import { FreeResources } from './components/FreeResources'
+import { BuildYoursSection, InPublicSection, NewsletterSoon, StorySection } from './components/home/HomeSections'
 import { ZeroToHundredGuide, ZeroToHundredIndex } from './components/ZeroToHundred'
+import { socials } from './content/site'
 import { guideIndexPath, guideTitles } from './guides'
+import { HomeV1 } from './versions/v1/HomeV1'
+import { HomeV2 } from './versions/v2/HomeV2'
+import { GuidePage } from './components/guide/GuidePage'
+import { lessonMeta, lessons } from './guides/lessons'
 
 function getZeroToHundredRoute(pathname: string): 'index' | number | null {
   const path = pathname.replace(/\/+$/, '')
@@ -20,25 +19,24 @@ function getZeroToHundredRoute(pathname: string): 'index' | number | null {
   return number >= 1 && number <= guideTitles.length ? number : null
 }
 
+const footerLinks = Object.values(socials).filter((social) => social.href)
+
 function App() {
   const zeroToHundredRoute = getZeroToHundredRoute(window.location.pathname)
-  const [currentPage, setCurrentPage] = useState<'home' | 'about'>('home')
+  const path = window.location.pathname.replace(/\/+$/, '')
+  const isVersion1 = path === '/version-1'
+  const isVersion2 = path === '/version-2'
+  const isShipatonApplication = path === '/shipaton-application'
+  const lessonIndex = lessons.findIndex((lesson) => lesson.path === path)
 
-  // Handle hash changes for simple routing
+  // The browser tries to jump to the #hash before React renders the page, so do it once rendered.
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash
-      if (hash === '#about') {
-        setCurrentPage('about')
-      } else {
-        setCurrentPage('home')
-      }
-    }
-
-    window.addEventListener('hashchange', handleHashChange)
-    handleHashChange() // Check on load
-
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    const jump = () => window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: 'instant' }), 0)
+    if (document.readyState === 'complete') jump()
+    else window.addEventListener('load', jump, { once: true })
+    return () => window.removeEventListener('load', jump)
   }, [])
 
   return (
@@ -46,35 +44,42 @@ function App() {
       <Header />
 
       <main id="top">
-        {zeroToHundredRoute === 'index' ? (
-          <ZeroToHundredIndex />
-        ) : zeroToHundredRoute !== null ? (
-          <ZeroToHundredGuide number={zeroToHundredRoute} />
-        ) : currentPage === 'home' ? (
+        {isVersion1 ? (
+          <HomeV1 />
+        ) : isShipatonApplication ? (
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <Hero />
             </section>
-            <StartHere />
-            <BuildLogs />
-            <WorkflowCards />
-            <FreeResources />
-            <ProjectsSection />
-            <NewsletterSection />
+            <StorySection />
+            <InPublicSection />
+            <BuildYoursSection />
+            <NewsletterSoon />
           </>
+        ) : isVersion2 ? (
+          <HomeV2 />
+        ) : lessonIndex >= 0 ? (
+          <GuidePage guide={lessons[lessonIndex].guide} meta={lessonMeta(lessonIndex)} />
+        ) : zeroToHundredRoute === 'index' ? (
+          <ZeroToHundredIndex />
+        ) : zeroToHundredRoute !== null ? (
+          <ZeroToHundredGuide number={zeroToHundredRoute} />
         ) : (
-          <section className="border-b-2 border-ink lg:p-12 lg:pb-16" aria-labelledby="hero-title">
-            <About />
-          </section>
+          // The main home is the version-2 layout until its cleanup lands.
+          <HomeV2 />
         )}
       </main>
 
-      <footer className="site-footer flex flex-col gap-3 py-6 font-mono text-[0.68rem] uppercase sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Dante Galeazzi · Make useful things.</p>
-        <div className="flex gap-5">
-          <a className="nav-link" href="https://x.com/dantegaleazzi" target="_blank" rel="noreferrer">X</a>
-          <a className="nav-link" href="https://github.com/dantegaleazzi" target="_blank" rel="noreferrer">GitHub</a>
-          <a className="nav-link" href="https://www.linkedin.com/in/dantesgaleazzi/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <footer className="site-footer flex flex-col gap-3 border-t-2 border-ink py-6 font-mono text-[0.68rem] uppercase sm:flex-row sm:items-center sm:justify-between">
+        <p>
+          © <span className="font-sans">{new Date().getFullYear()}</span> Dante Galeazzi · Building in public
+        </p>
+        <div className="flex flex-wrap gap-5">
+          {footerLinks.map(({ label, href }) => (
+            <a key={href} className="nav-link" href={href} target="_blank" rel="noreferrer">
+              {label}
+            </a>
+          ))}
         </div>
       </footer>
     </div>

@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { useEffect } from 'react'
-import { guidePath, guideTitles, guides } from '../guides'
+import { guidePath, guideTitles, guides, seriesMeta } from '../guides'
 import { GuidePage } from './guide/GuidePage'
 import { WindowFrame, monoLabel } from './guide/Visuals'
 import { SansDigits } from './guide/text'
@@ -58,5 +58,5 @@ export function ZeroToHundredIndex() {
 }
 
 export function ZeroToHundredGuide({ number }: { number: number }) {
-  return <GuidePage guide={guides[number]} />
+  return <GuidePage guide={guides[number]} meta={seriesMeta(number)} />
 }
