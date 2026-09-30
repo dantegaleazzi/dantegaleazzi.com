@@ -5,7 +5,6 @@ import { BuildYoursSection, InPublicSection, NewsletterSoon, StorySection } from
 import { ZeroToHundredGuide, ZeroToHundredIndex } from './components/ZeroToHundred'
 import { socials } from './content/site'
 import { guideIndexPath, guideTitles } from './guides'
-import { HomeV1 } from './versions/v1/HomeV1'
 import { HomeV2 } from './versions/v2/HomeV2'
 import { GuidePage } from './components/guide/GuidePage'
 import { lessonMeta, lessons } from './guides/lessons'
@@ -24,8 +23,6 @@ const footerLinks = Object.values(socials).filter((social) => social.href)
 function App() {
   const zeroToHundredRoute = getZeroToHundredRoute(window.location.pathname)
   const path = window.location.pathname.replace(/\/+$/, '')
-  const isVersion1 = path === '/version-1'
-  const isVersion2 = path === '/version-2'
   const isShipatonApplication = path === '/shipaton-application'
   const lessonIndex = lessons.findIndex((lesson) => lesson.path === path)
 
@@ -44,9 +41,7 @@ function App() {
       <Header />
 
       <main id="top">
-        {isVersion1 ? (
-          <HomeV1 />
-        ) : isShipatonApplication ? (
+        {isShipatonApplication ? (
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <Hero />
@@ -56,8 +51,6 @@ function App() {
             <BuildYoursSection />
             <NewsletterSoon />
           </>
-        ) : isVersion2 ? (
-          <HomeV2 />
         ) : lessonIndex >= 0 ? (
           <GuidePage guide={lessons[lessonIndex].guide} meta={lessonMeta(lessonIndex)} />
         ) : zeroToHundredRoute === 'index' ? (
@@ -65,7 +58,6 @@ function App() {
         ) : zeroToHundredRoute !== null ? (
           <ZeroToHundredGuide number={zeroToHundredRoute} />
         ) : (
-          // The main home is the version-2 layout until its cleanup lands.
           <HomeV2 />
         )}
       </main>

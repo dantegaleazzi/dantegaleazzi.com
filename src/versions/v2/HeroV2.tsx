@@ -1,4 +1,3 @@
-// Temporary: the previous home iteration, mounted at /version-2 for side-by-side comparison. Remove before shipping.
 import { ArrowDown, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { buildLog, links } from '../../content/site'
 import { WindowFrame, monoLabel } from '../../components/guide/Visuals'

@@ -1,4 +1,3 @@
-// Temporary: the previous home iteration, mounted at /version-2 for side-by-side comparison. Remove before shipping.
 import { ArrowDown, ArrowRight, ArrowUpRight, CirclePlay, ListVideo, Mic, Smartphone } from 'lucide-react'
 import type { ReactNode } from 'react'
 import {

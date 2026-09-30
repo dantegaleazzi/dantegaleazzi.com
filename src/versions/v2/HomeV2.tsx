@@ -1,4 +1,4 @@
-// Temporary: the previous home iteration, mounted at /version-2 for side-by-side comparison. Remove before shipping.
+// The main home (the "version 2" layout). The Shipaton story lives at /shipaton-application.
 import { NewsletterSoon } from '../../components/home/HomeSections'
 import { HeroV2 } from './HeroV2'
 import { BuildYoursSection, ProcessSection, StedSection } from './HomeSectionsV2'
