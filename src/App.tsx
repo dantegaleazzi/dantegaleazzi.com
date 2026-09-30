@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { BuildYoursSection, InPublicSection, NewsletterSoon, StorySection } from './components/home/HomeSections'
+import { BuildYoursSection, InPublicSection, StorySection } from './components/home/HomeSections'
 import { ZeroToHundredGuide, ZeroToHundredIndex } from './components/ZeroToHundred'
 import { socials } from './content/site'
 import { guideIndexPath, guideTitles } from './guides'
@@ -58,7 +58,6 @@ function App() {
             <StorySection />
             <InPublicSection />
             <BuildYoursSection />
-            <NewsletterSoon />
           </>
         ) : lessonIndex >= 0 ? (
           <GuidePage guide={lessons[lessonIndex].guide} meta={lessonMeta(lessonIndex)} />
