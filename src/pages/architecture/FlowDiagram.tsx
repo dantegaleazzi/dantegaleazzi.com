@@ -36,7 +36,7 @@ const saveRowY = (index: number) => 520 + index * 64
 const objectRowY = (index: number) => 436 + index * 50
 const chipBox = (index: number) => ({ x: cols.retrieve.x + 12 + (index % 2) * 126, y: 430 + Math.floor(index / 2) * 42, w: 118, h: 34 })
 const fieldRowY = (index: number) => 446 + index * 35
-const outputRowY = (index: number) => 552 + index * 38
+const outputRowY = (index: number) => 570 + index * 33
 const checkRowY = (index: number) => 440 + index * 44
 const useRowY = (index: number) => 448 + index * 54
 const recovery = { x: cols.retrieve.x + 12, y: 656, w: cols.retrieve.w - 24, h: 130 }
@@ -63,7 +63,7 @@ function anchors(example: Example): Record<StageId, number> {
     recognize: objectRowY(objects.findIndex(({ id }) => id === example.object)) + 21,
     retrieve: chip.y + chip.h / 2,
     evidence: 544,
-    understand: 478,
+    understand: 520,
     validate: checkRowY(1) + 18,
     use: useRowY(0) + 22,
   }
@@ -226,7 +226,7 @@ export function FlowDiagram({ example, showRecovery, playing, runId, frozen, exp
       </defs>
       <rect width={W} height={H} fill={palette.bg} />
       <DiagramBackdrop />
-      <DiagramHeader eyebrow={pageCopy.linkStep} title={pageCopy.title} subtitle={pageCopy.subtitle} tag={pageCopy.walkthroughNote.replace('.', '')} />
+      <DiagramHeader eyebrow={pageCopy.linkStep} title={pageCopy.title} highlight="V2 architecture" subtitle={pageCopy.subtitle} tag={pageCopy.walkthroughNote.replace('.', '')} />
 
       {/* Current example */}
       <T x={96} y={288} size={12.5} mono color={palette.muted}>
@@ -415,46 +415,52 @@ export function FlowDiagram({ example, showRecovery, playing, runId, frozen, exp
         </T>
       </NodeButton>
 
-      {/* 05 UNDERSTAND */}
-      <NodeButton label="Understand: AI Provider and object-specific prompts" onSelect={pick('understand')} selected={isSelected('understand')} ring={ring('understand')}>
+      {/* 05 UNDERSTAND: evidence checks decide between a deterministic result and AI understanding */}
+      <NodeButton
+        label="Understand: evidence checks choose a deterministic result or AI understanding"
+        onSelect={pick('understand')}
+        selected={isSelected('understand')}
+        ring={ring('understand')}
+      >
         {stageCard('understand')}
-        {cardTitle('understand', ['AI interprets the', 'available evidence.'])}
-        <rect
-          x={cols.understand.x + 12}
-          y={448}
-          width={cols.understand.w - 24}
-          height={60}
-          rx={8}
-          fill={lit('understand') ? palette.ai : palette.surfaceRaised}
-          fillOpacity={lit('understand') ? 0.12 : 1}
-          stroke={lit('understand') ? palette.ai : palette.lineSoft}
-          strokeWidth={1.3}
-        />
-        <SparkIcon x={cols.understand.x + 26} y={462} size={14} color={lit('understand') ? palette.ai : palette.muted} />
-        <T x={cols.understand.x + 48} y={474} size={11} mono color={palette.muted}>
-          AI PROVIDER
+        {cardTitle('understand', ['Evidence checks pick', 'the path for each link.'])}
+        <T x={cols.understand.x + 18} y={462} size={11} mono color={palette.muted}>
+          EVIDENCE CHECK
         </T>
-        <T x={cols.understand.x + 26} y={496} size={14} weight={700} color={lit('understand') ? palette.text : palette.muted}>
-          Object-specific prompt
-        </T>
-        <T x={cols.understand.x + 18} y={538} size={11} mono color={palette.muted}>
-          STRUCTURED OUTPUT
+        {[
+          { id: 'deterministic', label: 'Deterministic result' },
+          { id: 'ai', label: 'AI understanding' },
+        ].map(({ id, label }, index) => {
+          const y = 472 + index * 34
+          const active = id === example.understanding
+          return (
+            <g key={id}>
+              {fullRow('understand', y, 28, active)}
+              {id === 'ai' && <SparkIcon x={cols.understand.x + 26} y={y + 7} size={14} color={active && lit('understand') ? palette.ai : palette.muted} />}
+              <T x={cols.understand.x + (id === 'ai' ? 48 : 28)} y={y + 19} size={13.5} weight={active ? 700 : 500} color={active && lit('understand') ? palette.text : palette.muted}>
+                {label}
+              </T>
+            </g>
+          )
+        })}
+        <T x={cols.understand.x + 18} y={560} size={11} mono color={palette.muted}>
+          AI PROVIDER OUTPUT
         </T>
         {outputs.map((output, index) => {
           const y = outputRowY(index)
           return (
             <g key={output}>
-              {fullRow('understand', y, 32, true)}
-              <T x={cols.understand.x + 28} y={y + 21} size={14} color={lit('understand') ? palette.text : palette.muted}>
+              {fullRow('understand', y, 27, example.understanding === 'ai')}
+              <T x={cols.understand.x + 28} y={y + 18.5} size={13.5} color={lit('understand') ? palette.text : palette.muted}>
                 {output}
               </T>
             </g>
           )
         })}
-        <T x={cols.understand.x + 18} y={762} size={11} mono color={palette.muted}>
-          EVIDENCE CHECK
+        <T x={cols.understand.x + 18} y={758} size={11} mono color={palette.muted}>
+          CHECK RESULT
         </T>
-        <T x={cols.understand.x + 18} y={782} size={13.5} weight={700} color={lit('understand') ? coverage.color : palette.faint}>
+        <T x={cols.understand.x + 18} y={778} size={13.5} weight={700} color={lit('understand') ? coverage.color : palette.faint}>
           {lit('understand') ? example.check : 'Waiting for evidence'}
         </T>
       </NodeButton>
@@ -567,10 +573,10 @@ export function DiagramBackdrop() {
     <>
       <defs>
         <pattern id="arch-dots" width="24" height="24" patternUnits="userSpaceOnUse">
-          <circle cx="1.2" cy="1.2" r="1.1" fill="#1b1e24" />
+          <circle cx="1.2" cy="1.2" r="1.1" fill={palette.dot} />
         </pattern>
         <radialGradient id="arch-glow" cx="55%" cy="35%" r="80%">
-          <stop offset="0%" stopColor="#14171c" />
+          <stop offset="0%" stopColor={palette.glow} />
           <stop offset="100%" stopColor={palette.bg} />
         </radialGradient>
       </defs>

@@ -15,7 +15,7 @@ const nodes: Record<SystemNodeId, Box & { lines: string[]; brands: Brand[]; colo
   surfaces: { x: 1500, y: 360, w: 324, h: 200, lines: [], brands: [], color: palette.storage },
   askStedService: { x: 400, y: 690, w: 300, h: 120, lines: ['Vercel AI SDK · tool loop'], brands: ['vercel'], color: palette.ai },
   askTools: { x: 760, y: 690, w: 300, h: 120, lines: ['Server tools over the user’s library'], brands: [], color: palette.ai },
-  answer: { x: 1120, y: 690, w: 280, h: 120, lines: ['Linked to saved items'], brands: [], color: palette.storage },
+  answer: { x: 1120, y: 690, w: 280, h: 120, lines: ['Links the sources it used'], brands: [], color: palette.storage },
   revenuecat: { x: 1460, y: 690, w: 364, h: 100, lines: ['Subscriptions + entitlements'], brands: ['revenuecat'], color: palette.input },
   checkout: { x: 1460, y: 820, w: 364, h: 110, lines: ['RevenueCat hosted funnels', '+ Stripe'], brands: ['revenuecat', 'stripe'], color: palette.input },
   website: { x: 96, y: 880, w: 250, h: 60, lines: [], brands: ['cloudflare'], color: palette.line },
@@ -23,8 +23,8 @@ const nodes: Record<SystemNodeId, Box & { lines: string[]; brands: Brand[]; colo
 
 const steps = [
   { label: 'Retrieval', detail: 'Adapters', color: palette.retrieval },
-  { label: 'Evidence', detail: 'EvidenceBundle', color: palette.evidence },
-  { label: 'AI understanding', detail: 'AI Provider', color: palette.ai },
+  { label: 'Evidence', detail: 'Evidence checks', color: palette.evidence },
+  { label: 'Understanding', detail: 'Deterministic · AI', color: palette.ai },
   { label: 'Validation', detail: 'Checks + publish', color: palette.storage },
 ]
 
@@ -88,7 +88,7 @@ export function SystemDiagram({ exporting, selected, onSelect, svgRef }: SystemD
       </defs>
       <rect width={W} height={H} fill={palette.bg} />
       <DiagramBackdrop />
-      <DiagramHeader eyebrow="System map" title={pageCopy.title} subtitle={pageCopy.subtitle} tag="Conceptual map" />
+      <DiagramHeader eyebrow="System map" title={pageCopy.title} highlight="V2 architecture" subtitle={pageCopy.subtitle} tag="Conceptual map" />
       <CategoryLegend x={1440} y={150} />
 
       {[
@@ -152,7 +152,7 @@ export function SystemDiagram({ exporting, selected, onSelect, svgRef }: SystemD
               <T x={x + 14} y={captureApi.y + 141} size={14.5} weight={700}>
                 {step.label}
               </T>
-              <T x={x + 14} y={captureApi.y + 164} size={11} mono color={palette.muted}>
+              <T x={x + 14} y={captureApi.y + 164} size={10.5} mono color={palette.muted}>
                 {step.detail.toUpperCase()}
               </T>
               {index < steps.length - 1 && <path d={`M ${x + 161} ${captureApi.y + 147} h 10`} stroke={palette.muted} strokeWidth={1.4} markerEnd="url(#system-arrow)" />}

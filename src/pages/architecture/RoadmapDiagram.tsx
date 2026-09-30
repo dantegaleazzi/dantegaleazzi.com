@@ -14,6 +14,7 @@ export function RoadmapDiagram({ svgRef }: { svgRef: Ref<SVGSVGElement> }) {
       <DiagramHeader
         eyebrow="02 — Ask Sted · What comes next"
         title="What comes next"
+        highlight="next"
         subtitle="Proposals and pending work. None of this is part of the current Ask Sted."
         tag="Roadmap"
       />

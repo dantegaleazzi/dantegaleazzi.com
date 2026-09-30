@@ -1,5 +1,6 @@
 // Step 02: how Ask Sted works today. Keep this in line with the deployed chat:
-// - an exact URL and the dedicated history/schedule API controls skip the AI Provider;
+// - an exact URL is a direct save that bypasses the Chat model (step 01 may still use the AI Provider later);
+// - the dedicated history/schedule API controls skip the AI Provider too;
 // - every natural-language request goes through the AI Provider, which picks tools that our server runs;
 // - context = persisted history (up to 8 previous messages, 4,000 characters each) + bounded tool evidence;
 // - the iOS app receives JSON (no streaming). Anything else belongs in the roadmap, labeled as such.
@@ -7,7 +8,7 @@ import type { NodeInfo } from './content'
 
 export type ToolId = 'search' | 'read' | 'recent' | 'period' | 'overview' | 'listSchedules' | 'createSchedule' | 'deleteSchedule' | 'save' | 'help'
 
-export type Tool = { id: ToolId; name: string; technical: string; rule: string }
+export type Tool = { id: ToolId; name: string; technical: string; rule: string; note?: string }
 
 export const toolGroups: { group: string; tools: Tool[] }[] = [
   {
@@ -20,13 +21,25 @@ export const toolGroups: { group: string; tools: Tool[] }[] = [
   {
     group: 'Summarize',
     tools: [
-      { id: 'recent', name: 'Summarize recent saves', technical: 'summarize_recent_items', rule: 'Summarizes the latest saves from retrieved evidence.' },
-      { id: 'period', name: 'Today · Yesterday · This week', technical: 'summarize_period', rule: 'Summarizes the saves from one period, from retrieved evidence.' },
+      {
+        id: 'recent',
+        name: 'Summarize recent saves',
+        technical: 'summarize_recent_items',
+        rule: 'Loads recent saves for summarization.',
+        note: 'The AI Provider synthesizes the retrieved evidence.',
+      },
+      {
+        id: 'period',
+        name: 'Today · Yesterday · This week',
+        technical: 'summarize_period',
+        rule: 'Loads saves from the selected period for summarization.',
+        note: 'The AI Provider synthesizes the retrieved evidence.',
+      },
     ],
   },
   {
     group: 'Library',
-    tools: [{ id: 'overview', name: 'Library count', technical: 'library_overview', rule: 'Counts and describes the user’s library.' }],
+    tools: [{ id: 'overview', name: 'Library count', technical: 'library_overview', rule: 'Returns the exact number of saved items.' }],
   },
   {
     group: 'Weekly schedules',
@@ -88,13 +101,13 @@ export const chatExamples: ChatExample[] = [
   {
     id: 'schedule',
     label: 'Weekly schedule',
-    message: 'Remind me every Friday at 6 PM.',
+    message: 'Send me a summary of my saves every Friday at 6 PM.',
     route: 'question',
     tool: 'createSchedule',
     readsLibrary: false,
     result: ['Weekly summary scheduled', 'Fridays · 6 PM'],
     sources: [],
-    note: 'Handled as a weekly summary schedule, not as a general reminder. The day and time are explicit, so the schedule can be created.',
+    note: 'A weekly summary schedule, not a general reminder. The day and time are explicit, so the schedule can be created.',
   },
   {
     id: 'url',
@@ -104,7 +117,7 @@ export const chatExamples: ChatExample[] = [
     readsLibrary: false,
     result: ['Saved · Processing'],
     sources: [],
-    note: 'An exact URL skips the AI Provider and goes straight to Capture. The reply confirms the save; nothing about the content is known until it has been read.',
+    note: 'An exact URL is a direct save that bypasses the Chat model. The reply confirms the save; nothing about the content is known until it has been read. Understanding it later, in step 01, may use the AI Provider.',
   },
 ]
 
@@ -137,13 +150,13 @@ export const chatInfo: Record<ChatNodeId, NodeInfo> = {
     kicker: 'Step 02 · Backend',
     title: 'Request router',
     summary:
-      'An exact URL goes straight to Capture, and the dedicated history and schedule controls are handled without the AI Provider. Natural-language requests use the AI Provider to select tools.',
+      'An exact URL is a direct save that bypasses the Chat model, and the dedicated history and schedule controls are handled without the AI Provider. Natural-language requests use the AI Provider to select tools.',
     technical: 'Greetings, counts and period inventories written in natural language still go through the AI Provider today.',
   },
   capture: {
     kicker: 'Step 02 · Exact URL',
-    title: 'Capture',
-    summary: 'The link enters the step 01 pipeline. Accepting it needs no AI Provider call.',
+    title: 'Direct save',
+    summary: 'The link is saved directly and bypasses the Chat model. It then enters the step 01 pipeline, where understanding the content may use the AI Provider.',
   },
   confirmation: {
     kicker: 'Step 02 · Exact URL',
@@ -154,9 +167,9 @@ export const chatInfo: Record<ChatNodeId, NodeInfo> = {
     kicker: 'Step 02 · Memory',
     title: 'Conversation context',
     summary:
-      'Persisted in Supabase: conversations, messages, sources and response metadata. Sent to the AI Provider: the current question, up to eight previous messages and the bounded evidence tools return.',
+      'Persisted in Supabase: conversations, messages, sources and response metadata. Sent to the AI Provider: the current question, bounded recent conversation context and the bounded evidence tools return.',
     technical:
-      'Previous messages are capped at 4,000 characters each. This is persisted history plus a bounded context window. Conversation compaction and semantic memory are future improvements.',
+      'Recent context is up to eight previous messages, capped at 4,000 characters per previous message. This is persisted history plus a bounded context window. Conversation compaction and semantic memory are future improvements.',
   },
   sdk: {
     kicker: 'Step 02 · Orchestration',

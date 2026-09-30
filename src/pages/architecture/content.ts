@@ -3,26 +3,33 @@
 // The AI is always "AI Provider": the model behind it changes, so no model or vendor is named.
 import type { Brand } from './brandPaths'
 
+// The website's look: paper background, ink borders, yellow marker. Accents are dark enough to read on light.
 export const palette = {
-  bg: '#0b0c0e',
-  surface: '#121418',
-  surfaceRaised: '#171a1f',
-  line: '#2a2e35',
-  lineSoft: '#1f2228',
-  text: '#f2efe6',
-  muted: '#8d919a',
-  faint: '#5d616a',
-  input: '#e8e4da',
-  retrieval: '#5cc8ff',
-  evidence: '#ffd400',
-  ai: '#b79cff',
-  storage: '#5fd6a0',
-  pending: '#7a7f89',
-  full: '#5fd6a0',
-  partial: '#ffd400',
-  metadata: '#ff9f4a',
-  failed: '#ff6b6b',
+  bg: '#faf6ec',
+  surface: '#ffffff',
+  surfaceRaised: '#f7f2e8',
+  offRoute: '#f6f2e8',
+  line: '#cfc8b8',
+  lineSoft: '#e6e0d2',
+  cardStroke: '#1e1e1e',
+  dot: '#e3dccb',
+  glow: '#faf6ec',
+  marker: '#ffd400',
+  text: '#1e1e1e',
+  muted: '#5f625b',
+  faint: '#9d998f',
+  input: '#1e1e1e',
+  retrieval: '#2574c0',
+  evidence: '#a87e00',
+  ai: '#6d4fcb',
+  storage: '#23865a',
+  pending: '#8a877f',
+  full: '#23865a',
+  partial: '#a87e00',
+  metadata: '#c95f14',
+  failed: '#c23b2c',
 }
+
 
 export const fonts = {
   sans: "'Space Grotesk', Arial, sans-serif",
@@ -116,6 +123,8 @@ export type Example = {
   fields: Record<FieldId, FieldState>
   coverage: Coverage
   check: string
+  // Every walkthrough example goes through AI understanding; the deterministic path exists but is not simulated here.
+  understanding: 'deterministic' | 'ai'
   result: 'Full result' | 'Limited result'
   note: string
 }
@@ -131,6 +140,7 @@ export const examples: Example[] = [
     fields: { text: 'found', caption: 'na', transcript: 'na', author: 'found', media: 'found', refs: 'found' },
     coverage: 'full',
     check: 'Enough evidence',
+    understanding: 'ai',
     result: 'Full result',
     note: 'Complete example: the article body, author and page metadata are all readable.',
   },
@@ -144,6 +154,7 @@ export const examples: Example[] = [
     fields: { text: 'found', caption: 'na', transcript: 'missing', author: 'found', media: 'found', refs: 'found' },
     coverage: 'partial',
     check: 'Limited: no transcript',
+    understanding: 'ai',
     result: 'Limited result',
     note: 'Partial example: title, description and channel are available, but no transcript came back.',
   },
@@ -157,6 +168,7 @@ export const examples: Example[] = [
     fields: { text: 'na', caption: 'found', transcript: 'missing', author: 'found', media: 'found', refs: 'found' },
     coverage: 'partial',
     check: 'Limited: caption only',
+    understanding: 'ai',
     result: 'Limited result',
     note: 'Partial example: the public caption and reel metadata are available, without a transcript.',
   },
@@ -170,6 +182,7 @@ export const examples: Example[] = [
     fields: { text: 'found', caption: 'na', transcript: 'na', author: 'found', media: 'found', refs: 'found' },
     coverage: 'full',
     check: 'Enough evidence',
+    understanding: 'ai',
     result: 'Full result',
     note: 'Complete example: the public API returns the repository metadata and the README text.',
   },
@@ -216,8 +229,9 @@ export const flowInfo: Record<FlowNodeId, NodeInfo> = {
   understand: {
     kicker: '05 · Understand',
     title: 'Understand the evidence',
-    summary: 'The AI Provider interprets the available evidence, with a prompt specific to the content type.',
-    technical: 'Structured output: title, summary, key ideas, topics and a suggested project. When evidence is thin, the result is limited.',
+    summary:
+      'Evidence checks decide the path: a deterministic result, or AI understanding. When the AI Provider is used, it interprets the available evidence with a prompt specific to the content type.',
+    technical: 'Structured output: title, summary, key ideas, topics and a suggested project. Not every link needs the AI Provider. When evidence is thin, the result is limited.',
   },
   validate: {
     kicker: '06 · Validate & publish',
@@ -260,7 +274,7 @@ export const systemInfo: Record<SystemNodeId, NodeInfo> = {
   captureApi: {
     kicker: 'Capture API',
     title: 'V2 pipeline',
-    summary: 'Retrieval, evidence, AI understanding and validation for every saved link.',
+    summary: 'Retrieval, evidence, understanding and validation for every saved link. Evidence checks decide between a deterministic result and AI understanding.',
     technical: 'TypeScript on Node.js, running on Google Cloud Run. An AI Provider powers the understanding step.',
   },
   supabase: {
@@ -288,7 +302,7 @@ export const systemInfo: Record<SystemNodeId, NodeInfo> = {
   answer: {
     kicker: 'Ask Sted',
     title: 'Answer with sources',
-    summary: 'Every answer points back to the saved items it used.',
+    summary: 'Answers about saved content link to the sources they use.',
   },
   revenuecat: {
     kicker: 'Payments',

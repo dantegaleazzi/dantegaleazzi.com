@@ -9,8 +9,8 @@ import { HomeV2 } from './versions/v2/HomeV2'
 import { GuidePage } from './components/guide/GuidePage'
 import { lessonMeta, lessons } from './guides/lessons'
 
-// The Devpost architecture page is standalone (dark, no site header) and loads its own chunk.
-// The path's spelling is intentional: it's the URL used in the Devpost submission.
+// The Devpost architecture page loads its own chunk. The path's spelling is intentional:
+// it's the URL used in the Devpost submission.
 const architecturePath = '/devpost/arquitecture'
 const ArchitecturePage = lazy(() => import('./pages/architecture/ArchitecturePage').then((module) => ({ default: module.ArchitecturePage })))
 
@@ -41,20 +41,16 @@ function App() {
     return () => window.removeEventListener('load', jump)
   }, [])
 
-  if (path === architecturePath) {
-    return (
-      <Suspense fallback={<div className="min-h-screen bg-[#0b0c0e]" />}>
-        <ArchitecturePage />
-      </Suspense>
-    )
-  }
-
   return (
     <div className="site-frame mx-auto w-[min(100%-1.5rem,90rem)] sm:w-[min(100%-2.5rem,90rem)]">
       <Header />
 
       <main id="top">
-        {isShipatonApplication ? (
+        {path === architecturePath ? (
+          <Suspense fallback={<div className="min-h-[60vh]" />}>
+            <ArchitecturePage />
+          </Suspense>
+        ) : isShipatonApplication ? (
           <>
             <section className="hero-section" aria-labelledby="hero-title">
               <Hero />

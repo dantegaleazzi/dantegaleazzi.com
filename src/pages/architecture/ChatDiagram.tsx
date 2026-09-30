@@ -131,7 +131,7 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
     const on = lit(id)
     return (
       <NodeButton key={id} label={`${chatInfo[id].title}: ${chatInfo[id].summary}`} onSelect={pick(id)} selected={isSelected(id)} ring={box[id]}>
-        <Panel x={x} y={y} w={w} h={h} color={color[id] ?? palette.line} lit={on} fill={onRoute(id) ? palette.surface : '#0f1114'} />
+        <Panel x={x} y={y} w={w} h={h} color={color[id] ?? palette.line} lit={on} fill={onRoute(id) ? palette.surface : palette.offRoute} />
         <T x={x + 18} y={y + 32} size={17} weight={700} spacing={-0.3} color={on ? palette.text : palette.muted}>
           {title}
         </T>
@@ -147,7 +147,7 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
 
   const context = box.context
   const panel = TOOL_PANEL
-  const routeLabel = example.route === 'url' ? 'Route: Capture · no AI Provider' : `Tool: ${toolGroups.flatMap((group) => group.tools).find((tool) => tool.id === activeTool)?.name}`
+  const routeLabel = example.route === 'url' ? 'Direct save · bypasses the Chat model' : `Tool: ${toolGroups.flatMap((group) => group.tools).find((tool) => tool.id === activeTool)?.name}`
   const messageWidth = Math.min(560, example.message.length * 9.4 + 34)
 
   return (
@@ -173,7 +173,7 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
       </defs>
       <rect width={W} height={H} fill={palette.bg} />
       <DiagramBackdrop />
-      <DiagramHeader eyebrow={pageCopy.chatStep} title={pageCopy.chatTitle} subtitle={pageCopy.chatSubtitle} tag={pageCopy.walkthroughNote.replace('.', '')} />
+      <DiagramHeader eyebrow={pageCopy.chatStep} title={pageCopy.chatTitle} highlight="ready to answer" subtitle={pageCopy.chatSubtitle} tag={pageCopy.walkthroughNote.replace('.', '')} />
 
       {/* Current example */}
       <T x={96} y={288} size={12.5} mono color={palette.muted}>
@@ -202,7 +202,7 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
         [],
         <>
           {[
-            { label: 'Exact URL', target: 'Capture', active: example.route === 'url', tint: palette.retrieval },
+            { label: 'Exact URL', target: 'Direct save', active: example.route === 'url', tint: palette.retrieval },
             { label: 'Question', target: 'AI Provider + tools', active: example.route === 'question', tint: palette.ai },
           ].map(({ label, target, active, tint }, index) => {
             const y = box.router.y + 48 + index * 36
@@ -221,7 +221,7 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
           })}
         </>,
       )}
-      {node('capture', 'Capture', ['Step 01 pipeline · no AI Provider'])}
+      {node('capture', 'Direct save', ['Bypasses the Chat model'])}
       {node('confirmation', 'Save confirmation', ['Saved · Processing'])}
 
       {/* Next: broader deterministic routing */}
@@ -240,13 +240,13 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
 
       {/* Conversation context: what is stored vs what the provider sees */}
       <NodeButton label={`${chatInfo.context.title}: ${chatInfo.context.summary}`} onSelect={pick('context')} selected={isSelected('context')} ring={context}>
-        <Panel x={context.x} y={context.y} w={context.w} h={context.h} color={palette.storage} lit={lit('context')} fill={onRoute('context') ? palette.surface : '#0f1114'} />
+        <Panel x={context.x} y={context.y} w={context.w} h={context.h} color={palette.storage} lit={lit('context')} fill={onRoute('context') ? palette.surface : palette.offRoute} />
         <T x={context.x + 18} y={context.y + 34} size={17} weight={700} color={lit('context') ? palette.text : palette.muted}>
           Conversation context
         </T>
         {[
           { title: 'PERSISTED IN SUPABASE', items: ['Conversations', 'Messages', 'Sources + response metadata'], tint: palette.storage, y: context.y + 54, h: 124 },
-          { title: 'SENT TO THE AI PROVIDER', items: ['Current question', 'Up to 8 previous messages', 'Bounded evidence from tools'], tint: palette.ai, y: context.y + 192, h: 142 },
+          { title: 'SENT TO THE AI PROVIDER', items: ['Current question', 'Bounded recent conversation context', 'Bounded evidence from tools'], tint: palette.ai, y: context.y + 192, h: 124 },
         ].map(({ title, items, tint, y, h }) => (
           <g key={title}>
             <rect x={context.x + 14} y={y} width={context.w - 28} height={h} rx={9} fill={tint} fillOpacity={0.06} stroke={tint} strokeOpacity={0.5} />
@@ -256,15 +256,15 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
             {items.map((item, index) => (
               <g key={item}>
                 <circle cx={context.x + 32} cy={y + 46 + index * 24} r={3} fill={tint} />
-                <T x={context.x + 44} y={y + 51 + index * 24} size={14} color={palette.text}>
+                <T x={context.x + 44} y={y + 51 + index * 24} size={13.5} color={palette.text}>
                   {item}
                 </T>
               </g>
             ))}
           </g>
         ))}
-        <T x={context.x + 28} y={context.y + 318} size={10.5} mono color={palette.muted}>
-          MAX 4,000 CHARACTERS PER MESSAGE
+        <T x={context.x + 28} y={context.y + 338} size={12} color={palette.muted}>
+          Persisted history, not automatic memory.
         </T>
       </NodeButton>
 
@@ -380,7 +380,7 @@ export function ChatDiagram({ example, playing, runId, frozen, exporting, select
           Deterministic recap buttons
         </T>
         <T x={box.recapCandidate.x + 14} y={box.recapCandidate.y + 82} size={12} color={palette.muted}>
-          Two exact recaps, no AI Provider.
+          Answered without the AI Provider.
         </T>
         <T x={box.recapCandidate.x + 14} y={box.recapCandidate.y + 104} size={11} mono color={palette.evidence}>
           IMPLEMENTED · DEPLOY PENDING

@@ -132,11 +132,14 @@ export function Panel({
   fill?: string
   r?: number
 }) {
-  const line = pending ? pendingLine : { stroke: lit ? color : palette.line }
+  if (pending) {
+    return <rect x={x} y={y} width={w} height={h} rx={r} fill={fill} strokeWidth={1.2} {...pendingLine} />
+  }
+  // Ink border when active, a colored tab on top, quiet border otherwise.
   return (
     <>
-      <rect x={x} y={y} width={w} height={h} rx={r} fill={fill} strokeWidth={lit ? 1.6 : 1.2} {...line} />
-      {lit && !pending && <rect x={x + 18} y={y - 1.5} width={34} height={3} rx={1.5} fill={color} />}
+      <rect x={x} y={y} width={w} height={h} rx={r} fill={fill} stroke={lit ? palette.cardStroke : palette.line} strokeWidth={lit ? 2 : 1.4} />
+      {lit && <rect x={x + 16} y={y - 3} width={40} height={6} rx={3} fill={color} stroke={palette.cardStroke} strokeWidth={1.2} />}
     </>
   )
 }

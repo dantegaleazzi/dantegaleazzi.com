@@ -1,8 +1,8 @@
-import { ArrowLeft, Download, Pause, Play, RotateCcw } from 'lucide-react'
+import { Download, Pause, Play, RotateCcw } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ChatDiagram } from './ChatDiagram'
 import { allTools, chatExamples, chatInfo, type ChatExampleId, type ChatNodeId } from './chatContent'
-import { coverages, examples, fields, flowInfo, pageCopy, palette, systemInfo, type ExampleId, type FlowNodeId, type NodeInfo, type SystemNodeId } from './content'
+import { coverages, examples, fields, flowInfo, pageCopy, systemInfo, type ExampleId, type FlowNodeId, type NodeInfo, type SystemNodeId } from './content'
 import { exportPng, exportSvg } from './exportImage'
 import { FlowDiagram } from './FlowDiagram'
 import { RoadmapDiagram } from './RoadmapDiagram'
@@ -16,12 +16,42 @@ const views: { id: View; label: string }[] = [
   { id: 'system', label: 'System map' },
 ]
 
-const control =
-  'inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-[0.85rem] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffd400] disabled:cursor-not-allowed disabled:opacity-40'
-const quiet = `${control} border-[#2a2e35] bg-[#121418] text-[#f2efe6] hover:border-[#5d616a]`
-const primary = `${control} border-[#ffd400] bg-[#ffd400] text-[#0b0c0e] hover:bg-[#ffe45c]`
+const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-2'
+
+// The website's styles, so the page sits naturally inside the site frame.
+const ui = {
+  root: 'text-ink',
+  container: 'py-6',
+  muted: 'text-muted',
+  faint: 'text-ink/45',
+  body: 'text-ink/80',
+  accent: 'inline-block bg-signal px-1.5 py-0.5 text-ink',
+  card: 'rounded-lg border-2 border-ink bg-white p-5 sm:p-6',
+  frame: 'overflow-x-auto',
+  bar: 'rounded-lg border-2 border-ink bg-white px-4 py-3',
+  control: `inline-flex items-center gap-2 rounded-md border-2 border-ink px-3.5 py-2 text-[0.88rem] font-bold transition-colors ${focusRing} focus-visible:outline-ink disabled:cursor-not-allowed disabled:opacity-40`,
+  quiet: 'bg-white text-ink hover:bg-butter',
+  primary: 'bg-signal text-ink hover:bg-ink hover:text-white',
+  exampleOn: 'bg-signal text-ink',
+  exampleOff: 'bg-white text-ink/80 hover:bg-butter',
+  tabs: 'inline-flex flex-wrap gap-1 rounded-lg border-2 border-ink bg-white p-1',
+  tab: `rounded-md px-4 py-2 text-[0.88rem] font-bold transition-colors ${focusRing} focus-visible:outline-ink`,
+  tabOn: 'bg-ink text-white',
+  tabOff: 'text-ink/70 hover:bg-butter hover:text-ink',
+  toggle: `relative h-5 w-9 rounded-full border-2 border-ink bg-white transition-colors peer-checked:bg-signal peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink after:absolute after:top-0.5 after:left-0.5 after:size-3 after:rounded-full after:bg-ink after:transition-transform peer-checked:after:translate-x-4`,
+  label: 'text-ink/80',
+  found: 'text-[#23865a]',
+  missing: 'text-[#c23b2c]',
+  na: 'text-ink/40',
+  rule: 'border-ink/15',
+  error: 'text-[#c23b2c]',
+  summaryHover: 'hover:text-ink',
+}
+
+const quiet = `${ui.control} ${ui.quiet}`
+const primary = `${ui.control} ${ui.primary}`
 const mono = 'font-mono text-[0.7rem] font-medium uppercase tracking-[0.12em]'
-const card = 'rounded-2xl border border-[#1f2228] bg-[#101215] p-5 sm:p-6'
+const card = ui.card
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -43,7 +73,7 @@ function ExampleButton({ active, onClick, children }: { active: boolean; onClick
       role="radio"
       aria-checked={active}
       onClick={onClick}
-      className={`${control} ${active ? 'border-[#ffd400] bg-[#ffd400]/12 text-[#ffd400]' : 'border-[#2a2e35] bg-transparent text-[#c9c6bd] hover:border-[#5d616a]'}`}
+      className={`${ui.control} ${active ? ui.exampleOn : ui.exampleOff}`}
     >
       {children}
     </button>
@@ -54,22 +84,22 @@ function Detail({ info, empty }: { info: NodeInfo | null; empty: string }) {
   if (!info) {
     return (
       <>
-        <p className={`${mono} text-[#8d919a]`}>Explore</p>
-        <p className="mt-2 max-w-2xl leading-[1.55] text-[#c9c6bd]">{empty}</p>
+        <p className={`${mono} ${ui.muted}`}>Explore</p>
+        <p className={`mt-2 max-w-2xl leading-[1.55] ${ui.body}`}>{empty}</p>
       </>
     )
   }
   return (
     <>
-      <p className={`${mono} text-[#ffd400]`}>{info.kicker}</p>
+      <p className={`${mono} ${ui.accent}`}>{info.kicker}</p>
       <h2 className="mt-2 text-[1.5rem] leading-tight font-bold tracking-[-0.03em]">{info.title}</h2>
-      <p className="mt-2 max-w-2xl leading-[1.55] text-[#c9c6bd]">{info.summary}</p>
+      <p className={`mt-2 max-w-2xl leading-[1.55] ${ui.body}`}>{info.summary}</p>
       {info.technical && (
         <details className="mt-4 max-w-2xl">
-          <summary className={`${mono} cursor-pointer text-[#8d919a] hover:text-[#f2efe6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffd400]`}>
+          <summary className={`${mono} cursor-pointer ${ui.muted} ${ui.summaryHover} ${focusRing}`}>
             Technical detail
           </summary>
-          <p className="mt-2 leading-[1.55] text-[#8d919a]">{info.technical}</p>
+          <p className={`mt-2 leading-[1.55] ${ui.muted}`}>{info.technical}</p>
         </details>
       )}
     </>
@@ -98,12 +128,10 @@ export function ArchitecturePage() {
   const frozen = reducedMotion || exporting
 
   useEffect(() => {
-    const previous = { title: document.title, background: document.body.style.background }
+    const previous = document.title
     document.title = pageCopy.title
-    document.body.style.background = palette.bg
     return () => {
-      document.title = previous.title
-      document.body.style.background = previous.background
+      document.title = previous
     }
   }, [])
 
@@ -153,7 +181,7 @@ export function ArchitecturePage() {
     if (!chatSelected) return null
     if (chatSelected.startsWith('tool:')) {
       const tool = allTools.find(({ id }) => `tool:${id}` === chatSelected)!
-      return { kicker: 'Server tool', title: tool.name, summary: tool.rule, technical: `Technical name: ${tool.technical}. Our backend executes it; the AI Provider only requests it.` }
+      return { kicker: 'Server tool', title: tool.name, summary: tool.rule, technical: [`Technical name: ${tool.technical}.`, tool.note, 'Our backend executes it; the AI Provider only requests it.'].filter(Boolean).join(' ') }
     }
     return chatInfo[chatSelected as ChatNodeId]
   }
@@ -164,15 +192,9 @@ export function ArchitecturePage() {
   const animated = view !== 'system'
 
   return (
-    <div className="min-h-screen bg-[#0b0c0e] text-[#f2efe6]">
-      <div className="mx-auto w-[min(100%-2rem,96rem)] py-5 sm:py-7">
-        <header className="flex flex-wrap items-center justify-between gap-3">
-          <a href="/" className="inline-flex items-center gap-2 text-[0.85rem] text-[#8d919a] no-underline hover:text-[#f2efe6]">
-            <ArrowLeft className="size-4" aria-hidden="true" />
-            dantegaleazzi.com
-          </a>
-          <p className={`${mono} text-[#8d919a]`}>STED · RevenueCat Shipaton 2026</p>
-        </header>
+    <div className={ui.root}>
+      <div className={ui.container}>
+        <p className={`${mono} ${ui.muted}`}>STED · RevenueCat Shipaton 2026 · Architecture</p>
 
         {/* Each diagram draws its own title (so exports keep it); this copy is for screen readers. */}
         <div className="sr-only">
@@ -181,16 +203,14 @@ export function ArchitecturePage() {
         </div>
 
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-          <div className="inline-flex flex-wrap rounded-3xl border border-[#2a2e35] bg-[#121418] p-1" role="group" aria-label="Diagram">
+          <div className={ui.tabs} role="group" aria-label="Diagram">
             {views.map(({ id, label }) => (
               <button
                 key={id}
                 type="button"
                 aria-pressed={view === id}
                 onClick={() => switchView(id)}
-                className={`rounded-full px-4 py-2 text-[0.88rem] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffd400] ${
-                  view === id ? 'bg-[#f2efe6] text-[#0b0c0e]' : 'text-[#8d919a] hover:text-[#f2efe6]'
-                }`}
+                className={`${ui.tab} ${view === id ? ui.tabOn : ui.tabOff}`}
               >
                 {label}
               </button>
@@ -208,15 +228,15 @@ export function ArchitecturePage() {
           </div>
         </div>
         {exportError && (
-          <p className="mt-2 text-[0.85rem] text-[#ff6b6b]" role="alert">
+          <p className={`mt-2 text-[0.85rem] ${ui.error}`} role="alert">
             {exportError}
           </p>
         )}
 
         {animated && (
-          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-2xl border border-[#1f2228] bg-[#101215] px-4 py-3">
+          <div className={`mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 ${ui.bar}`}>
             <div className="flex flex-wrap items-center gap-2" role="radiogroup" aria-label="Example">
-              <span className={`${mono} mr-1 text-[#8d919a]`}>Example</span>
+              <span className={`${mono} mr-1 ${ui.muted}`}>Example</span>
               {view === 'link'
                 ? examples.map(({ id, label, coverage: level }) => (
                     <ExampleButton
@@ -254,22 +274,19 @@ export function ArchitecturePage() {
                 Replay
               </button>
               {view === 'link' && (
-                <label className="inline-flex cursor-pointer items-center gap-2.5 text-[0.85rem] text-[#c9c6bd]">
+                <label className={`inline-flex cursor-pointer items-center gap-2.5 text-[0.85rem] ${ui.label}`}>
                   <input type="checkbox" className="peer sr-only" checked={showRecovery} onChange={(event) => setShowRecovery(event.target.checked)} />
-                  <span
-                    className="relative h-5 w-9 rounded-full border border-[#2a2e35] bg-[#121418] transition-colors peer-checked:border-[#7a7f89] peer-checked:bg-[#2a2e35] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#ffd400] after:absolute after:top-0.5 after:left-0.5 after:size-3.5 after:rounded-full after:bg-[#8d919a] after:transition-transform peer-checked:after:translate-x-4 peer-checked:after:bg-[#f2efe6]"
-                    aria-hidden="true"
-                  />
+                  <span className={ui.toggle} aria-hidden="true" />
                   Show recovery providers
                 </label>
               )}
             </div>
-            {reducedMotion && <p className="text-[0.8rem] text-[#8d919a]">Reduced motion is on, so the walkthrough shows its final state.</p>}
+            {reducedMotion && <p className={`text-[0.8rem] ${ui.muted}`}>Reduced motion is on, so the walkthrough shows its final state.</p>}
           </div>
         )}
 
         {/* Diagrams scroll sideways on small screens instead of shrinking into illegibility */}
-        <div className="mt-4 overflow-x-auto rounded-2xl border border-[#1f2228]">
+        <div className={`mt-4 ${ui.frame}`}>
           <div className="min-w-[1080px]">
             {view === 'link' && (
               <FlowDiagram
@@ -301,7 +318,7 @@ export function ArchitecturePage() {
             {view === 'system' && <SystemDiagram exporting={exporting} selected={systemSelected} onSelect={setSystemSelected} svgRef={svgRef} />}
           </div>
         </div>
-        <p className="mt-2 text-[0.78rem] text-[#5d616a] lg:hidden">Scroll sideways to see the whole map.</p>
+        <p className={`mt-2 text-[0.78rem] lg:hidden ${ui.faint}`}>Scroll sideways to see the whole map.</p>
 
         <div className="mt-5 grid gap-4 lg:grid-cols-[3fr_2fr]">
           <section className={card} aria-live="polite" aria-label="Selected part">
@@ -318,38 +335,38 @@ export function ArchitecturePage() {
           <section className={card} aria-label="About this example">
             {view === 'link' && (
               <>
-                <p className={`${mono} text-[#8d919a]`}>This walkthrough · {example.label}</p>
-                <p className="mt-2 leading-[1.5] text-[#c9c6bd]">{example.note}</p>
+                <p className={`${mono} ${ui.muted}`}>This walkthrough · {example.label}</p>
+                <p className={`mt-2 leading-[1.5] ${ui.body}`}>{example.note}</p>
                 <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-[0.88rem]">
                   {fields.map(({ id, label }) => (
-                    <li key={id} className="flex items-center justify-between gap-2 border-b border-[#1f2228] py-1">
-                      <span className="text-[#8d919a]">{label}</span>
-                      <span className={example.fields[id] === 'found' ? 'text-[#5fd6a0]' : example.fields[id] === 'missing' ? 'text-[#ff6b6b]' : 'text-[#5d616a]'}>
+                    <li key={id} className={`flex items-center justify-between gap-2 border-b py-1 ${ui.rule}`}>
+                      <span className={ui.muted}>{label}</span>
+                      <span className={example.fields[id] === 'found' ? ui.found : example.fields[id] === 'missing' ? ui.missing : ui.na}>
                         {example.fields[id] === 'found' ? 'Found' : example.fields[id] === 'missing' ? 'Missing' : 'n/a'}
                       </span>
                     </li>
                   ))}
                 </ul>
-                <p className="mt-3 text-[0.88rem] text-[#8d919a]">
+                <p className={`mt-3 text-[0.88rem] ${ui.muted}`}>
                   Coverage: <span style={{ color: coverage.color }}>{coverage.label}</span> · {example.result}
                 </p>
               </>
             )}
             {view === 'chat' && (
               <>
-                <p className={`${mono} text-[#8d919a]`}>This walkthrough · {chatExample.label}</p>
+                <p className={`${mono} ${ui.muted}`}>This walkthrough · {chatExample.label}</p>
                 <p className="mt-2 font-medium">{chatExample.route === 'url' ? chatExample.message : `“${chatExample.message}”`}</p>
-                <p className="mt-2 leading-[1.5] text-[#c9c6bd]">{chatExample.note}</p>
+                <p className={`mt-2 leading-[1.5] ${ui.body}`}>{chatExample.note}</p>
               </>
             )}
             {view === 'system' && (
               <>
-                <p className={`${mono} text-[#8d919a]`}>About this map</p>
-                <p className="mt-2 leading-[1.5] text-[#c9c6bd]">
+                <p className={`${mono} ${ui.muted}`}>About this map</p>
+                <p className={`mt-2 leading-[1.5] ${ui.body}`}>
                   A conceptual view of the V2 design behind the iOS app: one capture pipeline, Supabase for auth and saved knowledge, Ask Sted as a separate service,
                   and RevenueCat for subscriptions.
                 </p>
-                <p className="mt-3 text-[0.88rem] text-[#8d919a]">{pageCopy.integrationNote}</p>
+                <p className={`mt-3 text-[0.88rem] ${ui.muted}`}>{pageCopy.integrationNote}</p>
               </>
             )}
           </section>
@@ -359,7 +376,7 @@ export function ArchitecturePage() {
           <section className="mt-10" aria-labelledby="roadmap-title">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className={`${mono} text-[#8d919a]`}>Roadmap · not current features</p>
+                <p className={`${mono} ${ui.muted}`}>Roadmap · not current features</p>
                 <h2 id="roadmap-title" className="mt-1 text-[1.6rem] font-bold tracking-[-0.03em]">
                   What comes next
                 </h2>
@@ -369,7 +386,7 @@ export function ArchitecturePage() {
                 Export roadmap PNG
               </button>
             </div>
-            <div className="mt-4 overflow-x-auto rounded-2xl border border-[#1f2228]">
+            <div className={`mt-4 ${ui.frame}`}>
               <div className="min-w-[1080px]">
                 <RoadmapDiagram svgRef={roadmapRef} />
               </div>
@@ -377,7 +394,7 @@ export function ArchitecturePage() {
           </section>
         )}
 
-        <p className={`${mono} mt-6 text-[0.62rem] leading-relaxed text-[#5d616a]`}>
+        <p className={`${mono} mt-6 text-[0.62rem] leading-relaxed ${ui.faint}`}>
           {pageCopy.integrationNote} {pageCopy.walkthroughNote} Examples are fictional. Nothing on this page calls STED’s services or sends links anywhere.
         </p>
       </div>
