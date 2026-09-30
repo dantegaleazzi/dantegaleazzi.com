@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { BuildYoursSection, InPublicSection, NewsletterSoon, StorySection } from './components/home/HomeSections'
@@ -8,6 +8,11 @@ import { guideIndexPath, guideTitles } from './guides'
 import { HomeV2 } from './versions/v2/HomeV2'
 import { GuidePage } from './components/guide/GuidePage'
 import { lessonMeta, lessons } from './guides/lessons'
+
+// The Devpost architecture page is standalone (dark, no site header) and loads its own chunk.
+// The path's spelling is intentional: it's the URL used in the Devpost submission.
+const architecturePath = '/devpost/arquitecture'
+const ArchitecturePage = lazy(() => import('./pages/architecture/ArchitecturePage').then((module) => ({ default: module.ArchitecturePage })))
 
 function getZeroToHundredRoute(pathname: string): 'index' | number | null {
   const path = pathname.replace(/\/+$/, '')
@@ -35,6 +40,14 @@ function App() {
     else window.addEventListener('load', jump, { once: true })
     return () => window.removeEventListener('load', jump)
   }, [])
+
+  if (path === architecturePath) {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-[#0b0c0e]" />}>
+        <ArchitecturePage />
+      </Suspense>
+    )
+  }
 
   return (
     <div className="site-frame mx-auto w-[min(100%-1.5rem,90rem)] sm:w-[min(100%-2.5rem,90rem)]">

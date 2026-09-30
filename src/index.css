@@ -210,6 +210,14 @@
 
 .animate-bounce-subtle { animation: bounce 1.54s infinite ease-in-out; }
 
+/* Architecture page: SVG nodes show a focus ring only for keyboard focus. */
+.arch-node:focus-visible .arch-focus {
+  opacity: 1;
+  stroke: var(--color-signal);
+}
+
+.arch-node:hover .arch-focus { opacity: 0.35; }
+
 @media (max-width: 640px) {
   .site-header { padding-inline: 0.9rem; }
   .hero-content-wrapper { padding: 2rem 1.25rem; }
