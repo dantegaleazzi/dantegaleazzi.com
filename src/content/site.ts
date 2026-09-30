@@ -18,8 +18,7 @@ export const links = {
   stedAppStore: 'https://apps.apple.com/us/app/sted-ai/id6805940694',
   storyVideo: 'https://www.youtube.com/watch?v=bf1P4iyFdtM',
   instagramReels: 'https://www.instagram.com/dantegaleazzi22/reels/',
-  // TODO: the Day 1 reel. Until it's added, the story links to the Reels tab.
-  firstReel: '',
+  firstReel: 'https://www.instagram.com/reel/DcOafjPJJ5K/',
   // TODO: the final video of the series. Until it's added, the story shows a "coming soon" slot.
   finalVideo: '',
 }
@@ -72,14 +71,6 @@ export const expertEpisodes = [
   { number: 7, id: 'zCmFbVcwR5o', title: 'Can your startup afford to pay you?', duration: '21:41' },
   { number: 8, id: 'O3zrc1nMxds', title: 'Why most founders get launch day wrong', duration: '31:01' },
 ].map((episode) => ({ ...episode, href: youtube(episode.id) }))
-
-export const buildLog = [
-  { when: 'Day 1', what: 'Zero coding experience. Entered RevenueCat’s Shipaton.' },
-  { when: 'Along the way', what: 'Talked to 7 founders and builders on camera.' },
-  { when: 'Setback', what: 'Rejected by the App Store. Fixed it and resubmitted.' },
-  { when: 'Day 37', what: 'Sted is live on the App Store.' },
-  { when: 'Bonus', what: 'Shipped a second app, Shimpaku, on iOS and Android.' },
-]
 
 export const shipatonPlaylist = {
   title: 'Build in Public — RevenueCat Shipaton',

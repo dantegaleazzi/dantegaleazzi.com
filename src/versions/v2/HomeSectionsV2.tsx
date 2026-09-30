@@ -159,7 +159,7 @@ const processWays = [
     href: '#experts',
     Icon: Mic,
     title: 'Expert interviews',
-    description: '7 conversations with founders and builders.',
+    description: '8 conversations with founders and builders.',
   },
   {
     href: '#follow',

@@ -5,17 +5,17 @@ import { SansDigits } from './guide/text'
 import { socialIcons } from './home/socialIcons'
 import { buttonClass } from './home/ui'
 
-const heroSocials: SocialKey[] = ['instagram', 'youtube', 'tiktok', 'linkedin', 'x', 'github']
+const heroSocials: SocialKey[] = ['instagram', 'youtube', 'linkedin', 'x']
 
-const proof: { text: string; href?: string }[] = [
-  { text: '56 users in the first 24 hours' },
-  { text: 'First paying subscribers, monthly and yearly' },
-  { text: 'A second app, Shimpaku, on iOS and Android' },
-  { text: '13 free guides so you can build yours', href: '#guides' },
-]
-
-export function Hero() {
+// Used on the home and on /shipaton-application: the home links out to the story, the story scrolls to it.
+export function Hero({ storyHref = '#story', interviewsHref = '#interviews' }: { storyHref?: string; interviewsHref?: string }) {
   const sted = apps[0]
+  const proof: { text: string; href?: string }[] = [
+    { text: '56 users in 24 hours, then the first Sted Pro subscribers' },
+    { text: 'A second app, Shimpaku, live on iOS and Android' },
+    { text: '13 free guides so you can build yours', href: '#guides' },
+    { text: '8 interviews with founders and builders', href: interviewsHref },
+  ]
 
   return (
     <div className="hero-panel">
@@ -55,9 +55,9 @@ export function Hero() {
               Download Sted
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </a>
-            <a href="#story" className={`${buttonClass} bg-white px-5 py-3 hover:bg-butter`}>
+            <a href={storyHref} className={`${buttonClass} bg-white px-5 py-3 hover:bg-butter`}>
               Read the story
-              <ArrowDown className="size-4" aria-hidden="true" />
+              {storyHref.startsWith('#') ? <ArrowDown className="size-4" aria-hidden="true" /> : <ArrowRight className="size-4" aria-hidden="true" />}
             </a>
           </div>
 
