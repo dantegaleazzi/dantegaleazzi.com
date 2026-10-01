@@ -72,6 +72,12 @@ export const expertEpisodes = [
   { number: 8, id: 'O3zrc1nMxds', title: 'Why most founders get launch day wrong', duration: '31:01' },
 ].map((episode) => ({ ...episode, href: youtube(episode.id) }))
 
+// Only the 8 expert interviews; shipatonPlaylist below is the daily build log.
+export const expertsPlaylist = {
+  title: 'Building Sted With Experts - RevenueCat Shipaton 2026',
+  href: 'https://www.youtube.com/playlist?list=PLfM8vQcuvk1E',
+}
+
 export const shipatonPlaylist = {
   title: 'Build in Public — RevenueCat Shipaton',
   description: 'Every episode and daily update from the Shipaton, in order — from the first idea to Sted going live.',
@@ -123,9 +129,9 @@ export type StoryBeat = {
   highlight?: boolean
 }
 
-export const story: { act: string; days: string; title: string; summary: string; beats: StoryBeat[] }[] = [
+export const story: { chapter: string; days: string; title: string; summary: string; beats: StoryBeat[] }[] = [
   {
-    act: 'Act 1',
+    chapter: 'Chapter 1',
     days: 'Days 1–8',
     title: 'The bet',
     summary: 'Can someone who can’t code ship a real app with AI? The Shipaton was my way to find out.',
@@ -160,7 +166,7 @@ export const story: { act: string; days: string; title: string; summary: string;
     ],
   },
   {
-    act: 'Act 2',
+    chapter: 'Chapter 2',
     days: 'Days 9–34',
     title: 'Waiting on Apple',
     summary: 'The app was built. The approval wasn’t. So I kept building — and started asking for help.',
@@ -201,7 +207,7 @@ export const story: { act: string; days: string; title: string; summary: string;
     ],
   },
   {
-    act: 'Act 3',
+    chapter: 'Chapter 3',
     days: 'Days 35–43',
     title: 'Launch',
     summary: 'Approved, live — and then the real test: would anyone pay for it?',

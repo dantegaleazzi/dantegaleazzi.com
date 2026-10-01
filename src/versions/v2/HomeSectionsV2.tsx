@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import {
   apps,
   expertEpisodes,
+  expertsPlaylist,
   latestVideo,
   resources,
   shipatonPlaylist,
@@ -246,7 +247,7 @@ export function ProcessSection() {
           title="Building Sted with Experts"
           description="Founders and builders I talked to during the Shipaton — and what I learned from each one."
           action={
-            <ExternalLink href={shipatonPlaylist.href} className={`${buttonClass} bg-white hover:bg-butter`}>
+            <ExternalLink href={expertsPlaylist.href} className={`${buttonClass} bg-white hover:bg-butter`}>
               <CirclePlay className="size-4" aria-hidden="true" />
               Watch them all
             </ExternalLink>

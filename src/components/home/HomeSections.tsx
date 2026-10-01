@@ -4,6 +4,7 @@ import {
   apps,
   biggestLesson,
   expertEpisodes,
+  expertsPlaylist,
   feedbackLoops,
   links,
   reelCover,
@@ -12,7 +13,6 @@ import {
   reelViewsDate,
   reels,
   resources,
-  shipatonPlaylist,
   socials,
   story,
   tools,
@@ -319,16 +319,16 @@ export function StorySection() {
         chapter="01"
         kicker="The story"
         title="From a notebook drawing to paying subscribers"
-        description="Six weeks in three acts, posted as it happened. Tap any cover to watch the reel."
+        description="Six weeks in three chapters, posted as it happened. Tap any cover to watch the reel."
       />
 
       <div className="grid gap-12">
-        {story.map(({ act, days, title, summary, beats }) => (
-          <div key={act}>
+        {story.map(({ chapter, days, title, summary, beats }) => (
+          <div key={chapter}>
             <div className="mb-4 grid gap-1 border-t-2 border-ink pt-4 md:grid-cols-[15rem_1fr] md:gap-8">
               <div>
                 <p className={`${monoLabel} text-[0.64rem] text-muted`}>
-                  <SansDigits text={`${act} · ${days}`} />
+                  <SansDigits text={`${chapter} · ${days}`} />
                 </p>
                 <h3 className="mt-1 text-[1.9rem] leading-none font-bold tracking-[-0.045em]">{title}</h3>
               </div>
@@ -366,7 +366,7 @@ const channels = [
     name: 'YouTube',
     role: 'Long-form interviews',
     note: 'Fewer views, more depth: the full expert conversations.',
-    href: shipatonPlaylist.href,
+    href: expertsPlaylist.href,
   },
 ]
 
@@ -388,7 +388,7 @@ export function InPublicSection() {
             Instagram is where it landed
           </h3>
           <p className="mt-2 leading-[1.5] text-ink/70">
-            I posted a reel almost every day. Short, honest milestones got the most views and comments; YouTube is where
+            I posted a reel every single day. Short, honest milestones got the most views and comments; YouTube is where
             the full interviews live.
           </p>
           <ul className="mt-5 grid gap-2">
@@ -505,7 +505,7 @@ export function InPublicSection() {
           title="Building Sted With Experts"
           description="The founders and builders I asked for advice during the Shipaton — the full conversations."
           action={
-            <ExternalLink href={shipatonPlaylist.href} className={`${buttonClass} bg-white hover:bg-butter`}>
+            <ExternalLink href={expertsPlaylist.href} className={`${buttonClass} bg-white hover:bg-butter`}>
               <CirclePlay className="size-4" aria-hidden="true" />
               Watch them all
             </ExternalLink>

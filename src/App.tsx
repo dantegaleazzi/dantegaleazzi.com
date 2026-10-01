@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react'
 import { Header } from './components/Header'
-import { Hero } from './components/Hero'
+import { ShipatonHero } from './components/Hero'
 import { BuildYoursSection, InPublicSection, StorySection } from './components/home/HomeSections'
 import { ZeroToHundredGuide, ZeroToHundredIndex } from './components/ZeroToHundred'
 import { socials } from './content/site'
@@ -53,7 +53,7 @@ function App() {
         ) : isShipatonApplication ? (
           <>
             <section className="hero-section" aria-labelledby="hero-title">
-              <Hero />
+              <ShipatonHero />
             </section>
             <StorySection />
             <InPublicSection />
