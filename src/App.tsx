@@ -75,6 +75,10 @@ function App() {
           © <span className="font-sans">{new Date().getFullYear()}</span> Dante Galeazzi · Building in public
         </p>
         <div className="flex flex-wrap gap-5">
+          {/* Always reachable: judges who leave the story page can find it again from any page. */}
+          <a className="nav-link font-bold" href="/shipaton-application">
+            <span className="bg-butter px-1">Shipaton application</span>
+          </a>
           {footerLinks.map(({ label, href }) => (
             <a key={href} className="nav-link" href={href} target="_blank" rel="noreferrer">
               {label}
