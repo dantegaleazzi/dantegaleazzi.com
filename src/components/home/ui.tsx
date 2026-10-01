@@ -1,4 +1,6 @@
+import { ArrowRight } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { guideIndexPath, guidePath, guideTitles } from '../../guides'
 import { SansDigits } from '../guide/text'
 import { monoLabel } from '../guide/Visuals'
 
@@ -69,3 +71,18 @@ export function MaybeLink({
 
 export const buttonClass =
   'inline-flex items-center gap-2 rounded-md border-2 border-ink px-4 py-2.5 text-[0.95rem] font-bold tracking-[-0.01em] no-underline transition-colors'
+
+// The series page is where "← All guides" returns to, so readers see it before they start.
+export function GuideSeriesActions() {
+  return (
+    <div className="flex flex-wrap gap-2.5">
+      <a href={guidePath(1)} className={`${buttonClass} group bg-signal hover:bg-ink hover:text-white`}>
+        Start with part 1
+        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+      </a>
+      <a href={guideIndexPath} className={`${buttonClass} bg-white hover:bg-butter`}>
+        See all {guideTitles.length} guides
+      </a>
+    </div>
+  )
+}

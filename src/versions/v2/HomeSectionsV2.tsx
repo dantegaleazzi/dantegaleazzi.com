@@ -16,7 +16,7 @@ import { guidePath, guides, guideTitles } from '../../guides'
 import { lessons } from '../../guides/lessons'
 import { monoLabel } from '../../components/guide/Visuals'
 import { SansDigits } from '../../components/guide/text'
-import { SectionHeader, buttonClass } from '../../components/home/ui'
+import { GuideSeriesActions, SectionHeader, buttonClass } from '../../components/home/ui'
 
 const card = 'rounded-md border-2 border-ink bg-white'
 const subTitle = 'text-[1.5rem] leading-[1.1] font-bold tracking-[-0.035em]'
@@ -314,12 +314,7 @@ export function BuildYoursSection() {
           step="Start here"
           title="From Zero to 100"
           description="13 free guides, in order: find a problem, validate it, build it with AI and launch it. Each ends with a 2-minute test and prompts you can copy."
-          action={
-            <a href={guidePath(1)} className={`${buttonClass} group bg-signal hover:bg-ink hover:text-white`}>
-              Start with part 1
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </a>
-          }
+          action={<GuideSeriesActions />}
         />
         <ol className="grid gap-x-8 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-3">
           {guideTitles.map((title, index) => (

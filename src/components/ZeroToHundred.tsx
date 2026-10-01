@@ -1,11 +1,27 @@
 import { ArrowRight } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { guidePath, guideTitles, guides, seriesMeta } from '../guides'
 import { GuidePage } from './guide/GuidePage'
 import { WindowFrame, monoLabel } from './guide/Visuals'
 import { SansDigits } from './guide/text'
+import { buttonClass } from './home/ui'
+
+// Kept only in this reader's browser, so the series page can offer "Continue with part N".
+const lastPartKey = 'zero-to-100:last-part'
+
+function readLastPart() {
+  try {
+    const number = Number(localStorage.getItem(lastPartKey))
+    return Number.isInteger(number) && number >= 1 && number <= guideTitles.length ? number : null
+  } catch {
+    return null
+  }
+}
 
 export function ZeroToHundredIndex() {
+  const [lastPart] = useState(readLastPart)
+  const continuing = lastPart !== null && lastPart > 1
+
   useEffect(() => {
     document.title = 'Zero to 100 — A 13-part guide · Dante Galeazzi'
   }, [])
@@ -24,6 +40,21 @@ export function ZeroToHundredIndex() {
             I don’t know how to code. This is how I’m building Sted from zero to a real product with AI — turned into a
             practical guide you can follow for your own app.
           </p>
+          <div className="mt-6 flex flex-wrap gap-2.5">
+            {continuing && (
+              <a href={guidePath(lastPart)} className={`${buttonClass} group bg-signal hover:bg-ink hover:text-white`}>
+                Continue with part {lastPart}
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </a>
+            )}
+            <a
+              href={guidePath(1)}
+              className={`${buttonClass} group ${continuing ? 'bg-white hover:bg-butter' : 'bg-signal hover:bg-ink hover:text-white'}`}
+            >
+              {continuing ? 'Start from part 1' : 'Start with part 1'}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </WindowFrame>
 
@@ -58,5 +89,13 @@ export function ZeroToHundredIndex() {
 }
 
 export function ZeroToHundredGuide({ number }: { number: number }) {
+  useEffect(() => {
+    try {
+      localStorage.setItem(lastPartKey, String(number))
+    } catch {
+      // Private mode or blocked storage: the series page just won't offer "Continue".
+    }
+  }, [number])
+
   return <GuidePage guide={guides[number]} meta={seriesMeta(number)} />
 }
