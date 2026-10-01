@@ -1,8 +1,7 @@
-import { ArrowDown, ArrowRight, ArrowUpRight, CirclePlay, ListVideo, Mic, Smartphone } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, CirclePlay } from 'lucide-react'
 import type { ReactNode } from 'react'
 import {
   apps,
-  expertEpisodes,
   expertsPlaylist,
   latestVideo,
   resources,
@@ -13,7 +12,6 @@ import {
   type SocialKey,
 } from '../../content/site'
 import { guidePath, guides, guideTitles } from '../../guides'
-import { lessons } from '../../guides/lessons'
 import { monoLabel } from '../../components/guide/Visuals'
 import { SansDigits } from '../../components/guide/text'
 import { GuideSeriesActions, SectionHeader, buttonClass } from '../../components/home/ui'
@@ -145,28 +143,25 @@ export function StedSection() {
   )
 }
 
-// 03 — The process
+// 03 — Follow my journey
 
-const channelOrder: SocialKey[] = ['youtube', 'shorts', 'instagram', 'tiktok', 'linkedin', 'x']
+const journeySocials: SocialKey[] = ['instagram', 'youtube', 'linkedin', 'x']
 
-const processWays = [
+// The ids keep the old /#build-log and /#experts links (and the hero's "8 interviews") landing here.
+const playlists = [
   {
-    href: '#build-log',
-    Icon: ListVideo,
-    title: 'The daily build log',
-    description: 'Every step of the Shipaton on YouTube, in order.',
+    id: 'build-log',
+    label: 'Daily build log',
+    title: shipatonPlaylist.title,
+    description: 'Every day of the Shipaton, in order — from the first idea to Sted going live.',
+    href: shipatonPlaylist.href,
   },
   {
-    href: '#experts',
-    Icon: Mic,
-    title: 'Expert interviews',
-    description: '8 conversations with founders and builders.',
-  },
-  {
-    href: '#follow',
-    Icon: Smartphone,
-    title: 'Short updates',
-    description: 'Behind the scenes on Instagram, TikTok and more.',
+    id: 'experts',
+    label: 'Interviews',
+    title: 'Building Sted with Experts',
+    description: '8 conversations with founders and builders, and what I learned from each one.',
+    href: expertsPlaylist.href,
   },
 ]
 
@@ -176,113 +171,60 @@ export function ProcessSection() {
       <SectionHeader
         id="process-title"
         chapter="03"
-        kicker="The process"
-        title="How I built it, in public"
-        description="I documented the whole thing on video — the wins, the setbacks and every expert who helped. Pick where to start:"
+        kicker="Build in public"
+        title="Follow my journey"
+        description="I share every step of building Sted: daily videos, conversations with founders and what happens behind the scenes."
       />
 
-      <ol className="grid gap-3 md:grid-cols-3">
-        {processWays.map(({ href, Icon, title, description }, index) => (
-          <li key={href}>
-            <a href={href} className={`${card} group flex h-full items-start gap-3.5 p-4 no-underline transition-colors hover:bg-butter`}>
-              <span className="grid size-10 shrink-0 place-items-center rounded-md border-2 border-ink bg-butter">
-                <Icon className="size-5" strokeWidth={1.8} aria-hidden="true" />
+      <div className="grid gap-3 lg:grid-cols-[3fr_2fr]">
+        <ExternalLink href={latestVideo.href} className={`${card} group flex flex-col overflow-hidden no-underline transition-colors hover:bg-butter`}>
+          <span className="relative block border-b-2 border-ink">
+            <img src={youtubeThumbnail(latestVideo.id, 'maxresdefault')} alt="" className="aspect-video w-full object-cover" loading="lazy" />
+            <span className="absolute right-2 bottom-2 rounded-sm bg-ink px-1.5 py-0.5 text-[0.75rem] font-medium text-white tabular-nums">
+              {latestVideo.duration}
+            </span>
+          </span>
+          <span className="flex flex-1 items-center justify-between gap-4 p-5">
+            <span>
+              <span className={`${monoLabel} block text-[0.62rem] text-muted`}>
+                Launch day · <SansDigits text={latestVideo.label} />
               </span>
-              <span className="min-w-0 flex-1">
-                <span className={`${monoLabel} block text-[0.6rem] text-muted`}>
-                  <SansDigits text={`Option ${index + 1}`} />
+              <span className="mt-1.5 block text-[1.3rem] leading-tight font-bold tracking-[-0.03em]">{latestVideo.title}</span>
+            </span>
+            <CirclePlay className="size-7 shrink-0 transition-transform group-hover:scale-110" strokeWidth={1.6} aria-hidden="true" />
+          </span>
+        </ExternalLink>
+
+        <div className="grid gap-3">
+          {playlists.map(({ id, label, title, description, href }) => (
+            <div key={id} id={id} className="scroll-mt-6">
+              <ExternalLink href={href} className={`${card} group flex h-full flex-col gap-3 p-5 no-underline transition-colors hover:bg-butter`}>
+                <span className="flex items-center gap-3">
+                  <Logo src={socials.youtube.logo ?? ''} size="size-8" />
+                  <span className={`${monoLabel} text-[0.62rem] text-muted`}>YouTube playlist · {label}</span>
                 </span>
-                <span className="mt-0.5 block font-bold leading-tight tracking-[-0.02em]">{title}</span>
-                <span className="mt-1 block text-[0.92rem] leading-snug text-ink/70">
+                <span className="text-[1.2rem] leading-tight font-bold tracking-[-0.03em]">{title}</span>
+                <span className="leading-snug text-ink/70">
                   <SansDigits text={description} />
                 </span>
-              </span>
-              <ArrowDown className="mt-1 size-4 shrink-0 opacity-40 transition group-hover:translate-y-0.5 group-hover:opacity-100" aria-hidden="true" />
-            </a>
-          </li>
-        ))}
-      </ol>
-
-      <div id="build-log" className="mt-12 scroll-mt-6">
-        <SubHeader
-          id="build-log-title"
-          step="Option 1"
-          title="The daily build log"
-          description="Watch the Shipaton from day one: what I built, what broke and what I decided each day."
-        />
-        <div className="grid gap-3 sm:grid-cols-[3fr_2fr]">
-          <article className="flex flex-col gap-4 rounded-md border-2 border-ink bg-white p-5 sm:p-6">
-            <div className="flex items-center gap-3">
-              <Logo src={socials.youtube.logo ?? ''} size="size-9" />
-              <p className={`${monoLabel} text-[0.64rem]`}>YouTube playlist</p>
+                <span className="mt-auto inline-flex items-center gap-1.5 pt-1 font-bold">
+                  Watch the playlist
+                  <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </span>
+              </ExternalLink>
             </div>
-            <h4 className={subTitle}>{shipatonPlaylist.title}</h4>
-            <p className="leading-snug text-ink/75">{shipatonPlaylist.description}</p>
-            <ExternalLink href={shipatonPlaylist.href} className={`${buttonClass} mt-auto w-fit bg-signal hover:bg-ink hover:text-white`}>
-              <CirclePlay className="size-4" aria-hidden="true" />
-              Watch the playlist
-            </ExternalLink>
-          </article>
-          <ExternalLink href={latestVideo.href} className={`${card} group flex flex-col overflow-hidden no-underline transition-colors hover:bg-butter`}>
-            <span className="relative block border-b-2 border-ink">
-              <img src={youtubeThumbnail(latestVideo.id)} alt="" className="aspect-video w-full object-cover" loading="lazy" />
-              <span className="absolute right-2 bottom-2 rounded-sm bg-ink px-1.5 py-0.5 text-[0.75rem] font-medium text-white tabular-nums">
-                {latestVideo.duration}
-              </span>
-            </span>
-            <span className="flex flex-1 flex-col gap-1.5 p-4">
-              <span className={`${monoLabel} text-[0.62rem] text-muted`}>
-                Latest · <SansDigits text={latestVideo.label} />
-              </span>
-              <span className="font-bold leading-snug tracking-[-0.02em]">{latestVideo.title}</span>
-            </span>
-          </ExternalLink>
+          ))}
         </div>
       </div>
 
-      <div id="experts" className="mt-12 scroll-mt-6">
-        <SubHeader
-          id="experts-title"
-          step="Option 2"
-          title="Building Sted with Experts"
-          description="Founders and builders I talked to during the Shipaton — and what I learned from each one."
-          action={
-            <ExternalLink href={expertsPlaylist.href} className={`${buttonClass} bg-white hover:bg-butter`}>
-              <CirclePlay className="size-4" aria-hidden="true" />
-              Watch them all
-            </ExternalLink>
-          }
-        />
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {expertEpisodes.map(({ number, id, title, duration, href }) => (
-            <li key={number}>
-              <ExternalLink href={href} className={`${card} group flex h-full flex-col overflow-hidden no-underline transition-colors hover:bg-butter`}>
-                <span className="relative block border-b-2 border-ink">
-                  <img src={youtubeThumbnail(id)} alt="" className="aspect-video w-full object-cover" loading="lazy" />
-                  <span className="absolute right-2 bottom-2 rounded-sm bg-ink px-1.5 py-0.5 text-[0.75rem] font-medium text-white tabular-nums">
-                    {duration}
-                  </span>
-                </span>
-                <span className="flex flex-1 flex-col gap-1.5 p-4">
-                  <span className={`${monoLabel} text-[0.62rem] text-muted`}>
-                    Episode <span className="font-sans tabular-nums">{number}</span>
-                  </span>
-                  <span className="font-bold leading-snug tracking-[-0.02em]">{title}</span>
-                </span>
-              </ExternalLink>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div id="follow" className="mt-12 scroll-mt-6">
-        <SubHeader id="follow-title" step="Option 3" title="Short updates" description="Quick clips and behind the scenes, wherever you watch." />
-        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
-          {channelOrder.map((key) => (
+      <div id="follow" className="mt-6 flex scroll-mt-6 flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        <p className={`${monoLabel} text-[0.64rem] text-muted`}>Follow along</p>
+        <ul className="flex flex-wrap gap-2">
+          {journeySocials.map((key) => (
             <li key={key}>
               <ExternalLink
                 href={socials[key].href}
-                className={`${card} flex items-center gap-2.5 px-3 py-2.5 font-bold tracking-[-0.01em] no-underline transition-colors hover:bg-butter`}
+                className={`${card} flex items-center gap-2.5 px-3 py-2 font-bold tracking-[-0.01em] no-underline transition-colors hover:bg-butter`}
               >
                 {socials[key].logo && <Logo src={socials[key].logo} size="size-7" />}
                 {socials[key].label}
@@ -305,7 +247,7 @@ export function BuildYoursSection() {
         chapter="04"
         kicker="Build yours"
         title="I turned everything I learned into guides you can follow"
-        description="The steps, the lessons, the tools and the prompts I used to go from zero to the App Store — so you can build your own app, even if you can’t code."
+        description="The steps, the tools and the prompts I used to go from zero to the App Store — so you can build your own app, even if you can’t code."
       />
 
       <div id="guides" className="scroll-mt-6">
@@ -329,31 +271,6 @@ export function BuildYoursSection() {
             </li>
           ))}
         </ol>
-      </div>
-
-      <div id="lessons" className="mt-14 scroll-mt-6">
-        <SubHeader
-          id="lessons-title"
-          step="Then"
-          title="Lessons from the build"
-          description="What building Sted and Shimpaku taught me — the mistakes, the store rules and how I work with AI."
-        />
-        <div className="grid gap-3 md:grid-cols-2">
-          {lessons.map(({ path, title, description }, index) => (
-            <a key={path} href={path} className={`${card} group flex flex-col gap-3 p-5 no-underline transition-colors hover:bg-butter`}>
-              <span className="flex items-center justify-between">
-                <span className={`${monoLabel} rounded-sm bg-ink px-2 py-1 text-[0.6rem] text-signal`}>
-                  Lesson <span className="font-sans">{index + 1}</span>
-                </span>
-                <ArrowRight className="size-4 opacity-40 transition group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden="true" />
-              </span>
-              <span className="text-[1.3rem] leading-[1.15] font-bold tracking-[-0.03em]">
-                <SansDigits text={title} />
-              </span>
-              <span className="leading-snug text-ink/70">{description}</span>
-            </a>
-          ))}
-        </div>
       </div>
 
       <div id="tools" className="mt-14 scroll-mt-6">

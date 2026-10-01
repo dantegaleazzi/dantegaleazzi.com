@@ -304,7 +304,7 @@ Tell me what's working, what's confusing, where the eye goes first and what you'
   ],
 }
 
-export const lessonsAnchor = '/#lessons'
+export const lessonsAnchor = '/shipaton-application#lessons'
 
 export const lessons = [
   {

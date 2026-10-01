@@ -6,9 +6,8 @@ const shipatonPath = '/shipaton-application'
 
 const homeNav = [
   { label: 'Sted', href: '/#sted' },
-  { label: 'Process', href: '/#process' },
+  { label: 'Journey', href: '/#process' },
   { label: 'Guides', href: '/#guides' },
-  { label: 'Lessons', href: '/#lessons' },
   { label: 'Tools', href: '/#tools' },
   { label: 'Resources', href: '/#resources' },
 ]

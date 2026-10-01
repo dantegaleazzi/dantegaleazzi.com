@@ -19,8 +19,6 @@ export const links = {
   storyVideo: 'https://www.youtube.com/watch?v=bf1P4iyFdtM',
   instagramReels: 'https://www.instagram.com/dantegaleazzi22/reels/',
   firstReel: 'https://www.instagram.com/reel/DcOafjPJJ5K/',
-  // TODO: the final video of the series. Until it's added, the story shows a "coming soon" slot.
-  finalVideo: '',
 }
 
 export const apps = [
@@ -58,7 +56,16 @@ export const apps = [
 ]
 
 const youtube = (id: string) => `https://www.youtube.com/watch?v=${id}`
-export const youtubeThumbnail = (id: string) => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`
+// mqdefault (320×180) suits small cards; large ones ask for maxresdefault (1280×720).
+export const youtubeThumbnail = (id: string, size: 'mqdefault' | 'maxresdefault' = 'mqdefault') =>
+  `https://i.ytimg.com/vi/${id}/${size}.jpg`
+
+// The Shipaton submission video; the story ends with it.
+export const finalVideo = {
+  id: 'FmUohh_pF4Q',
+  title: 'Sted, the app that makes everything you save finally useful',
+  href: youtube('FmUohh_pF4Q'),
+}
 
 // YouTube titles are A/B tested, so the site uses stable topic titles instead of copying them.
 export const expertEpisodes = [
@@ -93,17 +100,19 @@ export const latestVideo = {
 }
 
 const instagramReel = (code: string) => `https://www.instagram.com/reel/${code}/`
+const instagramPost = (code: string) => `https://www.instagram.com/p/${code}/`
+const linkedinPost = (path: string) => `https://www.linkedin.com/${path}/`
+const xPost = (id: string) => `https://x.com/dantegaleazzi/status/${id}`
 
 // Views as shown on the Instagram grid. An empty href links to the Reels tab until the exact reel is added.
-export const reelViewsDate = 'Sep 30, 2026'
 export const reels = {
-  7: { title: '24 hours to turn this drawing into a real app', views: 1312, href: '' },
-  8: { title: 'I built an iPhone app in 24 hours', views: 1776, href: '' },
-  22: { title: 'Use this tip from a real coder', views: 456, href: '' },
-  25: { title: 'From iPhone to Android', views: 560, href: '' },
+  7: { title: '24 hours to turn this drawing into a real app', views: 1312, href: instagramPost('Dcd4PNcp6LE') },
+  8: { title: 'I built an iPhone app in 24 hours', views: 1776, href: instagramPost('DcgUi77JjE9') },
+  22: { title: 'Use this tip from a real coder', views: 456, href: instagramPost('DdEYBmSqW69') },
+  25: { title: 'From iPhone to Android', views: 560, href: instagramPost('DdMGIABqmsa') },
   31: { title: 'How he got 1 million views', views: 619, href: '' },
   33: { title: 'I built 2 apps. I don’t know how to code.', views: 480, href: '' },
-  35: { title: 'Apple approved my app', views: 838, href: '' },
+  35: { title: 'Apple approved my app', views: 838, href: instagramPost('Ddl2ITNpfr0') },
   37: { title: 'Sted is online', views: 1150, href: instagramReel('DdrEZE2J1DV') },
   38: { title: '56 users in 24 hours', views: 424, href: instagramReel('Ddtoo4uJm9h') },
   39: { title: 'A product manager reviewed Sted', views: 399, href: instagramReel('DdwiVf0j2ro') },
@@ -112,11 +121,10 @@ export const reels = {
 } satisfies Record<number, { title: string; views: number; href: string }>
 
 export type ReelDay = keyof typeof reels
-export const reelDays = Object.keys(reels).map(Number) as ReelDay[]
 export const reelCover = (day: ReelDay) => `/reels/day-${String(day).padStart(2, '0')}.jpg`
 export const reelHref = (day: ReelDay) => reels[day].href || links.instagramReels
 
-export type StoryThumb = 'start' | 'guides' | 'sted' | 'paid' | 'subscribers'
+export type StoryThumb = 'start' | 'guides' | 'workflow' | 'sted' | 'rejected' | 'feedback' | 'paid' | 'subscribers'
 
 export type StoryBeat = {
   tag: string
@@ -125,6 +133,8 @@ export type StoryBeat = {
   reel?: ReelDay
   thumb?: StoryThumb
   link?: { label: string; href: string }
+  // The same moment posted elsewhere; a reel's own Instagram link comes from `reel`.
+  posts?: { instagram?: string; linkedin?: string; x?: string }
   update?: string
   highlight?: boolean
 }
@@ -141,7 +151,11 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Where it all started',
         text: 'I entered the Shipaton with an idea and zero coding experience — and posted the first video.',
         thumb: 'start',
-        link: { label: 'Watch the first reel', href: links.firstReel || links.instagramReels },
+        posts: {
+          instagram: links.firstReel,
+          linkedin: linkedinPost('feed/update/urn:li:activity:7495829278190743552'),
+          x: xPost('2089753678790136292'),
+        },
       },
       {
         tag: 'Week 1',
@@ -172,16 +186,31 @@ export const story: { chapter: string; days: string; title: string; summary: str
     summary: 'The app was built. The approval wasn’t. So I kept building — and started asking for help.',
     beats: [
       {
-        tag: 'In review',
+        tag: 'Day 11',
+        title: 'Sharing my workflow',
+        text: 'How I build without writing code: AI acts as my CTO, and every project starts from a simple PRD.',
+        thumb: 'workflow',
+        posts: {
+          instagram: instagramPost('DcoKvRCp7Zq'),
+          linkedin: linkedinPost('posts/dantegaleazzi_shipaton-shipaton2026-stedapp-share-7499486538276171776-pDKp'),
+        },
+      },
+      {
+        tag: 'Day 14',
         title: 'Sted is born',
-        text: 'While the app waited in review, it got a new brand and a mascot: Sted, a little yellow bookmark.',
+        text: 'While the app waited in review, it got a new brand and a mascot: Sted, a little yellow bookmark. The next day, I brought it to life on video.',
         thumb: 'sted',
+        posts: {
+          instagram: instagramPost('DcwGRt5K4ro'),
+          linkedin: linkedinPost('posts/dantegaleazzi_shipaton-shipaton2026-stedapp-ugcPost-7500918378706948096-PcnC'),
+        },
       },
       {
         tag: 'Day 22',
         title: 'Asking everyone',
         text: 'I asked every builder I could find for advice. It was too good to keep, so I started filming it.',
         reel: 22,
+        posts: { linkedin: linkedinPost('posts/dantegaleazzi_shipaton-shipaton2026-share-7503457999273771008-8cTH') },
         link: { label: 'The interviews', href: '#interviews' },
       },
       {
@@ -192,10 +221,18 @@ export const story: { chapter: string; days: string; title: string; summary: str
         update: 'Update 09/30: the Android version is still not approved.',
       },
       {
+        tag: 'Day 30',
+        title: 'Rejected by Apple',
+        text: 'After 16 days of waiting, Apple rejected Sted. The good news: it was finally being reviewed.',
+        thumb: 'rejected',
+        posts: { instagram: instagramPost('DdZG2TQpqTt') },
+      },
+      {
         tag: 'Day 31',
         title: 'The interviews kept coming',
         text: 'Founders and creators shared what worked for them — like how one creator got 1 million views.',
         reel: 31,
+        posts: { linkedin: linkedinPost('posts/dantegaleazzi_shipaton-ugcPost-7509260490817196033-2cr7') },
       },
       {
         tag: 'Day 33',
@@ -212,12 +249,22 @@ export const story: { chapter: string; days: string; title: string; summary: str
     title: 'Launch',
     summary: 'Approved, live — and then the real test: would anyone pay for it?',
     beats: [
-      { tag: 'Day 35', title: 'Apple approved Sted', text: 'After a rejection, a round of fixes and one more review.', reel: 35 },
+      {
+        tag: 'Day 35',
+        title: 'Apple approved Sted',
+        text: 'After a rejection, a round of fixes and one more review.',
+        reel: 35,
+        posts: { x: xPost('2102319201847525521') },
+      },
       {
         tag: 'Day 37',
         title: 'Sted is live',
         text: 'Live on the App Store. I asked everyone to try it, break it and send me feedback.',
         reel: 37,
+        posts: {
+          linkedin: linkedinPost('feed/update/urn:li:activity:7508900883749982208'),
+          x: xPost('2103136435436126273'),
+        },
         highlight: true,
       },
       {
@@ -226,6 +273,13 @@ export const story: { chapter: string; days: string; title: string; summary: str
         text: 'Next target: 100 users and a first paying customer.',
         reel: 38,
         highlight: true,
+      },
+      {
+        tag: 'Day 38',
+        title: 'Is it clear what Sted does?',
+        text: 'I made new App Store screenshots and asked for honest feedback: would you understand what Sted does?',
+        thumb: 'feedback',
+        posts: { x: xPost('2103463110875246662') },
       },
       {
         tag: 'Day 41',
@@ -238,6 +292,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'First paying user',
         text: 'Someone paid for an app I built 100% with AI.',
         thumb: 'paid',
+        posts: { x: xPost('2104979252978520218') },
         highlight: true,
       },
       {
@@ -245,6 +300,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'First yearly and monthly subscribers',
         text: 'Both came in on the final day of the Shipaton.',
         thumb: 'subscribers',
+        posts: { instagram: instagramPost('Dd6wrEsp8VC'), x: xPost('2105363563154206977') },
         highlight: true,
       },
     ],
@@ -257,47 +313,82 @@ export const feedbackLoops: {
   title: string
   steps: [string, string][]
   reel?: ReelDay
-  link?: { label: string; href: string }
   episode?: number
+  x?: { label: string; href: string }[]
 }[] = [
   {
     tag: 'Day 39 · Onboarding',
-    title: 'A product manager reviewed Sted. So I changed the app.',
+    title: 'A product manager reviewed Sted. So I changed it.',
     steps: [
       ['Before', 'The old onboarding'],
-      ['Feedback', 'Kara, a product manager, reviewed it on camera'],
+      ['Feedback', 'Kara reviewed it on camera'],
       ['After', 'I rebuilt the onboarding'],
     ],
     reel: 39,
   },
   {
-    tag: 'Day 42 · Launch',
-    title: 'I thought launch day was one day.',
+    tag: 'Ep. 1 · Chat',
+    title: 'A software engineer wanted to talk with his saves. So I built it.',
     steps: [
-      ['Before', 'Launch day was a single day'],
-      ['Feedback', 'Claire from BuildHop: a launch is ongoing'],
-      ['After', 'Sted launched again, on BuildHop'],
+      ['Before', 'Search and browse your saves'],
+      ['Feedback', 'What if you could just ask Sted?'],
+      ['After', 'Chat with Sted'],
     ],
-    reel: 42,
-    episode: 8,
+    episode: 1,
   },
   {
-    tag: 'Day 22 · The series',
-    title: 'Asking for advice in public became a series.',
+    tag: 'Ep. 4 · Monetization',
+    title: 'Eduardo suggested a web-to-app funnel. So I built one.',
     steps: [
-      ['Before', 'I asked every builder I could'],
-      ['Feedback', 'The answers were too good to keep'],
-      ['After', 'Building Sted With Experts, on camera'],
+      ['Before', 'I was figuring out how to monetize Sted'],
+      ['Feedback', 'Let people subscribe on the web and unlock Pro in the app'],
+      ['After', 'Sted Pro launched with a RevenueCat web-to-app funnel'],
     ],
-    link: { label: 'Watch the interviews', href: '#interviews' },
+    episode: 4,
+  },
+  {
+    tag: 'Day 34 · Website & App Store',
+    title: 'People couldn’t tell what Sted does. So I changed how I explain it.',
+    steps: [
+      ['Before', 'A website that didn’t explain Sted clearly'],
+      ['Feedback', 'Explain what Sted actually does, better'],
+      ['After', 'A new website, then new App Store screenshots'],
+    ],
+    x: [
+      { label: 'The website post', href: xPost('2102069746879606957') },
+      { label: 'The screenshots post', href: xPost('2103463110875246662') },
+    ],
+  },
+  {
+    tag: 'In review · Mascot',
+    title: 'I let the community help choose Sted.',
+    steps: [
+      ['Before', 'Different versions of the character'],
+      ['Feedback', 'I shared them and asked people to choose'],
+      ['After', 'The community helped choose the final Sted'],
+    ],
   },
 ]
 
-export const biggestLesson = {
-  quote: 'Execution got cheaper. Judgment didn’t.',
-  text: 'AI made building dramatically faster, but it didn’t make the important decisions for me. That might be my biggest lesson from this whole experiment.',
-  href: 'https://www.instagram.com/p/Dd4yLw7gRDz/',
-}
+// Short takeaways on /shipaton-application. Plain cards: the long lesson pages still exist at /lessons/….
+export const buildLessons = [
+  {
+    title: 'Submit Earlier Than You Think',
+    text: 'App Store reviews take time. If you have a deadline, get the first MVP submitted as soon as possible.',
+  },
+  {
+    title: 'Always Test Everything For Real',
+    text: 'AI can tell you something is done and all the tests can pass. Use the real feature yourself, end to end, before believing it.',
+  },
+  {
+    title: 'Start Distribution From Day One',
+    text: 'A waitlist helps, but a waitlist isn’t users. Start talking about the problem and finding your users while you’re still building.',
+  },
+  {
+    title: 'Launching Is Just the Beginning',
+    text: 'For weeks I thought getting approved was the finish line. Then I launched and realized the next challenge was getting people to actually use Sted.',
+  },
+]
 
 export const tools = [
   {
