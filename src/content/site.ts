@@ -162,6 +162,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Learning out loud',
         text: 'The first posts were how-tos: how to start your first project. They grew into the 13 guides on this site.',
         thumb: 'guides',
+        posts: { instagram: 'https://www.instagram.com/stories/highlights/18124712452858161/' },
         link: { label: 'See the guides', href: '#guides' },
       },
       {
