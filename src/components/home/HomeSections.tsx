@@ -467,7 +467,7 @@ export function InPublicSection() {
             It made me really happy.
           </p>
           <p className="mt-3 leading-[1.5] text-ink/80">
-            So now I have my first client: Santiago, who needs help deploying his app. 😅
+            So now I have a new challenge: helping Santiago deploy his app. 😅
           </p>
         </article>
       </div>
