@@ -257,6 +257,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Plan B: Android',
         text: 'Still no approval, so I built the Android version to see if Google would say yes first.',
         reel: 25,
+        posts: { linkedin: 'https://lnkd.in/p/gHs326Gu' },
         update: 'Update 09/30: the Android version is still not approved.',
       },
       {
