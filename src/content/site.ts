@@ -169,6 +169,10 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'A hackathon inside the hackathon',
         text: 'Apps were taking 19 days to get approved. So I gave myself 24 hours to turn a notebook drawing into a real app.',
         reel: 7,
+        posts: {
+          linkedin: 'https://lnkd.in/p/gBUPX2Uf',
+          x: xPost('2092081233618755600'),
+        },
       },
       {
         tag: 'Day 8',
