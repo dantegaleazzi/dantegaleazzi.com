@@ -35,7 +35,6 @@ export const apps = [
     handle: '@stedapp',
     socials: [
       { label: 'Instagram', href: 'https://www.instagram.com/stedapp/' },
-      { label: 'X', href: 'https://x.com/stedapp' },
       { label: 'TikTok', href: 'https://www.tiktok.com/@stedapp' },
     ],
   },
