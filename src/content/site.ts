@@ -315,6 +315,28 @@ export const story: { chapter: string; days: string; title: string; summary: str
         },
       },
       {
+        tag: 'Days 35–42',
+        title: 'More interviews',
+        text: 'Five more conversations kept the feedback loop going: an app developer and founders in sales, go-to-market, product and finance.',
+        image: '/story/more-interviews.jpg',
+        linkRows: [
+          [
+            { label: 'AI & App Developer', href: 'https://lnkd.in/p/gvdw6ir7', icon: 'linkedin' },
+            { label: 'Before launch', href: instagramPost('DdokB9Apem3'), icon: 'instagram' },
+          ],
+          [{ label: 'Founder & Sales', href: 'https://lnkd.in/p/gXfc6USf', icon: 'linkedin' }],
+          [
+            { label: 'Founder & GTM', href: 'https://lnkd.in/p/gXfc6USf', icon: 'linkedin' },
+            { label: 'Launch day', href: reels[42].href, icon: 'instagram' },
+          ],
+          [
+            { label: 'Founder & Product Manager', href: 'https://lnkd.in/p/gXfc6USf', icon: 'linkedin' },
+            { label: 'Onboarding', href: reels[39].href, icon: 'instagram' },
+          ],
+          [{ label: 'Founder & CFO', href: 'https://lnkd.in/p/gXfc6USf', icon: 'linkedin' }],
+        ],
+      },
+      {
         tag: 'Day 37',
         title: 'Sted is live',
         text: 'Live on the App Store. I asked everyone to try it, break it and send me feedback.',
