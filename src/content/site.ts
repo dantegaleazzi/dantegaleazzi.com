@@ -290,6 +290,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Plan C: a second app',
         text: 'Apple still hadn’t approved Sted, so I built Shimpaku: a focus timer with a bonsai that grows.',
         reel: 33,
+        posts: { linkedin: 'https://www.linkedin.com/in/dantegaleazzi/recent-activity/all/' },
         update: 'Update 09/30: Shimpaku is approved on Apple and Android.',
       },
     ],
