@@ -265,7 +265,10 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Rejected by Apple',
         text: 'After 16 days of waiting, Apple rejected Sted. The good news: it was finally being reviewed.',
         thumb: 'rejected',
-        posts: { instagram: instagramPost('DdZG2TQpqTt') },
+        posts: {
+          instagram: instagramPost('DdZG2TQpqTt'),
+          linkedin: 'https://lnkd.in/p/gXVvv7VK',
+        },
       },
       {
         tag: 'Day 31',
