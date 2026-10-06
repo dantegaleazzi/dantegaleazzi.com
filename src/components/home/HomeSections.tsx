@@ -219,6 +219,21 @@ function BeatThumb({ beat }: { beat: StoryBeat }) {
       </a>
     )
   }
+  const imageHref = beat.posts?.instagram || beat.posts?.linkedin || beat.posts?.x
+  if (beat.image && imageHref) {
+    return (
+      <a href={imageHref} target="_blank" rel="noreferrer" className={`${thumbFrame} group`} aria-label={`See the ${beat.tag} post`}>
+        <img
+          src={beat.image}
+          alt=""
+          width={96}
+          height={128}
+          loading="lazy"
+          className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </a>
+    )
+  }
   const thumb = typeThumbs[beat.thumb ?? 'start']
   return (
     <span className={`${thumbFrame} flex flex-col items-center justify-center ${thumb.className}`} aria-hidden="true">

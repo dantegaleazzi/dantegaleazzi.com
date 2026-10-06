@@ -131,6 +131,8 @@ export type StoryBeat = {
   text: string
   reel?: ReelDay
   thumb?: StoryThumb
+  // A still image for a beat without a reel; it links to the beat's first post.
+  image?: string
   link?: { label: string; href: string }
   // The same moment posted elsewhere; a reel's own Instagram link comes from `reel`.
   posts?: { instagram?: string; linkedin?: string; x?: string }
@@ -271,11 +273,11 @@ export const story: { chapter: string; days: string; title: string; summary: str
         },
       },
       {
-        tag: 'Day 31',
+        tag: 'Days 28–34',
         title: 'The interviews kept coming',
-        text: 'Founders and creators shared what worked for them, like how one creator got 1 million views.',
-        reel: 31,
-        posts: { linkedin: linkedinPost('posts/dantegaleazzi_shipaton-ugcPost-7509260490817196033-2cr7') },
+        text: 'Every few days brought a new conversation with a founder or creator. I shared their best tips and used their feedback to make Sted better.',
+        image: '/story/experts-series.jpg',
+        posts: { linkedin: 'https://lnkd.in/p/gbdvEh2M' },
       },
       {
         tag: 'Day 33',
