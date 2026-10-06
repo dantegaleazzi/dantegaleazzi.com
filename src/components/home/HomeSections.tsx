@@ -370,6 +370,18 @@ function FinalVideo() {
           </button>
         )}
       </div>
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.85rem]">
+        {([
+          { label: 'LinkedIn', key: 'linkedin', href: finalVideo.posts.linkedin },
+          { label: 'X', key: 'x', href: finalVideo.posts.x },
+        ] as const).map(({ label, key, href }) => (
+          <ExternalLink key={key} href={href} className="inline-flex items-center gap-1.5 font-bold no-underline hover:underline">
+            <img src={socials[key].logo} alt="" width={16} height={16} className="size-4 rounded-[4px]" />
+            {label}
+            <ArrowUpRight className="size-3.5" aria-hidden="true" />
+          </ExternalLink>
+        ))}
+      </div>
     </div>
   )
 }

@@ -64,6 +64,10 @@ export const finalVideo = {
   id: 'FmUohh_pF4Q',
   title: 'Sted, the app that makes everything you save finally useful',
   href: youtube('FmUohh_pF4Q'),
+  posts: {
+    linkedin: 'https://lnkd.in/p/gVJNVf9f',
+    x: 'https://x.com/dantegaleazzi/status/2105717181216707004',
+  },
 }
 
 // YouTube titles are A/B tested, so the site uses stable topic titles instead of copying them.
