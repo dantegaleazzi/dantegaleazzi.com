@@ -164,7 +164,7 @@ export function Hero({ storyHref = '#story', interviewsHref = '#interviews' }: {
             <span className="pixel-underline relative z-0 mt-[0.08em] block w-fit">100% With AI</span>
           </h1>
           <p className="mt-6 max-w-150 text-[clamp(1.05rem,1.6vw,1.2rem)] leading-normal text-ink/75">
-            From a drawing in a notebook to paying subscribers. Here’s the whole story — what I built, what broke, who I
+            From a drawing in a notebook to paying subscribers. Here’s the whole story: what I built, what broke, who I
             asked and what their feedback changed.
           </p>
 
@@ -228,7 +228,7 @@ export function Hero({ storyHref = '#story', interviewsHref = '#interviews' }: {
               Six weeks later, <span className="font-bold text-ink">Sted</span> is live on the App Store, with real users and paying
               subscribers.
             </p>
-            <p className="font-medium text-ink">Every prompt, cost and mistake — posted daily.</p>
+            <p className="font-medium text-ink">Every prompt, cost and mistake, posted daily.</p>
           </div>
           <HeroSocials />
         </div>

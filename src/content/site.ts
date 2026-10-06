@@ -27,7 +27,7 @@ export const apps = [
     icon: '/apps/sted-icon.jpg',
     tagline: 'Everything you save. Finally useful.',
     status: 'Live on the App Store',
-    description: 'Save links from anywhere. Sted organizes them and uses AI to pull out summaries, key ideas and topics — so you can actually find and use them later.',
+    description: 'Save links from anywhere. Sted organizes them and uses AI to pull out summaries, key ideas and topics, so you can actually find and use them later.',
     actions: [
       { label: 'Download on the App Store', href: links.stedAppStore },
       { label: 'sted.ai', href: links.stedWebsite },
@@ -85,8 +85,8 @@ export const expertsPlaylist = {
 }
 
 export const shipatonPlaylist = {
-  title: 'Build in Public — RevenueCat Shipaton',
-  description: 'Every episode and daily update from the Shipaton, in order — from the first idea to Sted going live.',
+  title: 'Build in Public: RevenueCat Shipaton',
+  description: 'Every episode and daily update from the Shipaton in order, from the first idea to Sted going live.',
   href: 'https://www.youtube.com/playlist?list=PLBBQHPrd5Qqw',
 }
 
@@ -150,7 +150,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
       {
         tag: 'Day 1',
         title: 'Where it all started',
-        text: 'I entered the Shipaton with an idea and zero coding experience — and posted the first video.',
+        text: 'I entered the Shipaton with an idea and zero coding experience and posted the first video.',
         thumb: 'start',
         posts: {
           instagram: links.firstReel,
@@ -249,7 +249,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
       {
         tag: 'Day 31',
         title: 'The interviews kept coming',
-        text: 'Founders and creators shared what worked for them — like how one creator got 1 million views.',
+        text: 'Founders and creators shared what worked for them, like how one creator got 1 million views.',
         reel: 31,
         posts: { linkedin: linkedinPost('posts/dantegaleazzi_shipaton-ugcPost-7509260490817196033-2cr7') },
       },
@@ -266,7 +266,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
     chapter: 'Chapter 3',
     days: 'Days 35–43',
     title: 'Launch',
-    summary: 'Approved, live — and then the real test: would anyone pay for it?',
+    summary: 'Approved and live. Then came the real test: would anyone pay for it?',
     beats: [
       {
         tag: 'Day 35',

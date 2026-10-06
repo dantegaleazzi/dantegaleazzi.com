@@ -23,7 +23,7 @@ export function ZeroToHundredIndex() {
   const continuing = lastPart !== null && lastPart > 1
 
   useEffect(() => {
-    document.title = 'Zero to 100 — A 13-part guide · Dante Galeazzi'
+    document.title = 'Zero to 100: A 13-part guide · Dante Galeazzi'
   }, [])
 
   return (
@@ -37,7 +37,7 @@ export function ZeroToHundredIndex() {
             Zero to <span className="pixel-underline relative z-0">100</span>
           </h1>
           <p className="mt-4 max-w-2xl text-[clamp(1.08rem,1.8vw,1.25rem)] leading-[1.4] font-medium text-ink/75">
-            I don’t know how to code. This is how I’m building Sted from zero to a real product with AI — turned into a
+            I don’t know how to code. This is how I’m building Sted from zero to a real product with AI, turned into a
             practical guide you can follow for your own app.
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">

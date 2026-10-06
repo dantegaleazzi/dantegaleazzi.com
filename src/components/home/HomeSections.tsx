@@ -549,7 +549,7 @@ export function InPublicSection() {
         <SubHeader
           id="interviews-title"
           title="Building Sted With Experts"
-          description="The founders and builders I asked for advice during the Shipaton — the full conversations."
+          description="The founders and builders I asked for advice during the Shipaton, with the full conversations."
           action={
             <ExternalLink href={expertsPlaylist.href} className={`${buttonClass} bg-white hover:bg-butter`}>
               <CirclePlay className="size-4" aria-hidden="true" />
@@ -596,7 +596,7 @@ export function BuildYoursSection() {
         chapter="03"
         kicker="Build yours"
         title="Everything I learned, free"
-        description="The whole journey, turned into steps you can follow — even if you can’t code."
+        description="The whole journey, turned into steps you can follow, even if you can’t code."
       />
 
       <div id="guides" className="scroll-mt-6">
@@ -627,7 +627,7 @@ export function BuildYoursSection() {
           id="lessons-title"
           step="Then"
           title="Lessons from the build"
-          description="What building Sted taught me — the mistakes, the store rules and how I work with AI."
+          description="What building Sted taught me: the mistakes, the store rules and how I work with AI."
         />
         <ol className="grid gap-3 md:grid-cols-2">
           {buildLessons.map(({ title, text }, index) => (
@@ -724,7 +724,7 @@ export function NewsletterSoon() {
             <SansDigits text="From Zero to 100 Newsletter" />
           </h2>
           <p className="mt-3 max-w-xl text-[1.05rem] leading-[1.5]">
-            Lessons, prompts and build notes from the next apps. It isn’t live yet — leave your email and I’ll tell you
+            Lessons, prompts and build notes from the next apps. It isn’t live yet, so leave your email and I’ll tell you
             when the first issue is out.
           </p>
         </div>
