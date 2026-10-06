@@ -223,7 +223,8 @@ function BeatThumb({ beat }: { beat: StoryBeat }) {
     beat.posts?.instagram ||
     beat.posts?.linkedin ||
     beat.posts?.x ||
-    beat.linkRows?.flat().find(({ href }) => !href.startsWith('#'))?.href
+    beat.linkRows?.flat().find(({ href }) => !href.startsWith('#'))?.href ||
+    beat.linkLines?.[0]?.links[0]?.href
   if (beat.image && imageHref) {
     return (
       <a href={imageHref} target="_blank" rel="noreferrer" className={`${thumbFrame} group`} aria-label={`See the ${beat.tag} post`}>
@@ -267,7 +268,21 @@ function StoryBeatCard({ beat, wide }: { beat: StoryBeat; wide: boolean }) {
             {beat.update}
           </p>
         )}
-        {beat.linkRows ? (
+        {beat.linkLines ? (
+          <div className="mt-auto flex flex-col gap-1.5 pt-3 text-[0.85rem]">
+            {beat.linkLines.map(({ icon, links }) => (
+              <div key={icon} className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <img src={socials[icon].logo} alt={socials[icon].label} width={16} height={16} className="size-4 rounded-[4px]" />
+                {links.map(({ label, href }) => (
+                  <ExternalLink key={href} href={href} className="inline-flex items-center gap-1 font-bold no-underline hover:underline">
+                    {label}
+                    <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                  </ExternalLink>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : beat.linkRows ? (
           <div className="mt-auto grid w-fit gap-x-6 gap-y-1.5 pt-3 text-[0.85rem] sm:grid-cols-[repeat(2,auto)]">
             {/* A one-link row gets an empty second cell so the next row starts in the first column. */}
             {beat.linkRows.flatMap((row) => (row.length === 1 ? [row[0], null] : row)).map((item, index) => {
