@@ -282,7 +282,10 @@ export const story: { chapter: string; days: string; title: string; summary: str
             { label: 'Day 28 interview', href: instagramPost('DdT4CpcpaG6'), icon: 'instagram' },
             { label: 'Day 31 interview', href: instagramPost('DdbqOi6zqWq'), icon: 'instagram' },
           ],
-          [{ label: 'LinkedIn', href: 'https://lnkd.in/p/gbdvEh2M', icon: 'linkedin' }],
+          [
+            { label: 'Day 28 interview', href: 'https://lnkd.in/p/gbdvEh2M', icon: 'linkedin' },
+            { label: 'Day 31 interview', href: 'https://lnkd.in/p/gWiWhK7u', icon: 'linkedin' },
+          ],
         ],
       },
       {
