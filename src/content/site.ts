@@ -193,7 +193,10 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'An iPhone app in 24 hours',
         text: 'Built with AI, without knowing how to code. It became the most-watched reel of the whole series.',
         reel: 8,
-        posts: { x: xPost('2092602427237376129') },
+        posts: {
+          linkedin: 'https://lnkd.in/p/gNS4zQEY',
+          x: xPost('2092602427237376129'),
+        },
         highlight: true,
       },
     ],
