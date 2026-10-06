@@ -134,6 +134,8 @@ export type StoryBeat = {
   link?: { label: string; href: string }
   // The same moment posted elsewhere; a reel's own Instagram link comes from `reel`.
   posts?: { instagram?: string; linkedin?: string; x?: string }
+  // Labelled links laid out in rows of two, shown in place of `posts` and `link`.
+  linkRows?: { label: string; href: string; instagram?: boolean }[][]
   update?: string
   highlight?: boolean
 }
@@ -161,8 +163,20 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Learning out loud',
         text: 'The first posts were how-tos: how to start your first project. They grew into the 13 guides on this site.',
         thumb: 'guides',
-        posts: { instagram: 'https://www.instagram.com/stories/highlights/18124712452858161/' },
-        link: { label: 'See the guides', href: '#guides' },
+        linkRows: [
+          [
+            { label: 'Build something of your own', href: instagramReel('DcWVGn4p7si'), instagram: true },
+            { label: 'How to choose a name', href: instagramPost('DcbNndKJmNl'), instagram: true },
+          ],
+          [
+            { label: 'Vibe coding workflow', href: instagramPost('DcoKvRCp7Zq'), instagram: true },
+            { label: 'How to build a website', href: instagramPost('Dc_YvAGqdQK'), instagram: true },
+          ],
+          [
+            { label: 'Carousel guides', href: 'https://www.instagram.com/stories/highlights/18124712452858161/', instagram: true },
+            { label: 'See the guides', href: '#guides' },
+          ],
+        ],
       },
       {
         tag: 'Day 7',

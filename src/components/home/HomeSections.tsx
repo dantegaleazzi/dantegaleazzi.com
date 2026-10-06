@@ -226,6 +226,24 @@ function StoryBeatCard({ beat, wide }: { beat: StoryBeat; wide: boolean }) {
             {beat.update}
           </p>
         )}
+        {beat.linkRows ? (
+          <div className="mt-auto grid w-fit gap-x-6 gap-y-1.5 pt-3 text-[0.85rem] sm:grid-cols-[repeat(2,auto)]">
+            {beat.linkRows.flat().map(({ label, href, instagram }) =>
+              href.startsWith('#') ? (
+                <a key={label} href={href} className="group inline-flex items-center gap-1 font-bold no-underline hover:underline">
+                  {label}
+                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                </a>
+              ) : (
+                <ExternalLink key={label} href={href} className="inline-flex items-center gap-1.5 font-bold no-underline hover:underline">
+                  {instagram && <img src={socials.instagram.logo} alt="" width={16} height={16} className="size-4 rounded-[4px]" />}
+                  {label}
+                  <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                </ExternalLink>
+              ),
+            )}
+          </div>
+        ) : (
         <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-3 text-[0.85rem]">
           {posts.map(({ label, logo, href }) => (
             <ExternalLink key={label} href={href} className="inline-flex items-center gap-1.5 font-bold no-underline hover:underline">
@@ -250,6 +268,7 @@ function StoryBeatCard({ beat, wide }: { beat: StoryBeat; wide: boolean }) {
             </a>
           )}
         </div>
+        )}
       </div>
     </li>
   )
