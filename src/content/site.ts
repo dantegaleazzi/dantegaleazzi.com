@@ -229,7 +229,10 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'The idea for Sted',
         text: 'Apple was still reviewing my app when I had an idea: turn it into Sted.',
         thumb: 'idea',
-        posts: { instagram: instagramPost('DctJuLDqoR1') },
+        posts: {
+          instagram: instagramPost('DctJuLDqoR1'),
+          linkedin: 'https://lnkd.in/p/g7A68pjV',
+        },
       },
       {
         tag: 'Day 14',
@@ -243,7 +246,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
       },
       {
         tag: 'Day 22',
-        title: 'Asking everyone',
+        title: 'Building Sted with Experts series is born',
         text: 'I asked every builder I could find for advice. It was too good to keep, so I started filming it.',
         reel: 22,
         posts: { linkedin: linkedinPost('posts/dantegaleazzi_shipaton-shipaton2026-share-7503457999273771008-8cTH') },
