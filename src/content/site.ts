@@ -137,7 +137,7 @@ export type StoryBeat = {
   // The same moment posted elsewhere; a reel's own Instagram link comes from `reel`.
   posts?: { instagram?: string; linkedin?: string; x?: string }
   // Labelled links laid out in rows of two, shown in place of `posts` and `link`.
-  linkRows?: { label: string; href: string; instagram?: boolean }[][]
+  linkRows?: { label: string; href: string; icon?: 'instagram' | 'linkedin' | 'x' }[][]
   update?: string
   highlight?: boolean
 }
@@ -167,15 +167,15 @@ export const story: { chapter: string; days: string; title: string; summary: str
         thumb: 'guides',
         linkRows: [
           [
-            { label: 'Build something of your own', href: instagramReel('DcWVGn4p7si'), instagram: true },
-            { label: 'How to choose a name', href: instagramPost('DcbNndKJmNl'), instagram: true },
+            { label: 'Build something of your own', href: instagramReel('DcWVGn4p7si'), icon: 'instagram' },
+            { label: 'How to choose a name', href: instagramPost('DcbNndKJmNl'), icon: 'instagram' },
           ],
           [
-            { label: 'Vibe coding workflow', href: instagramPost('DcoKvRCp7Zq'), instagram: true },
-            { label: 'How to build a website', href: instagramPost('Dc_YvAGqdQK'), instagram: true },
+            { label: 'Vibe coding workflow', href: instagramPost('DcoKvRCp7Zq'), icon: 'instagram' },
+            { label: 'How to build a website', href: instagramPost('Dc_YvAGqdQK'), icon: 'instagram' },
           ],
           [
-            { label: 'Carousel guides', href: 'https://www.instagram.com/stories/highlights/18124712452858161/', instagram: true },
+            { label: 'Carousel guides', href: 'https://www.instagram.com/stories/highlights/18124712452858161/', icon: 'instagram' },
             { label: 'See the guides', href: '#guides' },
           ],
         ],
@@ -277,7 +277,13 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'The interviews kept coming',
         text: 'Two more interviews went live: a solo founder on making your app faster, and a creator on how he got 1 million views. I shared their tips and used them to make Sted better.',
         image: '/story/experts-series.jpg',
-        posts: { linkedin: 'https://lnkd.in/p/gbdvEh2M' },
+        linkRows: [
+          [
+            { label: 'Day 28 interview', href: instagramPost('DdT4CpcpaG6'), icon: 'instagram' },
+            { label: 'Day 31 interview', href: instagramPost('DdbqOi6zqWq'), icon: 'instagram' },
+          ],
+          [{ label: 'LinkedIn', href: 'https://lnkd.in/p/gbdvEh2M', icon: 'linkedin' }],
+        ],
       },
       {
         tag: 'Day 33',

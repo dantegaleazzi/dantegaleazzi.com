@@ -219,7 +219,11 @@ function BeatThumb({ beat }: { beat: StoryBeat }) {
       </a>
     )
   }
-  const imageHref = beat.posts?.instagram || beat.posts?.linkedin || beat.posts?.x
+  const imageHref =
+    beat.posts?.instagram ||
+    beat.posts?.linkedin ||
+    beat.posts?.x ||
+    beat.linkRows?.flat().find(({ href }) => !href.startsWith('#'))?.href
   if (beat.image && imageHref) {
     return (
       <a href={imageHref} target="_blank" rel="noreferrer" className={`${thumbFrame} group`} aria-label={`See the ${beat.tag} post`}>
@@ -265,7 +269,7 @@ function StoryBeatCard({ beat, wide }: { beat: StoryBeat; wide: boolean }) {
         )}
         {beat.linkRows ? (
           <div className="mt-auto grid w-fit gap-x-6 gap-y-1.5 pt-3 text-[0.85rem] sm:grid-cols-[repeat(2,auto)]">
-            {beat.linkRows.flat().map(({ label, href, instagram }) =>
+            {beat.linkRows.flat().map(({ label, href, icon }) =>
               href.startsWith('#') ? (
                 <a key={label} href={href} className="group inline-flex items-center gap-1 font-bold no-underline hover:underline">
                   {label}
@@ -273,7 +277,7 @@ function StoryBeatCard({ beat, wide }: { beat: StoryBeat; wide: boolean }) {
                 </a>
               ) : (
                 <ExternalLink key={label} href={href} className="inline-flex items-center gap-1.5 font-bold no-underline hover:underline">
-                  {instagram && <img src={socials.instagram.logo} alt="" width={16} height={16} className="size-4 rounded-[4px]" />}
+                  {icon && <img src={socials[icon].logo} alt="" width={16} height={16} className="size-4 rounded-[4px]" />}
                   {label}
                   <ArrowUpRight className="size-3.5" aria-hidden="true" />
                 </ExternalLink>
