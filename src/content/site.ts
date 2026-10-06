@@ -309,7 +309,10 @@ export const story: { chapter: string; days: string; title: string; summary: str
         title: 'Apple approved Sted',
         text: 'After a rejection, a round of fixes and one more review.',
         reel: 35,
-        posts: { x: xPost('2102319201847525521') },
+        posts: {
+          linkedin: 'https://lnkd.in/p/gQN-UW-i',
+          x: xPost('2102319201847525521'),
+        },
       },
       {
         tag: 'Day 37',
