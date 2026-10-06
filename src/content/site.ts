@@ -275,7 +275,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
       {
         tag: 'Days 28–34',
         title: 'The interviews kept coming',
-        text: 'Every few days brought a new conversation with a founder or creator. I shared their best tips and used their feedback to make Sted better.',
+        text: 'Two more interviews went live: a solo founder on making your app faster, and a creator on how he got 1 million views. I shared their tips and used them to make Sted better.',
         image: '/story/experts-series.jpg',
         posts: { linkedin: 'https://lnkd.in/p/gbdvEh2M' },
       },
