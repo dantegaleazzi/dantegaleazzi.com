@@ -519,12 +519,6 @@ export const tools = [
       { name: 'Riverside', logo: '/logos/riverside.png', description: 'Recording and editing the expert interviews.', href: 'https://riverside.fm/' },
       { name: 'Notion', logo: '/logos/notion.png', description: 'Notes, specs and checklists for each build.', href: 'https://www.notion.so/' },
       { name: 'Shottr', logo: '/logos/shottr.png', description: 'Fast screenshots and annotations on Mac.', href: 'https://shottr.cc/' },
-      {
-        name: 'Android Emulator',
-        logo: '/logos/android.png',
-        description: 'Testing the Android version without a device.',
-        href: 'https://developer.android.com/studio/run/emulator',
-      },
     ],
   },
 ]
