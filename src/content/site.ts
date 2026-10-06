@@ -202,7 +202,7 @@ export const story: { chapter: string; days: string; title: string; summary: str
     chapter: 'Chapter 2',
     days: 'Days 9–34',
     title: 'Waiting on Apple',
-    summary: 'The app was built. The approval wasn’t. So I kept building — and started asking for help.',
+    summary: 'The app was built. The approval wasn’t. So I kept building and started asking for help.',
     beats: [
       {
         tag: 'Day 11',
