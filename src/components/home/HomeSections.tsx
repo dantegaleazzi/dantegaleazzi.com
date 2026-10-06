@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, BellRing, CirclePlay, Play, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, BellRing, CirclePlay, ClipboardCheck, Lightbulb, Play, X } from 'lucide-react'
 import { type ReactNode, useState } from 'react'
 import {
   apps,
@@ -125,6 +125,28 @@ const typeThumbs: Record<StoryThumb, { className: string; content: ReactNode }> 
           <br />
           CTO
         </span>
+      </>
+    ),
+  },
+  review: {
+    className: 'bg-white',
+    content: (
+      <>
+        <ClipboardCheck className="size-10" strokeWidth={2.5} aria-hidden="true" />
+        <span className={`${monoLabel} mt-1.5 text-center text-[0.48rem] leading-tight`}>
+          Before
+          <br />
+          review
+        </span>
+      </>
+    ),
+  },
+  idea: {
+    className: 'bg-signal',
+    content: (
+      <>
+        <Lightbulb className="size-10" strokeWidth={2.5} aria-hidden="true" />
+        <span className={`${monoLabel} mt-1 text-[0.5rem]`}>Idea</span>
       </>
     ),
   },

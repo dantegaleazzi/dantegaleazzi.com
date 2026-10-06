@@ -123,7 +123,7 @@ export type ReelDay = keyof typeof reels
 export const reelCover = (day: ReelDay) => `/reels/day-${String(day).padStart(2, '0')}.jpg`
 export const reelHref = (day: ReelDay) => reels[day].href || links.instagramReels
 
-export type StoryThumb = 'start' | 'guides' | 'workflow' | 'sted' | 'rejected' | 'feedback' | 'paid' | 'subscribers'
+export type StoryThumb = 'start' | 'guides' | 'workflow' | 'review' | 'idea' | 'sted' | 'rejected' | 'feedback' | 'paid' | 'subscribers'
 
 export type StoryBeat = {
   tag: string
@@ -208,6 +208,13 @@ export const story: { chapter: string; days: string; title: string; summary: str
     summary: 'The app was built. The approval wasn’t. So I kept building and started asking for help.',
     beats: [
       {
+        tag: 'Day 10',
+        title: 'Do this before Apple reviews your app',
+        text: 'What to check before you send your app to App Review, so it doesn’t come back rejected.',
+        thumb: 'review',
+        posts: { instagram: instagramPost('DcliR4qp4Tq') },
+      },
+      {
         tag: 'Day 11',
         title: 'Sharing my workflow',
         text: 'How I build without writing code: AI acts as my CTO, and every project starts from a simple PRD.',
@@ -216,6 +223,13 @@ export const story: { chapter: string; days: string; title: string; summary: str
           instagram: instagramPost('DcoKvRCp7Zq'),
           linkedin: linkedinPost('posts/dantegaleazzi_shipaton-shipaton2026-stedapp-share-7499486538276171776-pDKp'),
         },
+      },
+      {
+        tag: 'Day 13',
+        title: 'The idea for Sted',
+        text: 'Apple was still reviewing my app when I had an idea: turn it into Sted.',
+        thumb: 'idea',
+        posts: { instagram: instagramPost('DctJuLDqoR1') },
       },
       {
         tag: 'Day 14',
